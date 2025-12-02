@@ -257,9 +257,3 @@ This keeps your Node-RED flows and settings backed up and version-controlled, wh
 * For questions or collaboration related to CJA SKYFARMS or this project, feel free to open an issue and describe your use case.
 
 ```
-
----
-
-혹시 이 README에 **한국어 섹션(예: “개발자용 요약” 같은 것)**도 추가하고 싶으면, 같은 구조로 한글 버전도 붙여서 `README_ko.md` 따로 만들거나 아래에 한 섹션 더 달아주는 것도 괜찮아.  
-원하면 한국어 버전도 같이 만들어줄게!
-```
