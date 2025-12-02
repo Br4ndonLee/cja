@@ -1,0 +1,43 @@
+{
+    "cja": {
+        "editor": {
+            "view": {
+                "view-store-zoom": false,
+                "view-store-position": false,
+                "view-show-grid": true,
+                "view-snap-grid": true,
+                "view-grid-size": "20",
+                "view-node-status": true,
+                "view-node-show-label": true,
+                "view-show-tips": true,
+                "view-show-welcome-tours": true
+            },
+            "tours": {
+                "welcome": "4.0.9"
+            },
+            "context": {
+                "flowRefresh": false
+            },
+            "dialog": {
+                "export": {
+                    "pretty": true,
+                    "json-view": false
+                }
+            }
+        },
+        "git": {
+            "user": {
+                "name": "cja",
+                "email": "brandon6747@gmail.com"
+            },
+            "workflow": {
+                "mode": "manual"
+            }
+        },
+        "debug": {
+            "filter": "filterAll",
+            "clearType": "all"
+        },
+        "menu-menu-item-sidebar": true
+    }
+}

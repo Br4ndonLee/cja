@@ -1,0 +1,28 @@
+{
+    "name": "node-red-contrib-loop",
+    "version": "1.0.1",
+    "description": "Node-RED nodes to looping (fixed steps, condition based or iterating over arrays, objects, maps, sets, string).",
+    "node-red": {
+        "nodes": {
+            "loop": "loop.js"
+        }
+    },
+    "keywords": [
+        "node-red",
+        "loop",
+        "while",
+        "repeat",
+        "condition",
+        "iterator",
+        "array",
+        "object"
+    ],
+    "author": "Marek Černocký <marek.cernocky@advantech.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.com/advantech-czech/node-red-contrib-loop.git"
+    },
+    "bugs": "https://gitlab.com/advantech-czech/node-red-contrib-loop/-/issues",
+    "homepage": "https://gitlab.com/advantech-czech/node-red-contrib-loop"
+}

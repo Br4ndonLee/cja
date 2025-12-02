@@ -1,0 +1,217 @@
+
+<script type="text/html" data-template-name="python-function-ps">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span>Name</span></label>
+        <input type="text" id="node-input-name" placeholder="Name" style="width:calc(100% - 105px);">
+    </div>
+
+    <div class="form-row ">
+        <ul style="min-width:calc(100% - 46px);" id="ps-tabs"></ul>
+    </div>
+    <div id="ps-tabs-content" style="min-width: 600px;min-height: calc(100% - 95px);">
+        <div id="ps-tab-settings" style="display:none">
+            <div class="form-row">
+                <label for="node-input-typed-pythonPath"><i class="fa fa-terminal"></i> <span>Python Path</span></label>
+                <input id="node-input-typed-pythonPath" type="text" style="width:calc(100% - 105px);">
+                <input id="node-input-pythonPath" type="hidden">
+                <input id="node-input-globalPythonName" type="hidden">
+                <input id="node-input-pythonPathType" type="hidden">
+            </div>
+            <div class="form-row">
+                <label for="node-input-importPathList"><i class="fa fa-list"></i> <span>Import Paths</span></label>
+            </div>
+            <div class="form-row node-input-importPathList-container-row">
+                <ol id="node-input-importPathList-container" style="height:546px;min-height:350px;"></ol>
+            </div>
+        </div>
+        <div id="ps-tab-codeEditPre" style="display:none">
+            <div class="form-row node-text-editor-row">
+                <div style="height:627px;min-height:400px;" class="node-text-editor" id="node-input-fnCodePre"></div>
+            </div>
+        </div>
+        <div id="ps-tab-codeEdit" style="display:none">
+            <div class="form-row node-text-editor-row">
+                <div style="height:627px;min-height:400px;" class="node-text-editor" id="node-input-fnCode"></div>
+            </div>
+        </div>
+        <div id="ps-tab-codeEditPost" style="display:none">
+            <div class="form-row node-text-editor-row">
+                <div style="height:627px;min-height:400px;" class="node-text-editor" id="node-input-fnCodePost"></div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("python-function-ps", {
+        category: "function",
+        color: "#fdd0a2",
+        defaults: {
+            name: { value: "" },
+            pythonPathType: { value: "local" },
+            pythonPath: { value: "python3" }, globalPythonName: { value: "" },
+            importPathList: { value: [] },
+            fnCodePre: { value: "\n# user code here.\n" },
+            fnCode: { value: "\n# user code here.\n\nreturn msg\n" },
+            fnCodePost: { value: "\n# user code here.\n" }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "function.png",
+        label: function() {
+            return this.name;
+        },
+        oneditprepare: function() {
+            var node = this;
+
+            var psTab = RED.tabs.create({
+                id: "ps-tabs",
+                onchange: (tab) => {
+                    $("#ps-tabs-content").children().hide();
+                    $(`#${tab.id}`).show();
+                    RED.tray.resize();
+                }
+            });
+            psTab.addTab({
+                id: "ps-tab-settings",
+                iconClass: "fa fa-cog",
+                label: "Settings"
+            });
+            psTab.addTab({
+                id: "ps-tab-codeEditPre",
+                iconClass: "fa fa-code",
+                label: "Code(Pre)"
+            });
+            psTab.addTab({
+                id: "ps-tab-codeEdit",
+                iconClass: "fa fa-code",
+                label: "Code"
+            });
+            psTab.addTab({
+                id: "ps-tab-codeEditPost",
+                iconClass: "fa fa-code",
+                label: "Code(Post)"
+            });
+
+            psTab.activateTab("ps-tab-codeEdit");
+
+            // create python code editor
+            node.fnCodeEditorPre = RED.editor.createEditor({
+                id: "node-input-fnCodePre",
+                mode: "ace/mode/python",
+                value: node.fnCodePre,
+                focus: true
+            });
+            node.fnCodeEditor = RED.editor.createEditor({
+                id: "node-input-fnCode",
+                mode: "ace/mode/python",
+                value: node.fnCode,
+                focus: true
+            });
+            node.fnCodeEditorPost = RED.editor.createEditor({
+                id: "node-input-fnCodePost",
+                mode: "ace/mode/python",
+                value: node.fnCodePost,
+                focus: true
+            });
+
+            // create python path selector
+            $("#node-input-typed-pythonPath").typedInput({
+                default: "local",
+                types: [
+                    { value: "local", label: "local:", hasValue: true },
+                    { value: "global", label: "global.", hasValue: true }
+                ],
+                typeField: $("#node-input-pythonPathType")
+            });
+
+            // on pathtype selected
+            var recentPathType = node.pythonPathType;
+            $("#node-input-typed-pythonPath").on("change", function() {
+                if ($("#node-input-typed-pythonPath").typedInput("type") != recentPathType) {
+                    recentPathType = $("#node-input-typed-pythonPath").typedInput("type");
+
+                    $("#node-input-typed-pythonPath").typedInput(
+                        "value",
+                        $("#node-input-typed-pythonPath").typedInput("type") == "local" ? $("#node-input-pythonPath").val() : $("#node-input-globalPythonName").val()
+                    );
+                }
+            });
+
+            // map existing value
+            $("#node-input-typed-pythonPath").typedInput("type", node.pythonPathType);
+            $("#node-input-typed-pythonPath").typedInput("value", node.pythonPathType == "local" ? node.pythonPath : node.globalPythonName);
+
+            // create pathlist
+            $("#node-input-importPathList-container").editableList({
+                addItem: (container, idx, opt) => {
+                    opt.idx = idx;
+                    opt.pathToAdd = opt.pathToAdd ?? "";
+
+                    container.css({ overflow: "hidden", display: "flex", "align-items": "center" });
+                    $("<input>", { class: "input-importPathItem", type: "text", style:"flex:1;" }).val(
+                        opt.pathToAdd
+                    ).appendTo(container);
+                },
+                removable: true
+            });
+
+            for (var importPath of node.importPathList) {
+                $("#node-input-importPathList-container").editableList("addItem", { pathToAdd: importPath });
+            }
+        },
+        oneditcancel: function() {
+            this.fnCodeEditorPre.destroy();
+            delete this.fnCodeEditorPre;
+
+            this.fnCodeEditor.destroy();
+            delete this.fnCodeEditor;
+
+            this.fnCodeEditorPost.destroy();
+            delete this.fnCodeEditorPost;
+        },
+        oneditsave: function() {
+            var node = this;
+
+            node.importPathList = [];
+            $("#node-input-importPathList-container").editableList("items").each((_, item) => {
+                node.importPathList.push(item.find("input.input-importPathItem").val());
+            });
+
+            $("#node-input-fnCodePre").val(node.fnCodeEditorPre.getValue());
+            node.fnCodeEditorPre.destroy();
+            delete node.fnCodeEditorPre;
+
+            $("#node-input-fnCode").val(node.fnCodeEditor.getValue());
+            node.fnCodeEditor.destroy();
+            delete node.fnCodeEditor;
+
+            $("#node-input-fnCodePost").val(node.fnCodeEditorPost.getValue());
+            node.fnCodeEditorPost.destroy();
+            delete node.fnCodeEditorPost;
+
+            node.pythonPathType = $("#node-input-typed-pythonPath").typedInput("type");
+            if (node.pythonPathType == "local") {
+                $("#node-input-pythonPath").val($("#node-input-typed-pythonPath").typedInput("value"));
+            }
+            else {
+                $("#node-input-globalPythonName").val($("#node-input-typed-pythonPath").typedInput("value"));
+            }
+        },
+        oneditresize: function(size) {
+            var height = $("#dialog-form").height();
+            for (var row of $("#dialog-form>div:not(.node-text-editor-row)")) {
+                height -= $(row).outerHeight(true);
+            }
+
+            var editorRow = $("#dialog-form > div.node-text-editor-row");
+            height -= (parseInt(editorRow.css("marginTop")) + parseInt(editorRow.css("marginBottom")));
+            console.log(height);
+            $(".node-text-editor").css("height", `${height}px`);
+            
+            this.fnCodeEditorPre.resize();
+            this.fnCodeEditor.resize();
+            this.fnCodeEditorPost.resize();
+        }
+    });
+</script>

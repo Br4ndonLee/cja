@@ -1,0 +1,209 @@
+<script type="text/x-red" data-template-name="loop">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="loop.label.name"></span></label>
+        <input type="text" id="node-input-name"/>
+    </div>
+    <div class="form-row">
+        <label for="node-input-fcnt"><i class="fa fa-recycle"></i> <span data-i18n="loop.label.kind"></span></label>
+        <span class="button-group">
+            <button type="button" id="node-input-fcnt" value="fcnt" class="editor-button toggle button-group-kind" style="width:7em" data-i18n="loop.label.kind-fcnt">
+            </button><button type="button" id="node-input-cond" value="cond" class="editor-button toggle button-group-kind" style="width:7em" data-i18n="loop.label.kind-cond">
+            </button><button type="button" id="node-input-enum" value="enum" class="editor-button toggle button-group-kind" style="width:7em" data-i18n="loop.label.kind-enum">
+            </button>
+        </span>
+    </div>
+
+    <div class="form-row node-input-fcnt-row">
+        <label for="node-input-count"><i class="fa fa-hashtag"></i> <span data-i18n="loop.label.count"></span></label>
+        <input type="text" id="node-input-count"/>
+    </div>
+    <div class="form-row node-input-fcnt-row">
+        <label for="node-input-initial"><i class="fa fa-asterisk"></i> <span data-i18n="loop.label.initial"></span></label>
+        <input type="text" id="node-input-initial"/>
+    </div>
+    <div class="form-row node-input-fcnt-row">
+        <label for="node-input-step"><i class="fa fa-signal"></i> <span data-i18n="loop.label.step"></span></label>
+        <input type="text" id="node-input-step"/>
+    </div>
+
+    <div class="form-row node-input-cond-row">
+        <label for="node-input-condition"><i class="fa fa-question"></i> <span data-i18n="loop.label.condition"></span></label>
+        <input type="text" id="node-input-condition"/>
+        <input type="hidden" id="node-input-conditionType"/>
+    </div>
+    <div class="form-row node-input-cond-row">
+        <label for="node-input-before"><i class="fa fa-clock-o"></i> <span data-i18n="loop.label.when"></span></label>
+        <span class="button-group">
+            <button type="button" id="node-input-before" value="before" class="editor-button toggle button-group-when" style="width:7em" data-i18n="loop.label.when-before">
+            </button><button type="button" id="node-input-after" value="after" class="editor-button toggle button-group-when" style="width:7em" data-i18n="loop.label.when-after"></button>
+        </span>
+    </div>
+
+    <div class="form-row node-input-enum-row">
+        <label for="node-input-enumeration"><i class="fa fa-list-ol"></i> <span data-i18n="loop.label.enumeration"></span></label>
+        <input type="text" id="node-input-enumeration"/>
+        <input type="hidden" id="node-input-enumerationType"/>
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-limit"><i class="fa fa-hourglass-half"></i> <span data-i18n="loop.label.limit"></span></label>
+        <input type="text" id="node-input-limit" style="width:7em"/> <span data-i18n="loop.label.milisec"></span>
+    </div>
+    <div class="form-row">
+        <label for="node-input-loopPayload"><i class="fa fa-play-circle"></i> <span data-i18n="loop.label.loop-payload"></span></label>
+        <select type="text" id="node-input-loopPayload">
+            <option value="loop-keep" data-i18n="loop.label.loop-keep"></option>
+            <option value="loop-orig" data-i18n="loop.label.loop-orig"></option>
+            <option value="loop-index" data-i18n="loop.label.loop-index"></option>
+            <option value="loop-val" data-i18n="loop.label.loop-val"></option>
+            <option value="loop-key" data-i18n="loop.label.loop-key"></option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-finalPayload"><i class="fa fa-stop-circle"></i> <span data-i18n="loop.label.final-payload"></span></label>
+        <select type="text" id="node-input-finalPayload">
+            <option value="final-last" data-i18n="loop.label.final-last"></option>
+            <option value="final-orig" data-i18n="loop.label.final-orig"></option>
+        </select>
+    </div>
+
+    <div class="form-tips node-input-enum-row"><b data-i18n="loop.label.tip"></b> <span data-i18n="loop.tip.enum"></span></div>
+</script>
+
+<script type="text/javascript">
+    function validateJSONata(v) {
+        try {
+            jsonata(v);
+            return true;
+        } catch(e) {
+            return false;
+        }
+    }
+    function validateRegExp(v) {
+        try {
+            new RegExp(v);
+            return true;
+        } catch(e) {
+            return false;
+        }
+    }
+    function validateJS(v) {
+        try {
+            new Function(v);
+            return true;
+        } catch(e) {
+            return false;
+        }
+    }
+    RED.nodes.registerType('loop', {
+        category: 'function',
+        defaults: {
+            name: { value: '' },
+            kind: { value: 'fcnt', required: true },
+            count: { value: '', validate: function(v) {return !$('#node-input-fcnt').hasClass('selected') || v.trim() === '' || (RED.validators.number()(v) && Number(v) > 0 && Math.trunc(Number(v)) == Number(v))} },
+            initial: { value: '1', validate: function(v) {return !$('#node-input-fcnt').hasClass('selected') || v.trim() === '' || RED.validators.number()(v)} },
+            step: { value: '1', validate: function(v) {return !$('#node-input-fcnt').hasClass('selected') || v.trim() === '' || RED.validators.number()(v)} },
+            condition: { value: '' },
+            conditionType: { value: 'js' },
+            when: { value: 'before' },
+            enumeration: { value: 'enum' },
+            enumerationType: { value: 'msg' },
+            limit: { value: '', validate: function(v) {return v.trim() === '' || RED.validators.number()(v)} },
+            loopPayload: { value: 'loop-index', require: true },
+            finalPayload: { value: 'final-count', required: true }
+        },
+        color: '#E6E0F8',
+        inputs: 1,
+        outputs: 2,
+        icon: 'loop.svg',
+        label: function() {
+            return this.name ||
+            (this.kind == 'fcnt' ? this._('loop.label.loop-fcnt') : this.kind == 'cond' ? this._('loop.label.loop-cond') : this._('loop.label.loop-enum'))
+        },
+        labelStyle: function() {
+            return this.name ? 'node_label_italic' : ''
+        },
+        outputLabels: function(i) {
+            return this._('loop.label.' + ['loop-end', 'loop-pass'][i])
+        },
+        paletteLabel: 'loop',
+        oneditprepare: function() {
+            $('.button-group-kind').on('click', function() {
+                $('.button-group-kind').removeClass('selected');
+                $(this).addClass('selected');
+                let numberof = $('.node-input-fcnt-row');
+                let condition = $('.node-input-cond-row');
+                let enumeration = $('.node-input-enum-row');
+                numberof.hide();
+                condition.hide();
+                enumeration.hide();
+                switch (this.value) {
+                    case 'fcnt':
+                        numberof.show();
+                        $('#node-input-count').trigger('change');
+                        $('#node-input-initial').trigger('change');
+                        $('#node-input-step').trigger('change');
+                        break;
+                    case 'cond':
+                        condition.show();
+                        $('#node-input-condition').typedInput('validate');
+                        break;
+                    case 'enum':
+                        enumeration.show();
+                        $('#node-input-enumeration').typedInput('validate');
+                };
+            });
+            $('#node-input-condition').typedInput({
+                types: [
+                    {
+                        value: 'js',
+                        label: 'JavaScript',
+                        icon: 'icons/node-red-contrib-loop/js.png',
+                        validate: function(v) {return !$('#node-input-cond').hasClass('selected') || (v.trim() != '' && validateJS(v))},
+                        expand: function() {
+                            var that = this;
+                            RED.editor.editJavaScript({
+                                value: this.value().replace(/ /g, '\n'),
+                                complete: function(v) {that.value(v.replace(/\n/g, ' '))} // attentions, this is not normal space char
+                            })
+                        }
+                    },
+                    {
+                        value: 'jsonata',
+                        label: 'JSONata',
+                        icon: 'red/images/typedInput/expr.png',
+                        validate: function(v) {return !$('#node-input-cond').hasClass('selected') || (v.trim() != '' && validateJSONata(v))},
+                        expand: function() {
+                            var that = this;
+                            RED.editor.editExpression({
+                                value: this.value().replace(/ /g, '\n'),
+                                complete: function(v) {that.value(v.replace(/\n/g, ' '))} // attentions, this is not normal space char
+                            })
+                        }
+                    },
+                    {
+                        value: 're',
+                        label: 'RegExp',
+                        icon: 'red/images/typedInput/re.png',
+                        validate: function(v) {return !$('#node-input-cond').hasClass('selected') || (v.trim() != '' && validateRegExp(v))}
+                    }
+                ],
+                typeField: $('#node-input-conditionType')
+            });
+            $('.button-group-when').on('click', function() {
+                $('.button-group-when').removeClass('selected');
+                $(this).addClass('selected');
+            });
+            $('#node-input-enumeration').typedInput({
+                types: ['msg', 'flow', 'global', 'json', 'str'],
+                typeField: $('#node-input-enumerationType')
+            });
+            $('.button-group-kind[value="' + this.kind + '"]').click();
+            $('.button-group-when[value="' + this.when + '"]').addClass('selected');
+        },
+        oneditsave: function() {
+            this.kind = $('.button-group-kind.selected').attr('value');
+            this.when = $('.button-group-when.selected').attr('value');
+        }
+    });
+</script>

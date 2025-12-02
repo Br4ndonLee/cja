@@ -1,0 +1,7 @@
+{
+    "projects": {
+        "cja-skyfarms": {
+            "credentialSecret": "skyfarms"
+        }
+    }
+}
