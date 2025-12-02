@@ -1,14 +1,8 @@
-좋아, 이 리포지토리 구조/지금까지 한 작업 기준으로 README를 좀 더 깔끔하게 정리해서 **통째로 새 버전**을 써볼게.
-아래 내용 그대로 `README.md`에 붙여 넣으면 돼 👇
-
----
-
-````markdown
-# CJA SKYFARMS Smart Farm Control Project
+# CJA SKYFARMS Plant Factory Control Project
 
 ## Overview
 
-This project is a smart farm control system for the CJA SKYFARMS plant factory, built with **Python** and **Node-RED** on a Raspberry Pi.
+This project is a plant factory control system for the CJA SKYFARMS plant factory, built with **Python** and **Node-RED** on a Raspberry Pi.
 
 It integrates and manages various environmental control devices and sensors (fans, air circulators, LEDs, UV-C, nutrient pumps, EC/pH sensors, temperature/humidity sensors, etc.), and provides an easy-to-use **Node-RED–based GUI** for monitoring and control.
 
