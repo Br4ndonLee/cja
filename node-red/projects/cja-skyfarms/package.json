@@ -1,0 +1,16 @@
+{
+    "name": "cja-skyfarms",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "dependencies": {
+        "node-red-contrib-pythonshell": "1.5.4",
+        "node-red-dashboard": "3.6.5",
+        "node-red-node-pi-gpio": "2.0.6"
+    },
+    "node-red": {
+        "settings": {
+            "flowFile": "flows.json",
+            "credentialsFile": "flows_cred.json"
+        }
+    }
+}
