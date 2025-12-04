@@ -9,7 +9,8 @@ import serial
 import pause
 
 # === Modbus device settings ===
-dev = minimalmodbus.Instrument("/dev/ttyACM1", 1, mode='rtu')  # Adjust port/slave ID to your setup
+# dev = minimalmodbus.Instrument("/dev/ttyACM1", 1, mode='rtu')  # Adjust port/slave ID to your setup
+dev = minimalmodbus.Instrument("/dev/ttyUSB0", 1, mode='rtu')  # Adjust port/slave ID to your setup
 dev.serial.baudrate = 9600
 dev.serial.bytesize = 8
 dev.serial.parity   = serial.PARITY_NONE

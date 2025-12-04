@@ -7,7 +7,8 @@ import json
 import csv
 
 # Setting up the Modbus RTU client
-dev1 = minimalmodbus.Instrument("/dev/ttyACM0", 1, mode='rtu')  # Slave address 1
+# dev1 = minimalmodbus.Instrument("/dev/ttyACM0", 1, mode='rtu')  # Slave address 1
+dev1 = minimalmodbus.Instrument("/dev/ttyUSB1", 1, mode='rtu')  # Slave address 1
 dev1.serial.baudrate = 9600
 dev1.serial.bytesize = 8
 dev1.serial.parity = serial.PARITY_NONE

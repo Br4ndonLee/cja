@@ -52,7 +52,7 @@ try:
                 result["condition"] = "Time OK: LED ON"
             else:
                 GPIO.output(4, True)
-                GPIO.output(5, True)
+                GPIO.output(5, True)    
                 result["led_status"] = "OFF"
                 result["condition"] = "Time OUT: LED OFF"
 
