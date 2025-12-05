@@ -43,9 +43,10 @@ try:
                 break
 
             # Time-based control
-            # if 1 <= now.hour < 3:
-            # if (20 <= now.minute < 25) or (50 <= now.minute < 55):
-            if now.minute >= 55:
+            # 20251205 JM edit
+            if 1 <= now.hour < 5:
+            #if (20 <= now.minute < 25) or (50 <= now.minute < 55):
+            # if now.minute >= 55:
             # if 0 <= now.second < 30:
                 GPIO.output(18, False)
                 result["UV_status"] = "ON"

@@ -8,7 +8,7 @@ import select
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(6, GPIO.OUT)
+GPIO.setup(5, GPIO.OUT)
 
 def read_payload():
     # Non-blocking stdin check
@@ -35,7 +35,7 @@ try:
             # Check for new payload input (non-blocking)
             new_input = read_payload()
             if new_input is True:
-                GPIO.output(6, True)
+                GPIO.output(5, True)
                 
                 result["pump_status"] = "OFF"
                 result["condition"] = "Switch turned ON, exiting loop"
@@ -46,16 +46,16 @@ try:
             # if 6 <= now.hour < 20:
             if 0 <= now.minute < 5:
             # if 0 <= now.second < 30:
-                GPIO.output(6, False)
+                GPIO.output(5, False)
                 result["pump_status"] = "ON"
                 result["condition"] = "Time OK: Pump ON"
             elif 30 <= now.minute < 35:
             # if 0 <= now.second < 30:
-                GPIO.output(6, False)
+                GPIO.output(5, False)
                 result["pump_status"] = "ON"
                 result["condition"] = "Time OK: Pump ON"
             else:
-                GPIO.output(6, True)
+                GPIO.output(5, True)
                 result["pump_status"] = "OFF"
                 result["condition"] = "Time OUT: Pump OFF"
 
@@ -63,7 +63,7 @@ try:
             pause.seconds(5)
 
     else:
-        GPIO.output(6, True)
+        GPIO.output(5, True)
         result = {
             "timestamp": datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
             "pump_status": "OFF",

@@ -1,3 +1,4 @@
+timestamp,device,action,detail
 2025-11-06 10:17:26,AB,volume,3ml,duration,1.8s
 2025-11-06 10:26:38,Acid,volume,3ml,duration,1.8s
 2025-11-13 10:06:50,Acid,volume,1ml,duration,0.6s
@@ -54,8 +55,6 @@
 2025-11-25 15:31:15,AB,volume,3ml,duration,1.8s
 2025-11-25 17:57:17,Acid,volume,5ml,duration,3s
 2025-11-26 13:03:15,Acid,volume,5ml,duration,3s
-timestamp,device,action,detail
-timestamp,device,action,detail
 2025-11-27 17:48:04,Acid,volume,2ml,duration,1.2s
 2025-11-28 10:08:06,Acid,volume,2ml,duration,1.2s
 2025-11-28 10:22:01,Acid,volume,2ml,duration,1.2s
@@ -64,7 +63,6 @@ timestamp,device,action,detail
 2025-11-28 15:18:39,Acid,volume,2ml,duration,1.2s
 2025-11-28 16:43:41,AB,volume,2ml,duration,1.2s
 2025-11-28 16:45:07,AB,volume,2ml,duration,1.2s
-timestamp,device,action,detail
 2025-12-01 09:54:54,AB,volume,1ml,duration,0.6s
 2025-12-01 09:55:00,Acid,volume,1ml,duration,0.6s
 2025-12-01 09:58:47,AB,volume,1ml,duration,0.6s
@@ -91,8 +89,8 @@ timestamp,device,action,detail
 2025-12-02 16:01:45,AB,volume,10ml,duration,6.1s
 2025-12-02 16:25:28,AB,volume,5ml,duration,3s
 2025-12-02 17:34:09,Acid,volume,5ml,duration,3s
-timestamp,device,action,detail
-timestamp,device,action,detail
 2025-12-03 09:03:16,Acid,volume,3ml,duration,1.8s
 2025-12-03 09:11:27,Acid,volume,2ml,duration,1.2s
 2025-12-03 16:45:52,Acid,volume,5ml,duration,3s
+2025-12-04 10:04:37,AB,volume,5ml,duration,3s
+2025-12-04 17:08:19,AB,volume,5ml,duration,3s

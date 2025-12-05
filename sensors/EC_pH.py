@@ -10,7 +10,12 @@ import pause
 
 # === Modbus device settings ===
 # dev = minimalmodbus.Instrument("/dev/ttyACM1", 1, mode='rtu')  # Adjust port/slave ID to your setup
-dev = minimalmodbus.Instrument("/dev/ttyUSB0", 1, mode='rtu')  # Adjust port/slave ID to your setup
+# dev = minimalmodbus.Instrument("/dev/ttyUSB1", 1, mode='rtu')  # Adjust port/slave ID to your setup
+
+# EC/pH sensor connected via USB serial port
+EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.0-usb-0:1.2:1.0-port0"
+
+dev = minimalmodbus.Instrument(EC_PH_PORT, 1, mode='rtu')
 dev.serial.baudrate = 9600
 dev.serial.bytesize = 8
 dev.serial.parity   = serial.PARITY_NONE
