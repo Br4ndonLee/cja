@@ -5,6 +5,10 @@ import serial
 import datetime
 import json
 import csv
+import fcntl
+
+lock = open("/tmp/rs485_bus.lock", "w")
+fcntl.flock(lock, fcntl.LOCK_EX)   # wait here until the bus is free
 
 # Setting up the Modbus RTU client
 # dev1 = minimalmodbus.Instrument("/dev/ttyACM0", 1, mode='rtu')  # Slave address 1
@@ -12,7 +16,7 @@ import csv
 
 # Temp/Humi sensor connected via USB serial port
 TEMP_HUMI_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"
-dev1 = minimalmodbus.Instrument(TEMP_HUMI_PORT, 1, mode='rtu')  # Slave address 1
+dev1 = minimalmodbus.Instrument(TEMP_HUMI_PORT, 2, mode='rtu')  # Slave address 1
 dev1.serial.baudrate = 9600
 dev1.serial.bytesize = 8
 dev1.serial.parity = serial.PARITY_NONE

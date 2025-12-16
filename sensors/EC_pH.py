@@ -13,14 +13,16 @@ import pause
 # dev = minimalmodbus.Instrument("/dev/ttyUSB1", 1, mode='rtu')  # Adjust port/slave ID to your setup
 
 # EC/pH sensor connected via USB serial port
-EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.0-usb-0:1.2:1.0-port0"
+EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"  # EC/pH¸¸ ²ÈÈù Æ÷Æ®·Î
 
 dev = minimalmodbus.Instrument(EC_PH_PORT, 1, mode='rtu')
 dev.serial.baudrate = 9600
 dev.serial.bytesize = 8
 dev.serial.parity   = serial.PARITY_NONE
-dev.serial.stopbits = 1
+dev.serial.stopbits = 2
 dev.serial.timeout  = 1
+
+dev.clear_buffers_before_each_transaction = True
 
 now = datetime.datetime.now()
 
@@ -41,7 +43,7 @@ def safe_read_once():
         solution_temp = (dev.read_register(0x02, 2, functioncode=3))*10  # Solution temperature register 0x02
         return float(ec), float(ph), float(solution_temp)
     except Exception:
-        return None, None
+        return None, None, None
 
 def ensure_csv_ready(path):
     """Create CSV directory and header if missing"""
