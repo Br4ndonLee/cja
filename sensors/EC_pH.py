@@ -38,7 +38,8 @@ def safe_read_once():
         ph = dev.read_register(0x00, 2, functioncode=3)  # pH register 0x00
         # EC has to change dS/m
         ec = (dev.read_register(0x01, 2, functioncode=3)/10)  # EC register 0x01
-        return float(ec), float(ph)
+        solution_temp = (dev.read_register(0x02, 2, functioncode=3))*10  # Solution temperature register 0x02
+        return float(ec), float(ph), float(solution_temp)
     except Exception:
         return None, None
 
@@ -49,22 +50,23 @@ def ensure_csv_ready(path):
     if need_header:
         with open(path, mode="a", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["Date", "EC", "pH"])
-
+            writer.writerow(["Date", "EC", "pH", "Solution_Temperature"])
 def main():
     # start = time.monotonic()
     ensure_csv_ready(csv_file_path)
 
     ec_list = []
     ph_list = []
+    solution_temp_list = []
     start = time.monotonic()
     next_tick = start
 
     while True:
-        ec, ph = safe_read_once()
+        ec, ph, solution_temp = safe_read_once()
         if ec is not None and ph is not None:
             ec_list.append(ec)
             ph_list.append(ph)
+            solution_temp_list.append(solution_temp)
 
         if time.monotonic() - start >= DURATION_SEC:
             break
@@ -73,9 +75,11 @@ def main():
         time.sleep(max(0, next_tick - time.monotonic()))
     num_ec = float(len(ec_list))
     num_ph = float(len(ph_list))
+    num_solution_temp = float(len(solution_temp_list))
     # print(ec_list, ph_list)
     avg_ec = round(sum(ec_list) / num_ec, 2)
     avg_ph = round(0.9926*(sum(ph_list) / num_ph)-0.2488, 2)
+    avg_solution_temp = round(sum(solution_temp_list) / num_solution_temp, 2)
     
     date_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
@@ -89,7 +93,7 @@ def main():
          #        pause.minutes (1)
         with open(csv_file_path, mode="a", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow([date_str, avg_ec, avg_ph])
+            writer.writerow([date_str, avg_ec, avg_ph, avg_solution_temp])
             f.flush()
             os.fsync(f.fileno())
             # end = time.monotonic()
@@ -97,7 +101,7 @@ def main():
         print(json.dumps({"error": f"CSV write failed: {e}"}), flush=True)
         return
 
-    print(json.dumps({"date": date_str, "EC": avg_ec, "pH": avg_ph}, ensure_ascii=False), flush=True)
+    print(json.dumps({"date": date_str, "EC": avg_ec, "pH": avg_ph, "Solution_Temperature": avg_solution_temp}, ensure_ascii=False), flush=True)
     # elapsed = end - start
     # print(f"Elapsed time: {elapsed:.2f} seconds", flush=True)
     # print(f"Avg EC: {avg_ec} dS/m, Avg pH: {avg_ph}")

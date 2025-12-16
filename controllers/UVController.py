@@ -45,7 +45,7 @@ try:
             # Time-based control
             # 20251205 JM edit
             if 1 <= now.hour < 5:
-            #if (20 <= now.minute < 25) or (50 <= now.minute < 55):
+            # if (20 <= now.minute < 25) or (50 <= now.minute < 55):
             # if now.minute >= 55:
             # if 0 <= now.second < 30:
                 GPIO.output(18, False)
