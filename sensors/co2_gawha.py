@@ -3,7 +3,7 @@ import json
 import time
 import serial
 
-PORT = "/dev/ttyUSB1"
+PORT = "/dev/serial/by-path/platform-xhci-hcd.0-usb-0:1.2:1.0-port0"
 BAUD = 115200
 REQ  = "node000000|SensorReq|0905"
 

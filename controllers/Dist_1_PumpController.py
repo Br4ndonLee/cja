@@ -28,7 +28,7 @@ try:
             timestamp = now.strftime('%Y-%m-%d %H:%M')
             result = {
                 "timestamp": timestamp,
-                "led_status": None,
+                "pump_status": None,
                 "condition": None
             }
 

@@ -30,7 +30,7 @@ TEMP_HUMI_REG_COUNT = 2
 TEMP_HUMI_FC = 4             # input registers
 
 # CO2 (ASCII serial)
-CO2_PORT = "/dev/ttyUSB1"
+CO2_PORT = "/dev/serial/by-path/platform-xhci-hcd.0-usb-0:1.2:1.0-port0"
 CO2_BAUD = 115200
 CO2_REQ  = "node000000|SensorReq|0905"
 

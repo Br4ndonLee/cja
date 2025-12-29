@@ -8,8 +8,8 @@ import select
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(4, GPIO.OUT)
-GPIO.setup(6, GPIO.OUT)
+GPIO.setup(26, GPIO.OUT)
+# GPIO.setup(6, GPIO.OUT)
 
 def read_payload():
     # Non-blocking stdin check
@@ -36,8 +36,8 @@ try:
             # Check for new payload input (non-blocking)
             new_input = read_payload()
             if new_input is True:
-                GPIO.output(4, True)
-                GPIO.output(6, True)
+                GPIO.output(26, True)
+                # GPIO.output(6, True)
                 result["led_status"] = "OFF"
                 result["condition"] = "Switch turned ON, exiting loop"
                 print(json.dumps(result))
@@ -46,13 +46,13 @@ try:
             # Time-based control
             if 6 <= now.hour < 20:
             # if 0 <= now.second < 30:
-                GPIO.output(4, False)
-                GPIO.output(6, False)
+                GPIO.output(26, False)
+                # GPIO.output(6, False)
                 result["led_status"] = "ON"
                 result["condition"] = "Time OK: LED ON"
             else:
-                GPIO.output(4, True)
-                GPIO.output(6, True)    
+                GPIO.output(26, True)
+                # GPIO.output(6, True)    
                 result["led_status"] = "OFF"
                 result["condition"] = "Time OUT: LED OFF"
 
@@ -60,8 +60,8 @@ try:
             pause.seconds(5)
 
     else:
-        GPIO.output(4, True)
-        GPIO.output(6, True)
+        GPIO.output(26, True)
+        # GPIO.output(6, True)
         result = {
             "timestamp": datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
             "led_status": "OFF",

@@ -3,7 +3,9 @@ import serial, time
 
 PORT = "/dev/ttyUSB1"
 BAUD = 115200
+# REQ_SOLUTION  = "node000000|SensorReq|0905"  # no terminator!
 REQ  = "node000000|SensorReq|0905"  # no terminator!
+REQ_CONDITION  = "node000300|SensorReq|8985"  # no terminator!
 
 with serial.Serial(
     PORT,
@@ -20,6 +22,8 @@ with serial.Serial(
     ser.reset_output_buffer()
 
     ser.write(REQ.encode("ascii"))
+    # ser.write(REQ_SOLUTION.encode("ascii"))
+    ser.write(REQ_CONDITION.encode("ascii"))
     ser.flush()
 
     # Read one response burst

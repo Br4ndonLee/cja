@@ -13,7 +13,7 @@ import pause
 # dev = minimalmodbus.Instrument("/dev/ttyUSB1", 1, mode='rtu')  # Adjust port/slave ID to your setup
 
 # EC/pH sensor connected via USB serial port
-EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"  # EC/pH¸¸ ²ÈÈù Æ÷Æ®·Î
+EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"
 
 dev = minimalmodbus.Instrument(EC_PH_PORT, 1, mode='rtu')
 dev.serial.baudrate = 9600
@@ -27,7 +27,7 @@ dev.clear_buffers_before_each_transaction = True
 now = datetime.datetime.now()
 
 # === CSV file path (use absolute path for safety) ===
-csv_file_path = "/home/cja/Work/cja-skyfarms-project/sensors/EC_pH_log.csv"
+csv_file_path = "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv"
 
 # === Sampling/averaging settings ===
 DURATION_SEC = 20       # 20 seconds
