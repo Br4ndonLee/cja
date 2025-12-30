@@ -50,7 +50,6 @@ try:
                 result["pump_status"] = "ON"
                 result["condition"] = "Time OK: Pump ON"
             elif 30 <= now.minute < 35:
-            # if 0 <= now.second < 30:
                 GPIO.output(5, False)
                 result["pump_status"] = "ON"
                 result["condition"] = "Time OK: Pump ON"

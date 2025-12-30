@@ -138,7 +138,7 @@ def safe_read_once():
     try:
         ph_raw = dev.read_register(0x00, 2, functioncode=3)
         ec_raw = dev.read_register(0x01, 2, functioncode=3) / 10.0
-        temp_raw = dev.read_register(0x02, 2, functioncode=3)
+        temp_raw = dev.read_register(0x02, 2, functioncode=3) * 10.0
         return float(ec_raw), float(ph_raw), float(temp_raw)
     except Exception:
         return None, None, None

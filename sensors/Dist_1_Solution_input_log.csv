@@ -229,4 +229,3 @@ timestamp,device,action,detail
 2025-12-26 10:41:54,Acid,volume,20ml,duration,12.1s
 2025-12-26 10:42:06,Acid,volume,20ml,duration,12.1s
 2025-12-26 10:54:12,AB,volume,10ml,duration,6.1s
-timestamp,device,action,detail

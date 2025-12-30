@@ -80,7 +80,7 @@ if __name__ == "__main__":
             }, ensure_ascii=False), flush=True)
         else:
             print(json.dumps({
-                "CO2": co2
+                "co2": co2
             }, ensure_ascii=False), flush=True)
 
     except Exception as e:
