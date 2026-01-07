@@ -5,32 +5,10 @@ import sys
 import json
 import pause
 import select
-import os
-import csv
-
-PUMP_1_PIN = 6
-PUMP_2_PIN = 12
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(PUMP_1_PIN, GPIO.OUT)
-GPIO.setup(PUMP_2_PIN, GPIO.OUT)
-
-CSV_DIR = "/home/cja/Work/cja-skyfarms-project/data"
-CSV_PATH = os.path.join(CSV_DIR, "Dist_2_pump_activate_result.csv")
-
-last_on_minute = None
-
-def ensure_csv_dir():
-    os.makedirs(CSV_DIR, exist_ok=True)
-
-def log_pump_on(ts_str):
-    ensure_csv_dir()
-    with open(CSV_PATH, mode="a", newline="") as f:
-        w = csv.writer(f)
-        w.writerow([ts_str, "On"])
-        f.flush()
-        os.fsync(f.fileno())
+GPIO.setup(5, GPIO.OUT)
 
 def read_payload():
     # Non-blocking stdin check
@@ -47,11 +25,9 @@ try:
     if first_input is False:
         while True:
             now = datetime.datetime.now()
-            timestamp_json = now.strftime('%Y-%m-%d %H:%M')
-            timestamp_csv = now.strftime('%Y/%m/%d %H:%M')
-
+            timestamp = now.strftime('%Y-%m-%d %H:%M')
             result = {
-                "timestamp": timestamp_json,
+                "timestamp": timestamp,
                 "pump_status": None,
                 "condition": None
             }
@@ -59,29 +35,26 @@ try:
             # Check for new payload input (non-blocking)
             new_input = read_payload()
             if new_input is True:
-                GPIO.output(PUMP_1_PIN, True)
-                GPIO.output(PUMP_2_PIN, True)
+                GPIO.output(5, True)
+                
                 result["pump_status"] = "OFF"
                 result["condition"] = "Switch turned ON, exiting loop"
                 print(json.dumps(result))
                 break
 
             # Time-based control
-            if 0 <= now.minute < 4 or 20 <= now.minute < 24 or 40 <= now.minute < 44:
-                GPIO.output(PUMP_1_PIN, False)
-                GPIO.output(PUMP_2_PIN, False)
+            # if 6 <= now.hour < 20:
+            if 0 <= now.minute < 5 or 30 <= now.minute < 35:
+            # if 0 <= now.second < 30:
+                GPIO.output(5, False)
                 result["pump_status"] = "ON"
                 result["condition"] = "Time OK: Pump ON"
-
-                # Log ON once per minute to avoid duplicates (loop runs every 5 seconds)
-                current_minute_key = now.strftime("%Y/%m/%d %H:%M")
-                if last_on_minute != current_minute_key:
-                    log_pump_on(timestamp_csv)
-                    last_on_minute = current_minute_key
-
+            # elif 30 <= now.minute < 35:
+            #     GPIO.output(5, False)
+            #     result["pump_status"] = "ON"
+            #     result["condition"] = "Time OK: Pump ON"
             else:
-                GPIO.output(PUMP_1_PIN, True)
-                GPIO.output(PUMP_2_PIN, True)
+                GPIO.output(5, True)
                 result["pump_status"] = "OFF"
                 result["condition"] = "Time OUT: Pump OFF"
 
@@ -89,8 +62,7 @@ try:
             pause.seconds(5)
 
     else:
-        GPIO.output(PUMP_1_PIN, True)
-        GPIO.output(PUMP_2_PIN, True)
+        GPIO.output(5, True)
         result = {
             "timestamp": datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
             "pump_status": "OFF",

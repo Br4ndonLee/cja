@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 import os
 import json
@@ -6,57 +5,34 @@ import time
 import csv
 import datetime
 import serial
-import minimalmodbus
 import fcntl
-import pause
+from serial.serialutil import SerialException
 
 # ===============================
-# Global lock (optional)
+# Settings
 # ===============================
-# This lock prevents concurrent access if multiple scripts might run.
-# lock = open("/tmp/rs485_bus.lock", "w")
-# fcntl.flock(lock, fcntl.LOCK_EX)
-pause.minutes(1)  # Simulate some delay for lock testing
-# ===============================
-# Paths / Settings
-# ===============================
-CSV_PATH = "Temp_humi_log.csv"
+PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
+BAUD = 115200
+REQ  = "node000000|SensorReq|0905"
 
-# Temp/Humi (Modbus RTU)
-TEMP_HUMI_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"
-TEMP_HUMI_SLAVE_ID = 2
-TEMP_HUMI_REG_START = 0xC8   # temperature, humidity
-TEMP_HUMI_REG_COUNT = 2
-TEMP_HUMI_FC = 4             # input registers
+CSV_PATH = "/home/cja/Work/cja-skyfarms-project/sensors/Temp_humi_log.csv"
 
-# CO2 (ASCII serial)
-CO2_PORT = "/dev/serial/by-path/platform-xhci-hcd.0-usb-0:1.2:1.0-port0"
-CO2_BAUD = 115200
-CO2_REQ  = "node000000|SensorReq|0905"
+ID_TEMPERATURE = 1
+ID_HUMIDITY    = 2
+ID_CO2         = 6
 
-# ===============================
-# Temp/Humi functions
-# ===============================
-def read_temp_humi():
-    # English comment: Create instrument per run to avoid port-holding issues in Node-RED.
-    dev = minimalmodbus.Instrument(TEMP_HUMI_PORT, TEMP_HUMI_SLAVE_ID, mode="rtu")
-    dev.serial.baudrate = 9600
-    dev.serial.bytesize = 8
-    dev.serial.parity   = serial.PARITY_NONE
-    dev.serial.stopbits = 2
-    dev.serial.timeout  = 1
+SERIAL_LOCK_PATH = "/tmp/usb_1a86_serial.lock"
 
-    regs = dev.read_registers(TEMP_HUMI_REG_START, TEMP_HUMI_REG_COUNT, functioncode=TEMP_HUMI_FC)
-    temp = float(regs[0]) / 10.0
-    humi = float(regs[1]) / 10.0
-    return temp, humi
+READ_TIMEOUT_SEC = 2.5
+IDLE_GAP_SEC = 0.2
 
-# ===============================
-# CO2 functions
-# ===============================
-def read_one_response(ser, timeout=1.5):
+RETRY_ATTEMPTS = 3
+RETRY_DELAY_SEC = 0.25
+
+
+def read_one_response(ser, timeout=1.5, idle_gap=0.2):
     """Read until no more bytes arrive for a short idle gap (no newline protocol)."""
-    ser.timeout = 0.2
+    ser.timeout = idle_gap
     buf = bytearray()
     t0 = time.time()
     last_rx = time.time()
@@ -67,9 +43,10 @@ def read_one_response(ser, timeout=1.5):
             buf += chunk
             last_rx = time.time()
         else:
-            if buf and (time.time() - last_rx) > 0.2:
+            if buf and (time.time() - last_rx) > idle_gap:
                 break
     return bytes(buf)
+
 
 def extract_json_block(text: str):
     """Extract {...} part from '|SensorRes|{...}|XXXX'."""
@@ -79,88 +56,117 @@ def extract_json_block(text: str):
         return None
     return text[start:end + 1]
 
-def parse_co2_value(text: str):
-    """Return CO2 value (id=6) as int if possible, else None."""
-    json_part = extract_json_block(text)
-    if not json_part:
-        return None
 
-    try:
-        data = json.loads(json_part)
-    except:
-        return None
-
+def get_value_by_id(data: dict, target_id: int):
+    """Return float value for sensor id, or None."""
     for s in data.get("sensors", []):
-        if s.get("id") == 6:
+        if s.get("id") == target_id:
             v = str(s.get("value", "")).strip()
             try:
-                return int(v)
+                return float(v)
             except:
-                try:
-                    return float(v)
-                except:
-                    return None
+                return None
     return None
 
-def read_co2():
-    with serial.Serial(CO2_PORT, CO2_BAUD, bytesize=8, parity="N", stopbits=1, timeout=0.2) as ser:
+
+def ensure_csv_header(path: str):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    if (not os.path.exists(path)) or (os.path.getsize(path) == 0):
+        with open(path, mode="a", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(["date", "temperature", "humidity", "co2"])
+
+
+def append_csv_row(path: str, date_str: str, temperature, humidity, co2):
+    def cell(x):
+        return "" if x is None else x
+
+    with open(path, mode="a", newline="") as f:
+        w = csv.writer(f)
+        w.writerow([date_str, cell(temperature), cell(humidity), cell(co2)])
+        f.flush()
+        os.fsync(f.fileno())
+
+
+def read_sensor_once():
+    """Single attempt: open port, send request, read response, parse values."""
+    with serial.Serial(PORT, BAUD, bytesize=8, parity="N", stopbits=1, timeout=0.2) as ser:
         ser.reset_input_buffer()
         ser.reset_output_buffer()
 
-        ser.write(CO2_REQ.encode("ascii"))
+        ser.write(REQ.encode("ascii", errors="ignore"))
         ser.flush()
 
-        raw = read_one_response(ser, timeout=2.0)
+        raw = read_one_response(ser, timeout=READ_TIMEOUT_SEC, idle_gap=IDLE_GAP_SEC)
 
-    text = raw.replace(b"\x00", b"").decode("utf-8", errors="ignore").strip()
-    return parse_co2_value(text)
+    text = raw.replace(b"\x00", b"").decode("utf-8", errors="replace").strip()
+    json_part = extract_json_block(text)
+    if not json_part:
+        return None, None, None, "no_json_block"
 
-# ===============================
-# CSV logging
-# ===============================
-def write_csv_row(date_str, temperature, humidity, co2):
-    # English comment: Write header only when file is new/empty.
-    new_file = (not os.path.exists(CSV_PATH)) or (os.stat(CSV_PATH).st_size == 0)
+    data = json.loads(json_part)
 
-    def to_cell(x):
-        return "" if x is None else x
+    temperature = get_value_by_id(data, ID_TEMPERATURE)
+    humidity = get_value_by_id(data, ID_HUMIDITY)
+    co2_val = get_value_by_id(data, ID_CO2)
 
-    with open(CSV_PATH, mode="a", newline="") as f:
-        w = csv.writer(f)
-        if new_file:
-            w.writerow(["date", "temperature", "humidity", "co2"])
-        w.writerow([date_str, to_cell(temperature), to_cell(humidity), to_cell(co2)])
+    if co2_val is None:
+        co2 = None
+    else:
+        try:
+            co2 = int(co2_val)
+        except:
+            co2 = co2_val
 
-# ===============================
-# Main
-# ===============================
+    if temperature is None or humidity is None or co2 is None:
+        return temperature, humidity, co2, "value_missing"
+
+    return temperature, humidity, co2, None
+
+
+def read_sensor_with_lock_and_retry():
+    """Prevent concurrent access + retry a few times for stability under Node-RED."""
+    lockf = open(SERIAL_LOCK_PATH, "w")
+    try:
+        fcntl.flock(lockf, fcntl.LOCK_EX)
+
+        last_err = None
+        last_vals = (None, None, None)
+
+        for _ in range(RETRY_ATTEMPTS):
+            try:
+                t, h, c, err = read_sensor_once()
+                last_vals = (t, h, c)
+                last_err = err
+                if err is None:
+                    return t, h, c, None
+            except (SerialException, OSError, json.JSONDecodeError, ValueError) as e:
+                last_err = str(e)
+
+            time.sleep(RETRY_DELAY_SEC)
+
+        return last_vals[0], last_vals[1], last_vals[2], last_err
+
+    finally:
+        try:
+            fcntl.flock(lockf, fcntl.LOCK_UN)
+        except:
+            pass
+        lockf.close()
+
+
 if __name__ == "__main__":
     date_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    temperature = None
-    humidity = None
-    co2 = None
+    temperature, humidity, co2, err = read_sensor_with_lock_and_retry()
 
-    # Temp/Humi
-    try:
-        temperature, humidity = read_temp_humi()
-    except:
-        pass
+    ensure_csv_header(CSV_PATH)
+    append_csv_row(CSV_PATH, date_str, temperature, humidity, co2)
 
-    # CO2
-    try:
-        co2 = read_co2()
-    except:
-        pass
-
-    # Save one-row CSV (date, temperature, humidity, co2)
-    write_csv_row(date_str, temperature, humidity, co2)
-
-    # Node-RED output JSON
-    out = {
+    print(json.dumps({
         "date": date_str,
         "temperature": temperature,
         "humidity": humidity,
-        "co2": co2
-    }
-    print(json.dumps(out, ensure_ascii=False), flush=True)
+        "co2": co2,
+        "errors": {"sensor": err}
+    }, ensure_ascii=False), flush=True)

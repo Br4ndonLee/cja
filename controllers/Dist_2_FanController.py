@@ -8,7 +8,7 @@ import select
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(12, GPIO.OUT)
+GPIO.setup(20, GPIO.OUT)
 
 def read_payload():
     # Non-blocking stdin check
@@ -35,20 +35,20 @@ try:
             # Check for new payload input (non-blocking)
             new_input = read_payload()
             if new_input is True:
-                GPIO.output(12, True)
+                GPIO.output(20, True)
                 result["fan_status"] = "OFF"
                 result["condition"] = "Switch turned ON, exiting loop"
                 print(json.dumps(result))
                 break
 
             # Time-based control
-            if 6 <= now.hour < 20:
+            if 5 <= now.hour < 23:
             # if 0 <= now.second < 30:
-                GPIO.output(12, False)
+                GPIO.output(20, False)
                 result["fan_status"] = "ON"
                 result["condition"] = "Time OK: Fan ON"
             else:
-                GPIO.output(12, True)
+                GPIO.output(20, True)
                 result["fan_status"] = "OFF"
                 result["condition"] = "Time OUT: Fan OFF"
 
@@ -56,7 +56,7 @@ try:
             pause.seconds(5)
 
     else:
-        GPIO.output(12, True)
+        GPIO.output(20, True)
         result = {
             "timestamp": datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
             "fan_status": "OFF",

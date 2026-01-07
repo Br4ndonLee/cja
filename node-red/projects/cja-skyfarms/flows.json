@@ -34,8 +34,8 @@
             "352c9682952738a1",
             "2aac44c159923b07"
         ],
-        "x": 74,
-        "y": 2119,
+        "x": 34,
+        "y": 2379,
         "w": 592,
         "h": 82
     },
@@ -70,8 +70,8 @@
             "5b23b8e421363f09",
             "a0a515737d2c4544"
         ],
-        "x": 74,
-        "y": 2279,
+        "x": 34,
+        "y": 2479,
         "w": 1152,
         "h": 442
     },
@@ -79,7 +79,7 @@
         "id": "5d6e724936f68d35",
         "type": "group",
         "z": "84f9df6667326f98",
-        "name": "Lighting",
+        "name": "Dist 1 Lighting",
         "style": {
             "label": true
         },
@@ -97,8 +97,8 @@
             "ebec3f11f763b5eb",
             "a880f70db10cfa4e"
         ],
-        "x": 54,
-        "y": 1539,
+        "x": 34,
+        "y": 1839,
         "w": 852,
         "h": 322
     },
@@ -125,12 +125,16 @@
             "00d442aea9bc0def",
             "43781b4d61de441e",
             "9d04753ceb6008d4",
-            "4eac55c97bf5ac4b"
+            "4eac55c97bf5ac4b",
+            "d3d5c208297b5bcb",
+            "ce91a081135d3653",
+            "a81d2b73695ec428",
+            "f033277dce8c9fc3"
         ],
         "x": 14,
         "y": 19,
         "w": 1152,
-        "h": 482
+        "h": 542
     },
     {
         "id": "e74e46c298b7c6cb",
@@ -155,7 +159,8 @@
             "http_in_download",
             "read_file_download",
             "http_response_download",
-            "eccd6ca216a8ac97"
+            "eccd6ca216a8ac97",
+            "734f54c626594136"
         ],
         "x": 34,
         "y": 19,
@@ -218,8 +223,8 @@
             "1d50e0dd0e72e657",
             "893d48d19cc2c365"
         ],
-        "x": 14,
-        "y": 1179,
+        "x": 34,
+        "y": 1379,
         "w": 1042,
         "h": 322
     },
@@ -227,7 +232,7 @@
         "id": "912ed1b86333869f",
         "type": "group",
         "z": "84f9df6667326f98",
-        "name": "Nutrient solution input control",
+        "name": "Dist 1 Nutrient solution input control",
         "style": {
             "label": true
         },
@@ -254,7 +259,7 @@
             "f97336f95369f779"
         ],
         "x": 34,
-        "y": 2759,
+        "y": 2939,
         "w": 1132,
         "h": 462
     },
@@ -284,16 +289,16 @@
             "d62e857fdfc39204",
             "64e0010d99179742"
         ],
-        "x": 4,
+        "x": 14,
         "y": 799,
-        "w": 1052,
+        "w": 1042,
         "h": 342
     },
     {
         "id": "915bc3b1ca228f03",
         "type": "group",
         "z": "84f9df6667326f98",
-        "name": "Nutrient solution control",
+        "name": "Dist 1 Nutrient solution control",
         "style": {
             "label": true
         },
@@ -304,16 +309,16 @@
             "2338e23a2b4a1061",
             "7164aeb31763ab09"
         ],
-        "x": 54,
-        "y": 1959,
-        "w": 752,
+        "x": 34,
+        "y": 2219,
+        "w": 792,
         "h": 142
     },
     {
         "id": "e8ce93fc01bd7af9",
         "type": "group",
         "z": "84f9df6667326f98",
-        "name": "Get EC & pH data by RS485 & Modbus",
+        "name": "Get Solution condition (EC, pH, temp)  data by RS485 & Modbus",
         "style": {
             "label": true
         },
@@ -339,9 +344,187 @@
             "a04387180383435c"
         ],
         "x": 14,
-        "y": 519,
+        "y": 579,
         "w": 1112,
         "h": 662
+    },
+    {
+        "id": "3eaca329610704eb",
+        "type": "group",
+        "z": "84f9df6667326f98",
+        "name": "Get Solution condition (EC, pH, temp) data by RS485 & serial",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "1caf8a5c5e3446a5",
+            "25a1fc18f884cf3a",
+            "12a11f4918b20262",
+            "ada6e5f91605f50b",
+            "ded04047b201eda5",
+            "3f103b9815f86dd4",
+            "27c51267c346f89a",
+            "882bd2a1db484c7a",
+            "83ef16bf59648dba",
+            "523fb7d4146c728e",
+            "19575127be6263da",
+            "7c25ba5dd16a36b6",
+            "2c23a9c69bfd5964",
+            "bed3ea5061f3aa42",
+            "55c7596a34b371e7",
+            "1b55bb39740ed3db",
+            "10a137bf882b5184",
+            "1236be8eabaf376f",
+            "23d54e14bb05b234"
+        ],
+        "x": 1154,
+        "y": 579,
+        "w": 1112,
+        "h": 662
+    },
+    {
+        "id": "ad1743f076448914",
+        "type": "group",
+        "z": "84f9df6667326f98",
+        "name": "Dist 2 Lighting",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "661835450f15a6b4",
+            "d785e496788ff69d",
+            "32897822979abecd",
+            "c98d03a0abbedcbd",
+            "aa04375898a1948b",
+            "d3ac968ba6e2864f",
+            "9f360e5a54c95af6",
+            "7a499e2de11fb75a",
+            "e08d25bb4b05e048",
+            "0b9b9d5aae2018ff",
+            "ef29638c34485786",
+            "a1e65c136a4faf8e"
+        ],
+        "x": 934,
+        "y": 1839,
+        "w": 852,
+        "h": 322
+    },
+    {
+        "id": "978a9587f7a84adc",
+        "type": "group",
+        "z": "84f9df6667326f98",
+        "name": "Dist 2 Nutrient solution control",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "4f385e73050961e1",
+            "f15e7c328f5d7fd4",
+            "63e650f897ae7cfe",
+            "3aa9a7e96d4cfe09",
+            "e320eb5d6e113614"
+        ],
+        "x": 914,
+        "y": 2219,
+        "w": 792,
+        "h": 142
+    },
+    {
+        "id": "b1927e4ba08d43c4",
+        "type": "group",
+        "z": "84f9df6667326f98",
+        "name": "Dist 2 Nutrient solution input control",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "032638cc6c5fc9f2",
+            "742c215264b52d5d",
+            "66ddab9642e34173",
+            "e4a0abcae8745f5d",
+            "80cc8c87a9dcdff5",
+            "c7fe5d35e20589ec",
+            "e0b97cfcaafbe7a8",
+            "ce77e02c54e5281c",
+            "d77f241745577d87",
+            "f7516acac2b29596",
+            "abf0f3cd0103cc31",
+            "083acd90c241f25d",
+            "972eec39af78be9a",
+            "ada5f246a3285a35",
+            "67dfe99f35a05924",
+            "21fc1765b77482f9",
+            "f37eddb8c684e4ec",
+            "8bfc716cf46fb70d",
+            "d4e056cc41c01da1",
+            "78091ee38cd1e0cc"
+        ],
+        "x": 1254,
+        "y": 2939,
+        "w": 1132,
+        "h": 462
+    },
+    {
+        "id": "c62aa2d73263b188",
+        "type": "group",
+        "z": "flow_all",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "27fc66eaaca23794",
+            "61caf0db18f2428d",
+            "c09b25e4d365be34",
+            "3f0ad1a72df8b757",
+            "5a814c3c8a19e0be",
+            "1ba33261f437d902",
+            "36344a406840362d",
+            "b2a258edcf5a958e",
+            "9e97d9f96995bf28",
+            "0be035f89455a795",
+            "4d55c4ca6af1390e"
+        ],
+        "x": 1114,
+        "y": 419,
+        "w": 1012,
+        "h": 342
+    },
+    {
+        "id": "be44b588c52432ea",
+        "type": "group",
+        "z": "flow_all",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "e7891915e633acd2",
+            "a6223c1af0cd3dd5",
+            "8d665aadf1c7067c",
+            "51704d967a421a19",
+            "01e0b9d102a39fd5",
+            "a3412107226a6d51",
+            "9f1c418cd3f3a885",
+            "94b0f12f3bc1db62",
+            "7fd7452d9cd017ef",
+            "370b70a08f5dc235",
+            "a9ea43292fd0feba"
+        ],
+        "x": 1114,
+        "y": 819,
+        "w": 1042,
+        "h": 342
     },
     {
         "id": "f8142c59ee10a26e",
@@ -454,22 +637,11 @@
     {
         "id": "c888f82b8cc4653a",
         "type": "ui_group",
-        "name": "Temperature",
+        "name": "Room Condition",
         "tab": "a18fb94af755fd24",
         "order": 1,
         "disp": true,
-        "width": 6,
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "f325796ebb721579",
-        "type": "ui_group",
-        "name": "Controller",
-        "tab": "a18fb94af755fd24",
-        "order": 6,
-        "disp": true,
-        "width": 6,
+        "width": 18,
         "collapse": false,
         "className": ""
     },
@@ -477,7 +649,7 @@
         "id": "049242d2ef9a58f0",
         "type": "ui_group",
         "name": "Humidity",
-        "tab": "a18fb94af755fd24",
+        "tab": "",
         "order": 2,
         "disp": true,
         "width": 6,
@@ -489,7 +661,7 @@
         "type": "ui_group",
         "name": "Camera",
         "tab": "a18fb94af755fd24",
-        "order": 9,
+        "order": 5,
         "disp": false,
         "width": 7,
         "collapse": false,
@@ -499,7 +671,7 @@
         "id": "1de49aac0f0db196",
         "type": "ui_group",
         "name": "Weather",
-        "tab": "a18fb94af755fd24",
+        "tab": "",
         "order": 8,
         "disp": true,
         "width": "7",
@@ -522,14 +694,14 @@
         "type": "ui_tab",
         "name": "Database",
         "icon": "file_download",
-        "order": 1,
+        "order": 3,
         "disabled": false,
         "hidden": false
     },
     {
         "id": "ui_grp_table",
         "type": "ui_group",
-        "name": "Temperature & Humidity Data",
+        "name": "Room Condition Data",
         "tab": "ui_tab_dashboard",
         "order": 1,
         "disp": true,
@@ -540,11 +712,11 @@
     {
         "id": "c5fb925fb5ca84e9",
         "type": "ui_group",
-        "name": "EC",
+        "name": "Dist 1. Solution Condition",
         "tab": "a18fb94af755fd24",
-        "order": 3,
+        "order": 2,
         "disp": true,
-        "width": 6,
+        "width": 18,
         "collapse": false,
         "className": ""
     },
@@ -552,7 +724,7 @@
         "id": "55294fa623e898e0",
         "type": "ui_group",
         "name": "pH",
-        "tab": "a18fb94af755fd24",
+        "tab": "",
         "order": 4,
         "disp": true,
         "width": 6,
@@ -562,7 +734,7 @@
     {
         "id": "grp_dl",
         "type": "ui_group",
-        "name": "EC & pH Data",
+        "name": "Dist 1. Solution Data",
         "tab": "ui_tab_dashboard",
         "order": 2,
         "disp": true,
@@ -581,20 +753,9 @@
         "collapse": false
     },
     {
-        "id": "grp_a_pump",
-        "type": "ui_group",
-        "name": "Inject Solution A, B and Acid",
-        "tab": "a18fb94af755fd24",
-        "order": 7,
-        "disp": true,
-        "width": 8,
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "0c96d57341bb54fa",
         "type": "ui_group",
-        "name": "Solution input data",
+        "name": "Dist 1. Solution Input Data",
         "tab": "ui_tab_dashboard",
         "order": 3,
         "disp": true,
@@ -606,7 +767,7 @@
         "id": "9a12b08656165df4",
         "type": "ui_group",
         "name": "Solution Temperature",
-        "tab": "a18fb94af755fd24",
+        "tab": "",
         "order": 5,
         "disp": true,
         "width": 6,
@@ -614,14 +775,141 @@
         "className": ""
     },
     {
-        "id": "46b951e2432543ad",
+        "id": "4ea62e075d022552",
+        "type": "ui_group",
+        "name": "CO2",
+        "tab": "",
+        "order": 10,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "aa578847983587e6",
+        "type": "ui_group",
+        "name": "Dist 2. Solution Condition",
+        "tab": "a18fb94af755fd24",
+        "order": 3,
+        "disp": true,
+        "width": 18,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f870e65464d4e015",
         "type": "ui_spacer",
         "z": "84f9df6667326f98",
         "name": "spacer",
-        "group": "f325796ebb721579",
-        "order": 11,
-        "width": 3,
+        "group": "",
+        "order": 2,
+        "width": 7,
         "height": 1
+    },
+    {
+        "id": "db6402d6f3215edd",
+        "type": "ui_spacer",
+        "z": "84f9df6667326f98",
+        "name": "spacer",
+        "group": "",
+        "order": 4,
+        "width": 7,
+        "height": 1
+    },
+    {
+        "id": "8e06d2030eb18082",
+        "type": "ui_tab",
+        "name": "Controller",
+        "icon": "Phonelink",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "e3eac795c3a63651",
+        "type": "ui_group",
+        "name": "Dist 2. Controller",
+        "tab": "8e06d2030eb18082",
+        "order": 3,
+        "disp": true,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "78ac3218e47134df",
+        "type": "ui_group",
+        "name": "Dist 2. Inject Soluition A, B and Acid",
+        "tab": "8e06d2030eb18082",
+        "order": 4,
+        "disp": true,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e01a3e2ceb3f788b",
+        "type": "ui_spacer",
+        "z": "84f9df6667326f98",
+        "name": "spacer",
+        "group": "e3eac795c3a63651",
+        "order": 5,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "88aa0f01fff00cbe",
+        "type": "ui_spacer",
+        "z": "84f9df6667326f98",
+        "name": "spacer",
+        "group": "e3eac795c3a63651",
+        "order": 8,
+        "width": 4,
+        "height": 1
+    },
+    {
+        "id": "96111742475c44e1",
+        "type": "ui_group",
+        "name": "Dist 2. Solution data",
+        "tab": "ui_tab_dashboard",
+        "order": 4,
+        "disp": true,
+        "width": 12,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1b4aaf5eb31383f2",
+        "type": "ui_group",
+        "name": "Dist 2. Solution Input Data",
+        "tab": "ui_tab_dashboard",
+        "order": 5,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f325796ebb721579",
+        "type": "ui_group",
+        "name": "Dist 1. Controller",
+        "tab": "8e06d2030eb18082",
+        "order": 1,
+        "disp": true,
+        "width": 8,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "grp_a_pump",
+        "type": "ui_group",
+        "name": "Dist 1. Inject Solution A, B and Acid",
+        "tab": "8e06d2030eb18082",
+        "order": 2,
+        "disp": true,
+        "width": 8,
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "1ef22f386c9aec37",
@@ -658,12 +946,12 @@
         "type": "pythonshell in",
         "z": "84f9df6667326f98",
         "g": "17b6e50d0d55a4f0",
-        "name": "Temp_humi",
-        "pyfile": "/home/cja/Work/cja-skyfarms-project/sensors/Temp_humi.py",
+        "name": "Room_condition",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/sensors/room_condition.py",
         "virtualenv": "",
         "continuous": true,
         "stdInData": true,
-        "x": 330,
+        "x": 320,
         "y": 100,
         "wires": [
             [
@@ -686,7 +974,8 @@
             [
                 "218ff43bca981fe9",
                 "44df4d9894a065c8",
-                "b9d92e30fe8245b6"
+                "b9d92e30fe8245b6",
+                "d3d5c208297b5bcb"
             ]
         ]
     },
@@ -769,7 +1058,7 @@
         "to": "",
         "reg": false,
         "x": 700,
-        "y": 360,
+        "y": 300,
         "wires": [
             [
                 "1f0406ae79e0ddfb",
@@ -784,7 +1073,7 @@
         "z": "84f9df6667326f98",
         "g": "17b6e50d0d55a4f0",
         "name": "debug 2",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -802,7 +1091,7 @@
         "z": "84f9df6667326f98",
         "g": "17b6e50d0d55a4f0",
         "name": "debug 3",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -810,8 +1099,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 900,
-        "y": 360,
+        "x": 920,
+        "y": 320,
         "wires": []
     },
     {
@@ -841,7 +1130,7 @@
         "z": "84f9df6667326f98",
         "g": "17b6e50d0d55a4f0",
         "name": "debug 1",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -903,8 +1192,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 180,
-        "y": 2160,
+        "x": 140,
+        "y": 2420,
         "wires": [
             [
                 "2aac44c159923b07"
@@ -924,8 +1213,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 560,
-        "y": 2160,
+        "x": 520,
+        "y": 2420,
         "wires": []
     },
     {
@@ -938,8 +1227,8 @@
         "virtualenv": "",
         "continuous": true,
         "stdInData": true,
-        "x": 370,
-        "y": 2160,
+        "x": 330,
+        "y": 2420,
         "wires": [
             [
                 "352c9682952738a1"
@@ -952,8 +1241,8 @@
         "z": "84f9df6667326f98",
         "g": "17b6e50d0d55a4f0",
         "name": "",
-        "group": "049242d2ef9a58f0",
-        "order": 1,
+        "group": "c888f82b8cc4653a",
+        "order": 2,
         "width": 6,
         "height": 5,
         "gtype": "wave",
@@ -972,7 +1261,7 @@
         "diff": false,
         "className": "",
         "x": 920,
-        "y": 420,
+        "y": 360,
         "wires": []
     },
     {
@@ -982,7 +1271,7 @@
         "g": "17b6e50d0d55a4f0",
         "name": "",
         "group": "c888f82b8cc4653a",
-        "order": 2,
+        "order": 4,
         "width": 6,
         "height": 5,
         "label": "Temperature",
@@ -1026,8 +1315,8 @@
         "z": "84f9df6667326f98",
         "g": "17b6e50d0d55a4f0",
         "name": "",
-        "group": "049242d2ef9a58f0",
-        "order": 2,
+        "group": "c888f82b8cc4653a",
+        "order": 5,
         "width": 6,
         "height": 5,
         "label": "Humidity",
@@ -1060,7 +1349,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 920,
-        "y": 460,
+        "y": 400,
         "wires": [
             []
         ]
@@ -1086,7 +1375,7 @@
         "tooltip": "",
         "group": "f325796ebb721579",
         "order": 5,
-        "width": 3,
+        "width": 4,
         "height": 1,
         "passthru": true,
         "decouple": "false",
@@ -1103,8 +1392,8 @@
         "offcolor": "",
         "animate": false,
         "className": "Node-Red Dashboard Custom CSS",
-        "x": 320,
-        "y": 1240,
+        "x": 340,
+        "y": 1440,
         "wires": [
             [
                 "1d50e0dd0e72e657",
@@ -1119,7 +1408,7 @@
         "g": "466f7742a246e74a",
         "group": "f325796ebb721579",
         "order": 4,
-        "width": 6,
+        "width": 8,
         "height": 1,
         "name": "",
         "label": "Air conditioning",
@@ -1130,8 +1419,8 @@
         "font": "Arial,Arial,Helvetica,sans-serif",
         "fontSize": "25",
         "color": "#ffffff",
-        "x": 120,
-        "y": 1280,
+        "x": 140,
+        "y": 1480,
         "wires": []
     },
     {
@@ -1146,8 +1435,8 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 940,
-        "y": 1300,
+        "x": 960,
+        "y": 1500,
         "wires": []
     },
     {
@@ -1160,7 +1449,7 @@
         "tooltip": "",
         "group": "f325796ebb721579",
         "order": 7,
-        "width": 3,
+        "width": 4,
         "height": 1,
         "passthru": true,
         "decouple": "false",
@@ -1177,8 +1466,8 @@
         "offcolor": "",
         "animate": false,
         "className": "",
-        "x": 320,
-        "y": 1360,
+        "x": 340,
+        "y": 1560,
         "wires": [
             [
                 "a807676ee13f76fc",
@@ -1198,8 +1487,8 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 920,
-        "y": 1440,
+        "x": 940,
+        "y": 1640,
         "wires": []
     },
     {
@@ -1225,8 +1514,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 190,
-        "y": 2400,
+        "x": 150,
+        "y": 2600,
         "wires": [
             [
                 "0c616ffe17850d92"
@@ -1251,8 +1540,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 390,
-        "y": 2400,
+        "x": 350,
+        "y": 2600,
         "wires": [
             [
                 "bf53ee007fe03cd5",
@@ -1275,8 +1564,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 550,
-        "y": 2320,
+        "x": 510,
+        "y": 2520,
         "wires": []
     },
     {
@@ -1293,8 +1582,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 2400,
+        "x": 600,
+        "y": 2600,
         "wires": [
             [
                 "4cfd8f2b53cc451d",
@@ -1324,8 +1613,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 770,
-        "y": 2320,
+        "x": 730,
+        "y": 2520,
         "wires": []
     },
     {
@@ -1349,8 +1638,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 870,
-        "y": 2440,
+        "x": 830,
+        "y": 2640,
         "wires": [
             [
                 "134c43948fc1ed53"
@@ -1378,8 +1667,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 860,
-        "y": 2480,
+        "x": 820,
+        "y": 2680,
         "wires": [
             [
                 "db41d8aaae19562a"
@@ -1407,8 +1696,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 840,
-        "y": 2520,
+        "x": 800,
+        "y": 2720,
         "wires": [
             [
                 "10e24fbb56540788"
@@ -1436,8 +1725,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 840,
-        "y": 2560,
+        "x": 800,
+        "y": 2760,
         "wires": [
             [
                 "54a303cc73b75606"
@@ -1465,8 +1754,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 860,
-        "y": 2600,
+        "x": 820,
+        "y": 2800,
         "wires": [
             [
                 "84304c396249d138"
@@ -1494,8 +1783,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 860,
-        "y": 2680,
+        "x": 820,
+        "y": 2880,
         "wires": [
             [
                 "a0a515737d2c4544"
@@ -1523,8 +1812,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 880,
-        "y": 2640,
+        "x": 840,
+        "y": 2840,
         "wires": [
             [
                 "5b23b8e421363f09"
@@ -1552,8 +1841,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 830,
-        "y": 2400,
+        "x": 790,
+        "y": 2600,
         "wires": [
             [
                 "38793410c1318250"
@@ -1579,8 +1868,8 @@
         "font": "",
         "fontSize": "20",
         "color": "#ffffff",
-        "x": 1070,
-        "y": 2400,
+        "x": 1030,
+        "y": 2600,
         "wires": []
     },
     {
@@ -1602,8 +1891,8 @@
         "font": "",
         "fontSize": "20",
         "color": "#ffffff",
-        "x": 1080,
-        "y": 2480,
+        "x": 1040,
+        "y": 2680,
         "wires": []
     },
     {
@@ -1625,8 +1914,8 @@
         "font": "",
         "fontSize": "20",
         "color": "#ffffff",
-        "x": 1080,
-        "y": 2520,
+        "x": 1040,
+        "y": 2720,
         "wires": []
     },
     {
@@ -1648,8 +1937,8 @@
         "font": "",
         "fontSize": "20",
         "color": "#ffffff",
-        "x": 1090,
-        "y": 2560,
+        "x": 1050,
+        "y": 2760,
         "wires": []
     },
     {
@@ -1671,8 +1960,8 @@
         "font": "",
         "fontSize": "20",
         "color": "#ffffff",
-        "x": 1100,
-        "y": 2440,
+        "x": 1060,
+        "y": 2640,
         "wires": []
     },
     {
@@ -1694,8 +1983,8 @@
         "font": "",
         "fontSize": "20",
         "color": "#ffffff",
-        "x": 1100,
-        "y": 2600,
+        "x": 1060,
+        "y": 2800,
         "wires": []
     },
     {
@@ -1717,8 +2006,8 @@
         "font": "",
         "fontSize": "20",
         "color": "#ffffff",
-        "x": 1110,
-        "y": 2640,
+        "x": 1070,
+        "y": 2840,
         "wires": []
     },
     {
@@ -1740,8 +2029,8 @@
         "font": "",
         "fontSize": "20",
         "color": "#ffffff",
-        "x": 1080,
-        "y": 2680,
+        "x": 1040,
+        "y": 2880,
         "wires": []
     },
     {
@@ -1759,8 +2048,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1170,
-        "y": 1220,
+        "x": 130,
+        "y": 1280,
         "wires": [
             []
         ]
@@ -1788,7 +2077,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 130,
-        "y": 620,
+        "y": 680,
         "wires": [
             [
                 "9a4c7a02cad47b84"
@@ -1800,13 +2089,13 @@
         "type": "pythonshell in",
         "z": "84f9df6667326f98",
         "g": "e8ce93fc01bd7af9",
-        "name": "EC_pH",
-        "pyfile": "/home/cja/Work/cja-skyfarms-project/sensors/EC_pH.py",
+        "name": "Dist_1_EC_pH",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH.py",
         "virtualenv": "",
         "continuous": true,
         "stdInData": true,
         "x": 320,
-        "y": 620,
+        "y": 680,
         "wires": [
             [
                 "13c6bea38d428920"
@@ -1823,7 +2112,7 @@
         "action": "",
         "pretty": false,
         "x": 470,
-        "y": 620,
+        "y": 680,
         "wires": [
             [
                 "4a02d1b9cf1788c8",
@@ -1855,7 +2144,7 @@
         "to": "",
         "reg": false,
         "x": 660,
-        "y": 620,
+        "y": 680,
         "wires": [
             [
                 "bb98eb9ce85f5dcf"
@@ -1883,7 +2172,7 @@
         "to": "",
         "reg": false,
         "x": 650,
-        "y": 680,
+        "y": 740,
         "wires": [
             [
                 "7af2caa5030f659e",
@@ -1913,7 +2202,7 @@
         "to": "",
         "reg": false,
         "x": 650,
-        "y": 880,
+        "y": 940,
         "wires": [
             [
                 "f66d5cc3cb3342a2",
@@ -1937,7 +2226,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 860,
-        "y": 680,
+        "y": 740,
         "wires": []
     },
     {
@@ -1955,7 +2244,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 860,
-        "y": 880,
+        "y": 940,
         "wires": []
     },
     {
@@ -1972,7 +2261,7 @@
         "finalize": "",
         "libs": [],
         "x": 840,
-        "y": 620,
+        "y": 680,
         "wires": [
             [
                 "b91f54bc77701ab9"
@@ -1993,7 +2282,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1020,
-        "y": 620,
+        "y": 680,
         "wires": []
     },
     {
@@ -2022,7 +2311,7 @@
         "diff": false,
         "className": "",
         "x": 870,
-        "y": 740,
+        "y": 800,
         "wires": []
     },
     {
@@ -2031,8 +2320,8 @@
         "z": "84f9df6667326f98",
         "g": "e8ce93fc01bd7af9",
         "name": "",
-        "group": "55294fa623e898e0",
-        "order": 1,
+        "group": "c5fb925fb5ca84e9",
+        "order": 2,
         "width": 6,
         "height": 5,
         "gtype": "gage",
@@ -2051,7 +2340,7 @@
         "diff": false,
         "className": "",
         "x": 870,
-        "y": 940,
+        "y": 1000,
         "wires": []
     },
     {
@@ -2061,7 +2350,7 @@
         "g": "e8ce93fc01bd7af9",
         "name": "",
         "group": "c5fb925fb5ca84e9",
-        "order": 2,
+        "order": 4,
         "width": 6,
         "height": 5,
         "label": "EC",
@@ -2094,7 +2383,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 870,
-        "y": 800,
+        "y": 860,
         "wires": [
             []
         ]
@@ -2105,8 +2394,8 @@
         "z": "84f9df6667326f98",
         "g": "e8ce93fc01bd7af9",
         "name": "",
-        "group": "55294fa623e898e0",
-        "order": 2,
+        "group": "c5fb925fb5ca84e9",
+        "order": 5,
         "width": 6,
         "height": 5,
         "label": "pH",
@@ -2139,7 +2428,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 870,
-        "y": 980,
+        "y": 1040,
         "wires": [
             []
         ]
@@ -2172,8 +2461,8 @@
         "offcolor": "",
         "animate": true,
         "className": "",
-        "x": 180,
-        "y": 1740,
+        "x": 160,
+        "y": 2040,
         "wires": [
             [
                 "a0061edb8701d829",
@@ -2200,8 +2489,8 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 770,
-        "y": 1740,
+        "x": 750,
+        "y": 2040,
         "wires": []
     },
     {
@@ -2218,8 +2507,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 1720,
+        "x": 410,
+        "y": 2020,
         "wires": []
     },
     {
@@ -2235,8 +2524,8 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 190,
-        "y": 1820,
+        "x": 170,
+        "y": 2120,
         "wires": [
             [
                 "6ff7a427dfeec829"
@@ -2257,8 +2546,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 490,
-        "y": 1820,
+        "x": 470,
+        "y": 2120,
         "wires": [
             [
                 "4265400f21521fe3"
@@ -2282,8 +2571,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 480,
-        "y": 1760,
+        "x": 460,
+        "y": 2060,
         "wires": [
             [
                 "6ff7a427dfeec829"
@@ -2306,8 +2595,8 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 800,
-        "y": 1820,
+        "x": 780,
+        "y": 2120,
         "wires": []
     },
     {
@@ -2315,13 +2604,13 @@
         "type": "pythonshell in",
         "z": "84f9df6667326f98",
         "g": "5d6e724936f68d35",
-        "name": "LED controller",
-        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/LEDController.py",
+        "name": "Dist_1_LED controller",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/Dist_1_LEDController.py",
         "virtualenv": "",
         "continuous": true,
         "stdInData": true,
         "x": 520,
-        "y": 1640,
+        "y": 1940,
         "wires": [
             [
                 "209c9e40e526fa6c"
@@ -2359,8 +2648,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 1640,
+        "x": 280,
+        "y": 1940,
         "wires": [
             [
                 "b502edc7e45ce251"
@@ -2382,7 +2671,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 700,
-        "y": 1640,
+        "y": 1940,
         "wires": []
     },
     {
@@ -2395,7 +2684,7 @@
         "tooltip": "",
         "group": "f325796ebb721579",
         "order": 2,
-        "width": 3,
+        "width": 4,
         "height": 1,
         "passthru": true,
         "decouple": "false",
@@ -2412,8 +2701,8 @@
         "offcolor": "",
         "animate": false,
         "className": "",
-        "x": 150,
-        "y": 1640,
+        "x": 130,
+        "y": 1940,
         "wires": [
             [
                 "3ea78dedeaaf4c6f"
@@ -2427,7 +2716,7 @@
         "g": "5d6e724936f68d35",
         "group": "f325796ebb721579",
         "order": 1,
-        "width": 6,
+        "width": 8,
         "height": 1,
         "name": "",
         "label": "Lighting",
@@ -2438,8 +2727,8 @@
         "font": "Arial,Arial,Helvetica,sans-serif",
         "fontSize": "25",
         "color": "#ffffff",
-        "x": 160,
-        "y": 1580,
+        "x": 140,
+        "y": 1880,
         "wires": []
     },
     {
@@ -2457,7 +2746,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 620,
-        "y": 560,
+        "y": 620,
         "wires": []
     },
     {
@@ -2466,15 +2755,15 @@
         "z": "84f9df6667326f98",
         "g": "466f7742a246e74a",
         "name": "스케줄 ON일 때만 1/0 결정 + 상태문구",
-        "func": "if (flow.get('miniFan_enable') !== true) return null;\nconst now = new Date();\nconst hour = now.getHours(); \nconst minutes = now.getMinutes();\nlet val = 1;               // 기본 OFF(1)\nlet text = 'OFF';\nif (hour >= 6 && hour < 20) { val = 0; text = 'ON'; }\n// if (minutes >= 46 && minutes < 47) { val = 0; text = 'ON'; }\n// 출력1: GPIO, 출력2: 상태문구\nreturn [ {payload: val}, {payload: text} ];\n\n// if (flow.get('uv_enable') !== true) return null;\n// 현재 시간(hour) 가져오기\n// let now = new Date();\n// let hour = now.getHours();\n// let minutes = now.getMinutes();\n// let pinState = 1;              // 기본 OFF(1)\n// let text = 'OFF';\n\n\n// // 00시 ~ 06시 사이 ON (0)\n// // if (hour >= 0 && hour < 6) {\n// if (minutes >= 22 && minutes < 23) {\n//     pinState = 0; // ON\n// } else {\n//     pinState = 1; // OFF\n// }\n\n// msg.payload = pinState;\n// return msg;",
+        "func": "if (flow.get('miniFan_enable') !== true) return null;\nconst now = new Date();\nconst hour = now.getHours(); \nconst minutes = now.getMinutes();\nlet val = 1;               // 기본 OFF(1)\nlet text = 'OFF';\nif (hour >= 5 && hour < 23) { val = 0; text = 'ON'; }\n// if (minutes >= 46 && minutes < 47) { val = 0; text = 'ON'; }\n// 출력1: GPIO, 출력2: 상태문구\nreturn [ {payload: val}, {payload: text} ];\n\n// if (flow.get('uv_enable') !== true) return null;\n// 현재 시간(hour) 가져오기\n// let now = new Date();\n// let hour = now.getHours();\n// let minutes = now.getMinutes();\n// let pinState = 1;              // 기본 OFF(1)\n// let text = 'OFF';\n\n\n// // 00시 ~ 06시 사이 ON (0)\n// // if (hour >= 0 && hour < 6) {\n// if (minutes >= 22 && minutes < 23) {\n//     pinState = 0; // ON\n// } else {\n//     pinState = 1; // OFF\n// }\n\n// msg.payload = pinState;\n// return msg;",
         "outputs": 2,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
-        "y": 1320,
+        "x": 670,
+        "y": 1520,
         "wires": [
             [
                 "43877a5160c9b295"
@@ -2491,7 +2780,7 @@
         "g": "466f7742a246e74a",
         "group": "f325796ebb721579",
         "order": 6,
-        "width": 3,
+        "width": 4,
         "height": 1,
         "name": "Mini Fan Status",
         "label": "Mini Fan Status",
@@ -2502,8 +2791,8 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 950,
-        "y": 1240,
+        "x": 970,
+        "y": 1440,
         "wires": []
     },
     {
@@ -2512,15 +2801,15 @@
         "z": "84f9df6667326f98",
         "g": "466f7742a246e74a",
         "name": "스위치 토글 시 현재상태 재표시",
-        "func": "const enabled = (msg.payload === true);\nif (!enabled) { return [{}, {payload:'OFF'}]; }\nconst now = new Date();\nconst hour = now.getHours();\nconst minutes = now.getMinutes();\nconst text = (hour >= 6 && hour < 20) ? 'OFF' : 'ON';\n// const text = (minutes >= 46 && minutes < 47) ? 'ON' : 'OFF';\nreturn [ {payload: Date.now()}, {payload: text} ];",
+        "func": "const enabled = (msg.payload === true);\nif (!enabled) { return [{}, {payload:'OFF'}]; }\nconst now = new Date();\nconst hour = now.getHours();\nconst minutes = now.getMinutes();\nconst text = (hour >= 5 && hour < 23) ? 'OFF' : 'ON';\n// const text = (minutes >= 46 && minutes < 47) ? 'ON' : 'OFF';\nreturn [ {payload: Date.now()}, {payload: text} ];",
         "outputs": 2,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 1260,
+        "x": 660,
+        "y": 1460,
         "wires": [
             [
                 "0834272c61fa1d91"
@@ -2543,8 +2832,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 590,
-        "y": 1220,
+        "x": 610,
+        "y": 1420,
         "wires": []
     },
     {
@@ -2559,8 +2848,8 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 340,
-        "y": 1320,
+        "x": 360,
+        "y": 1520,
         "wires": [
             [
                 "0834272c61fa1d91"
@@ -2579,8 +2868,8 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 340,
-        "y": 1460,
+        "x": 360,
+        "y": 1660,
         "wires": [
             [
                 "e5c0943a8969389f"
@@ -2593,15 +2882,15 @@
         "z": "84f9df6667326f98",
         "g": "466f7742a246e74a",
         "name": "스케줄 ON일 때만 1/0 결정 + 상태문구",
-        "func": "if (flow.get('circulator_enable') !== true) return null;\nconst now = new Date();\nconst hour = now.getHours(); \nconst minutes = now.getMinutes();\nlet val = 1;               // 기본 OFF(1)\nlet text = 'OFF';\nif (hour >= 6 && hour < 20) { val = 0; text = 'ON'; }\n// if (minutes >= 25 && minutes < 26) { val = 0; text = 'ON'; }\n// 출력1: GPIO, 출력2: 상태문구\nreturn [ {payload: val}, {payload: text} ];\n\n// if (flow.get('uv_enable') !== true) return null;\n// 현재 시간(hour) 가져오기\n// let now = new Date();\n// let hour = now.getHours();\n// let minutes = now.getMinutes();\n// let pinState = 1;              // 기본 OFF(1)\n// let text = 'OFF';\n\n\n// // 00시 ~ 06시 사이 ON (0)\n// // if (hour >= 0 && hour < 6) {\n// if (minutes >= 22 && minutes < 23) {\n//     pinState = 0; // ON\n// } else {\n//     pinState = 1; // OFF\n// }\n\n// msg.payload = pinState;\n// return msg;",
+        "func": "if (flow.get('circulator_enable') !== true) return null;\nconst now = new Date();\nconst hour = now.getHours(); \nconst minutes = now.getMinutes();\nlet val = 1;               // 기본 OFF(1)\nlet text = 'OFF';\nif (hour >= 5 && hour < 23) { val = 0; text = 'ON'; }\n// if (minutes >= 25 && minutes < 26) { val = 0; text = 'ON'; }\n// 출력1: GPIO, 출력2: 상태문구\nreturn [ {payload: val}, {payload: text} ];\n\n// if (flow.get('uv_enable') !== true) return null;\n// 현재 시간(hour) 가져오기\n// let now = new Date();\n// let hour = now.getHours();\n// let minutes = now.getMinutes();\n// let pinState = 1;              // 기본 OFF(1)\n// let text = 'OFF';\n\n\n// // 00시 ~ 06시 사이 ON (0)\n// // if (hour >= 0 && hour < 6) {\n// if (minutes >= 22 && minutes < 23) {\n//     pinState = 0; // ON\n// } else {\n//     pinState = 1; // OFF\n// }\n\n// msg.payload = pinState;\n// return msg;",
         "outputs": 2,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
-        "y": 1460,
+        "x": 670,
+        "y": 1660,
         "wires": [
             [
                 "249836baa17d7698"
@@ -2617,15 +2906,15 @@
         "z": "84f9df6667326f98",
         "g": "466f7742a246e74a",
         "name": "스위치 토글 시 현재상태 재표시",
-        "func": "const enabled = (msg.payload === true);\nif (!enabled) { return [{}, {payload:'OFF'}]; }\nconst now = new Date();\nconst hour = now.getHours();\nconst minutes = now.getMinutes();\nconst text = (hour >= 6 && hour < 20) ? 'ON' : 'OFF';\n// const text = (minutes >= 25 && minutes < 26) ? 'ON' : 'OFF';\nreturn [ {payload: Date.now()}, {payload: text} ];",
+        "func": "const enabled = (msg.payload === true);\nif (!enabled) { return [{}, {payload:'OFF'}]; }\nconst now = new Date();\nconst hour = now.getHours();\nconst minutes = now.getMinutes();\nconst text = (hour >= 5 && hour < 23) ? 'ON' : 'OFF';\n// const text = (minutes >= 25 && minutes < 26) ? 'ON' : 'OFF';\nreturn [ {payload: Date.now()}, {payload: text} ];",
         "outputs": 2,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 1400,
+        "x": 660,
+        "y": 1600,
         "wires": [
             [
                 "e5c0943a8969389f"
@@ -2648,8 +2937,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 590,
-        "y": 1360,
+        "x": 610,
+        "y": 1560,
         "wires": []
     },
     {
@@ -2659,7 +2948,7 @@
         "g": "466f7742a246e74a",
         "group": "f325796ebb721579",
         "order": 8,
-        "width": 3,
+        "width": 4,
         "height": 1,
         "name": "Circulator Status",
         "label": "Circulator Status",
@@ -2670,8 +2959,8 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 950,
-        "y": 1380,
+        "x": 970,
+        "y": 1580,
         "wires": []
     },
     {
@@ -2682,8 +2971,8 @@
         "name": "injection volume A and B",
         "label": "A, B input volume",
         "tooltip": "",
-        "group": "grp_a_pump",
-        "order": 1,
+        "group": "f325796ebb721579",
+        "order": 12,
         "width": 4,
         "height": 1,
         "passthru": true,
@@ -2694,7 +2983,7 @@
         "className": "",
         "topicType": "str",
         "x": 210,
-        "y": 2800,
+        "y": 2980,
         "wires": [
             [
                 "fn_a_save_ml"
@@ -2715,7 +3004,7 @@
         "finalize": "",
         "libs": [],
         "x": 490,
-        "y": 2800,
+        "y": 2980,
         "wires": [
             [
                 "txt_a_current"
@@ -2727,8 +3016,8 @@
         "type": "ui_text",
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
-        "group": "grp_a_pump",
-        "order": 3,
+        "group": "f325796ebb721579",
+        "order": 14,
         "width": 4,
         "height": 1,
         "name": "Setting",
@@ -2741,7 +3030,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 750,
-        "y": 2800,
+        "y": 2980,
         "wires": []
     },
     {
@@ -2750,8 +3039,8 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "name": "Start injecting solutions A and B",
-        "group": "grp_a_pump",
-        "order": 5,
+        "group": "f325796ebb721579",
+        "order": 16,
         "width": 4,
         "height": 1,
         "passthru": false,
@@ -2766,7 +3055,7 @@
         "topic": "",
         "topicType": "str",
         "x": 190,
-        "y": 2860,
+        "y": 3040,
         "wires": [
             [
                 "fn_a_run_ml"
@@ -2779,7 +3068,7 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "name": "GPIO25 ON→계산초 후 OFF + 로그/표시(시작만 기록)",
-        "func": "const ml = Number(flow.get(\"pumpA_volume_ml\"));\nconst sec = Number(flow.get(\"pumpA_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 A액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"pumpA_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + CSV 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeCsvMsg(\"PUMP_AB_START\", ml, sec),             // CSV: 시작만 기록\n  makeUiMsg(\"Start\")                            // UI\n]);\n\n// sec 후 OFF(1) — CSV 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                          // CSV 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeCsvMsg(action, ml, sec){\n  const ts = nowStr();\n  const secDisp = Math.round(sec*10)/10;\n  return { payload: `${ts},AB,volume,${ml}ml,duration,${secDisp}s` };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
+        "func": "const ml = Number(flow.get(\"pumpA_volume_ml\"));\nconst sec = Number(flow.get(\"pumpA_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 A액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"pumpA_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + CSV 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeCsvMsg(\"PUMP_AB_START\", ml, sec),             // CSV: 시작만 기록\n  makeUiMsg(\"Start\")                            // UI\n]);\n\n// sec 후 OFF(1) — CSV 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                          // CSV 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeCsvMsg(action, ml, sec){\n  const ts = nowStr();\n  const secDisp = Math.round(sec*10)/10;\n  return { payload: `${ts},AB,volume,${ml},duration,${secDisp}s` };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
         "outputs": 3,
         "timeout": "",
         "noerr": 0,
@@ -2787,7 +3076,7 @@
         "finalize": "",
         "libs": [],
         "x": 620,
-        "y": 2860,
+        "y": 3040,
         "wires": [
             [
                 "gpio25_out"
@@ -2813,7 +3102,7 @@
         "out": "out",
         "bcm": true,
         "x": 990,
-        "y": 2840,
+        "y": 3020,
         "wires": []
     },
     {
@@ -2821,8 +3110,8 @@
         "type": "ui_text",
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
-        "group": "grp_a_pump",
-        "order": 7,
+        "group": "f325796ebb721579",
+        "order": 18,
         "width": 8,
         "height": 1,
         "name": "Recent inputs (A, B)",
@@ -2835,7 +3124,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 1040,
-        "y": 2880,
+        "y": 3060,
         "wires": []
     },
     {
@@ -2844,14 +3133,14 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "name": "A, B액 로그 CSV",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Solution_input_log.csv",
+        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv",
         "filenameType": "str",
         "appendNewline": true,
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "none",
         "x": 1040,
-        "y": 2940,
+        "y": 3120,
         "wires": [
             []
         ]
@@ -2875,7 +3164,7 @@
         "payload": "timestamp,device,action,detail",
         "payloadType": "str",
         "x": 240,
-        "y": 2940,
+        "y": 3120,
         "wires": [
             [
                 "fn_a_header_guard"
@@ -2896,7 +3185,7 @@
         "finalize": "",
         "libs": [],
         "x": 460,
-        "y": 2940,
+        "y": 3120,
         "wires": [
             [
                 "file_a_csv"
@@ -2911,8 +3200,8 @@
         "name": "injection volume Acid",
         "label": "Acid input volume",
         "tooltip": "",
-        "group": "grp_a_pump",
-        "order": 2,
+        "group": "f325796ebb721579",
+        "order": 13,
         "width": 4,
         "height": 1,
         "passthru": true,
@@ -2923,7 +3212,7 @@
         "className": "",
         "topicType": "str",
         "x": 230,
-        "y": 3040,
+        "y": 3220,
         "wires": [
             [
                 "2b753df6afdd64b6"
@@ -2944,7 +3233,7 @@
         "finalize": "",
         "libs": [],
         "x": 490,
-        "y": 3040,
+        "y": 3220,
         "wires": [
             [
                 "eaae89fb0638005f"
@@ -2956,8 +3245,8 @@
         "type": "ui_text",
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
-        "group": "grp_a_pump",
-        "order": 4,
+        "group": "f325796ebb721579",
+        "order": 15,
         "width": 4,
         "height": 1,
         "name": "Setting",
@@ -2970,7 +3259,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 750,
-        "y": 3040,
+        "y": 3220,
         "wires": []
     },
     {
@@ -2979,8 +3268,8 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "name": "Start injecting Acid solutions",
-        "group": "grp_a_pump",
-        "order": 6,
+        "group": "f325796ebb721579",
+        "order": 17,
         "width": 4,
         "height": 1,
         "passthru": false,
@@ -2995,7 +3284,7 @@
         "topic": "",
         "topicType": "str",
         "x": 180,
-        "y": 3100,
+        "y": 3280,
         "wires": [
             [
                 "7284d4e9e0010867"
@@ -3008,7 +3297,7 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "name": "GPIO25 ON→계산초 후 OFF + 로그/표시(시작만 기록)",
-        "func": "const ml = Number(flow.get(\"pumpA_volume_ml\"));\nconst sec = Number(flow.get(\"pumpA_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 A액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"pumpA_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + CSV 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeCsvMsg(\"PUMP_AB_START\", ml, sec),             // CSV: 시작만 기록\n  makeUiMsg(\"Start\")                            // UI\n]);\n\n// sec 후 OFF(1) — CSV 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                          // CSV 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeCsvMsg(action, ml, sec){\n  const ts = nowStr();\n  const secDisp = Math.round(sec*10)/10;\n  return { payload: `${ts},Acid,volume,${ml}ml,duration,${secDisp}s` };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
+        "func": "const ml = Number(flow.get(\"pumpA_volume_ml\"));\nconst sec = Number(flow.get(\"pumpA_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 A액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"pumpA_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + CSV 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeCsvMsg(\"PUMP_AB_START\", ml, sec),             // CSV: 시작만 기록\n  makeUiMsg(\"Start\")                            // UI\n]);\n\n// sec 후 OFF(1) — CSV 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                          // CSV 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeCsvMsg(action, ml, sec){\n  const ts = nowStr();\n  const secDisp = Math.round(sec*10)/10;\n  return { payload: `${ts},Acid,volume,${ml},duration,${secDisp}s` };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
         "outputs": 3,
         "timeout": "",
         "noerr": 0,
@@ -3016,7 +3305,7 @@
         "finalize": "",
         "libs": [],
         "x": 540,
-        "y": 3100,
+        "y": 3280,
         "wires": [
             [
                 "1a838d3ee158ae54"
@@ -3042,7 +3331,7 @@
         "out": "out",
         "bcm": true,
         "x": 990,
-        "y": 3080,
+        "y": 3260,
         "wires": []
     },
     {
@@ -3050,8 +3339,8 @@
         "type": "ui_text",
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
-        "group": "grp_a_pump",
-        "order": 8,
+        "group": "f325796ebb721579",
+        "order": 19,
         "width": 8,
         "height": 1,
         "name": "Recent inputs (Acid)",
@@ -3064,7 +3353,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 1000,
-        "y": 3120,
+        "y": 3300,
         "wires": []
     },
     {
@@ -3073,14 +3362,14 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "name": "산성액 로그 CSV",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Solution_input_log.csv",
+        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv",
         "filenameType": "str",
         "appendNewline": true,
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "none",
         "x": 980,
-        "y": 3180,
+        "y": 3360,
         "wires": [
             []
         ]
@@ -3104,7 +3393,7 @@
         "payload": "timestamp,device,action,detail",
         "payloadType": "str",
         "x": 240,
-        "y": 3180,
+        "y": 3360,
         "wires": [
             [
                 "f97336f95369f779"
@@ -3125,7 +3414,7 @@
         "finalize": "",
         "libs": [],
         "x": 460,
-        "y": 3180,
+        "y": 3360,
         "wires": [
             [
                 "6dddb568535969eb"
@@ -3137,13 +3426,13 @@
         "type": "pythonshell in",
         "z": "84f9df6667326f98",
         "g": "915bc3b1ca228f03",
-        "name": "Pump controller",
-        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/PumpController.py",
+        "name": "Dist 1 Pump controller",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/Dist_1_PumpController.py",
         "virtualenv": "",
         "continuous": true,
         "stdInData": true,
         "x": 520,
-        "y": 2060,
+        "y": 2320,
         "wires": [
             [
                 "839c019b8d38b1ce"
@@ -3181,8 +3470,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 2060,
+        "x": 280,
+        "y": 2320,
         "wires": [
             [
                 "577253202c73b09c"
@@ -3203,8 +3492,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 700,
-        "y": 2060,
+        "x": 720,
+        "y": 2320,
         "wires": []
     },
     {
@@ -3217,7 +3506,7 @@
         "tooltip": "",
         "group": "f325796ebb721579",
         "order": 10,
-        "width": 3,
+        "width": 4,
         "height": 1,
         "passthru": true,
         "decouple": "false",
@@ -3234,8 +3523,8 @@
         "offcolor": "",
         "animate": false,
         "className": "",
-        "x": 130,
-        "y": 2060,
+        "x": 110,
+        "y": 2320,
         "wires": [
             [
                 "3725b711ea5e2772"
@@ -3249,7 +3538,7 @@
         "g": "915bc3b1ca228f03",
         "group": "f325796ebb721579",
         "order": 9,
-        "width": 6,
+        "width": 8,
         "height": 1,
         "name": "",
         "label": "Nutrient solution control",
@@ -3260,8 +3549,8 @@
         "font": "Arial,Arial,Helvetica,sans-serif",
         "fontSize": "25",
         "color": "#ffffff",
-        "x": 190,
-        "y": 2000,
+        "x": 170,
+        "y": 2260,
         "wires": []
     },
     {
@@ -3273,7 +3562,7 @@
         "tooltip": "",
         "group": "f325796ebb721579",
         "order": 3,
-        "width": 3,
+        "width": 4,
         "height": 1,
         "passthru": true,
         "decouple": "false",
@@ -3290,8 +3579,8 @@
         "offcolor": "",
         "animate": true,
         "className": "",
-        "x": 140,
-        "y": 1900,
+        "x": 120,
+        "y": 2200,
         "wires": [
             [
                 "7def7b8e65cbddcc"
@@ -3302,13 +3591,13 @@
         "id": "a19b61fd61a05499",
         "type": "pythonshell in",
         "z": "84f9df6667326f98",
-        "name": "UV controller",
-        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/UVController.py",
+        "name": "Dist_1_UV controller",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/Dist_1_UVController.py",
         "virtualenv": "",
         "continuous": true,
         "stdInData": true,
-        "x": 530,
-        "y": 1900,
+        "x": 540,
+        "y": 2200,
         "wires": [
             [
                 "34196794c1698420"
@@ -3345,8 +3634,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 320,
-        "y": 1900,
+        "x": 300,
+        "y": 2200,
         "wires": [
             [
                 "a19b61fd61a05499"
@@ -3366,8 +3655,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 720,
-        "y": 1900,
+        "x": 740,
+        "y": 2200,
         "wires": []
     },
     {
@@ -3391,7 +3680,7 @@
         "to": "",
         "reg": false,
         "x": 680,
-        "y": 1040,
+        "y": 1100,
         "wires": [
             [
                 "1aa3bbe8afdc012d",
@@ -3415,7 +3704,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 920,
-        "y": 1040,
+        "y": 1100,
         "wires": []
     },
     {
@@ -3424,8 +3713,8 @@
         "z": "84f9df6667326f98",
         "g": "e8ce93fc01bd7af9",
         "name": "",
-        "group": "9a12b08656165df4",
-        "order": 1,
+        "group": "c5fb925fb5ca84e9",
+        "order": 3,
         "width": 6,
         "height": 5,
         "gtype": "gage",
@@ -3444,7 +3733,7 @@
         "diff": false,
         "className": "",
         "x": 960,
-        "y": 1100,
+        "y": 1160,
         "wires": []
     },
     {
@@ -3453,11 +3742,634 @@
         "z": "84f9df6667326f98",
         "g": "e8ce93fc01bd7af9",
         "name": "",
-        "group": "9a12b08656165df4",
+        "group": "c5fb925fb5ca84e9",
+        "order": 6,
+        "width": 6,
+        "height": 5,
+        "label": "Solution Temperature",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "MM/DD HH:MM",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "30",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 960,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d3d5c208297b5bcb",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "g": "17b6e50d0d55a4f0",
+        "name": "CO2",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.co2",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 460,
+        "wires": [
+            [
+                "ce91a081135d3653",
+                "a81d2b73695ec428",
+                "f033277dce8c9fc3"
+            ]
+        ]
+    },
+    {
+        "id": "ce91a081135d3653",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "g": "17b6e50d0d55a4f0",
+        "name": "CO2 debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "a81d2b73695ec428",
+        "type": "ui_gauge",
+        "z": "84f9df6667326f98",
+        "g": "17b6e50d0d55a4f0",
+        "name": "",
+        "group": "c888f82b8cc4653a",
+        "order": 3,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "CO2",
+        "label": "ppm",
+        "format": "{{value}}",
+        "min": "30",
+        "max": "1000",
+        "colors": [
+            "#ca3838",
+            "#00b500",
+            "#ca3838"
+        ],
+        "seg1": "300",
+        "seg2": "800",
+        "diff": false,
+        "className": "",
+        "x": 910,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "f033277dce8c9fc3",
+        "type": "ui_chart",
+        "z": "84f9df6667326f98",
+        "g": "17b6e50d0d55a4f0",
+        "name": "",
+        "group": "c888f82b8cc4653a",
+        "order": 6,
+        "width": 6,
+        "height": 5,
+        "label": "CO2",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "MM/DD HH:MM",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "30",
+        "ymax": "1000",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 910,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1caf8a5c5e3446a5",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "Solution Temperature",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.Solution_Temperature",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1820,
+        "y": 1100,
+        "wires": [
+            [
+                "25a1fc18f884cf3a",
+                "12a11f4918b20262",
+                "ada6e5f91605f50b"
+            ]
+        ]
+    },
+    {
+        "id": "25a1fc18f884cf3a",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "debug 14",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2060,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "12a11f4918b20262",
+        "type": "ui_gauge",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "",
+        "group": "aa578847983587e6",
+        "order": 3,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "Solution Temperature",
+        "label": "Cº",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "30",
+        "colors": [
+            "#b50000",
+            "#00b500",
+            "#b50000"
+        ],
+        "seg1": "17",
+        "seg2": "23",
+        "diff": false,
+        "className": "",
+        "x": 2100,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "ada6e5f91605f50b",
+        "type": "ui_chart",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "",
+        "group": "aa578847983587e6",
+        "order": 6,
+        "width": 6,
+        "height": 5,
+        "label": "Solution Temperature",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "MM/DD HH:MM",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "30",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 2100,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ded04047b201eda5",
+        "type": "inject",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1200",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1270,
+        "y": 680,
+        "wires": [
+            [
+                "3f103b9815f86dd4"
+            ]
+        ]
+    },
+    {
+        "id": "3f103b9815f86dd4",
+        "type": "pythonshell in",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "Dist_2_EC_pH",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_EC_pH.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": true,
+        "x": 1460,
+        "y": 680,
+        "wires": [
+            [
+                "27c51267c346f89a"
+            ]
+        ]
+    },
+    {
+        "id": "27c51267c346f89a",
+        "type": "json",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1610,
+        "y": 680,
+        "wires": [
+            [
+                "882bd2a1db484c7a",
+                "83ef16bf59648dba",
+                "523fb7d4146c728e",
+                "23d54e14bb05b234",
+                "1caf8a5c5e3446a5"
+            ]
+        ]
+    },
+    {
+        "id": "882bd2a1db484c7a",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "Date str",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.date",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1800,
+        "y": 680,
+        "wires": [
+            [
+                "2c23a9c69bfd5964"
+            ]
+        ]
+    },
+    {
+        "id": "83ef16bf59648dba",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "EC",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.EC",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1790,
+        "y": 740,
+        "wires": [
+            [
+                "19575127be6263da",
+                "55c7596a34b371e7",
+                "10a137bf882b5184"
+            ]
+        ]
+    },
+    {
+        "id": "523fb7d4146c728e",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "pH",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.pH",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1790,
+        "y": 940,
+        "wires": [
+            [
+                "7c25ba5dd16a36b6",
+                "1b55bb39740ed3db",
+                "1236be8eabaf376f"
+            ]
+        ]
+    },
+    {
+        "id": "19575127be6263da",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "debug 15",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2000,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "7c25ba5dd16a36b6",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "debug 16",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2000,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "2c23a9c69bfd5964",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "Date str to date",
+        "func": "// Get the input string from msg.payload\nlet valueString = msg.payload;  // e.g., \"2025-06-17 18:13\"\n\n// Replace space with 'T' to ensure proper ISO 8601 format\nlet isoFormat = valueString.replace(\" \", \"T\");\n\n// Convert the string to a JavaScript Date object\nlet dateObj = new Date(isoFormat);\nmsg.payload = dateObj\n\n// Check if the date is valid\n//if (isNaN(dateObj.getTime())) {\n//    msg.payload = { error: \"Invalid date format\" };\n//} else {\n//    msg.payload = {\n//        original: valueString,\n//        date: dateObj\n//    };\n//}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1980,
+        "y": 680,
+        "wires": [
+            [
+                "bed3ea5061f3aa42"
+            ]
+        ]
+    },
+    {
+        "id": "bed3ea5061f3aa42",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2160,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "55c7596a34b371e7",
+        "type": "ui_gauge",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "",
+        "group": "aa578847983587e6",
+        "order": 1,
+        "width": 6,
+        "height": 5,
+        "gtype": "gage",
+        "title": "EC",
+        "label": "mS/cm",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "3",
+        "colors": [
+            "#00b500",
+            "#00b500",
+            "#b50000"
+        ],
+        "seg1": "",
+        "seg2": "1.8",
+        "diff": false,
+        "className": "",
+        "x": 2010,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "1b55bb39740ed3db",
+        "type": "ui_gauge",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "",
+        "group": "aa578847983587e6",
         "order": 2,
         "width": 6,
         "height": 5,
-        "label": "Solution_Temperature",
+        "gtype": "gage",
+        "title": "pH",
+        "label": "",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "10",
+        "colors": [
+            "#b50000",
+            "#00b500",
+            "#b50000"
+        ],
+        "seg1": "5.5",
+        "seg2": "7",
+        "diff": false,
+        "className": "",
+        "x": 2010,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "10a137bf882b5184",
+        "type": "ui_chart",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "",
+        "group": "aa578847983587e6",
+        "order": 4,
+        "width": 6,
+        "height": 5,
+        "label": "EC",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "MM/DD HH:MM",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "3",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 2010,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1236be8eabaf376f",
+        "type": "ui_chart",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "",
+        "group": "aa578847983587e6",
+        "order": 5,
+        "width": 6,
+        "height": 5,
+        "label": "pH",
         "chartType": "line",
         "legend": "false",
         "xformat": "MM/DD HH:MM",
@@ -3486,11 +4398,1235 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 960,
-        "y": 1140,
+        "x": 2010,
+        "y": 1040,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "23d54e14bb05b234",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "g": "3eaca329610704eb",
+        "name": "debug 18",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1760,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "ui_auto_switch",
+        "type": "ui_switch",
+        "z": "84f9df6667326f98",
+        "name": "Auto Mode",
+        "label": "Auto mode",
+        "tooltip": "",
+        "group": "f325796ebb721579",
+        "order": 11,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 150,
+        "y": 3460,
+        "wires": [
+            [
+                "fn_set_auto_flag",
+                "b17d8c4a3bca04cb"
+            ]
+        ]
+    },
+    {
+        "id": "fn_set_auto_flag",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "name": "set flow.auto_mode",
+        "func": "flow.set('auto_mode', !!msg.payload);\nreturn {payload: flow.get('auto_mode')};",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 3460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b17d8c4a3bca04cb",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "name": "boolean to str",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "false",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "true",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 3520,
+        "wires": [
+            [
+                "7cf8ec733dff273c"
+            ]
+        ]
+    },
+    {
+        "id": "7cf8ec733dff273c",
+        "type": "pythonshell in",
+        "z": "84f9df6667326f98",
+        "name": "Dist 1 EC pH Automation",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/Dist_1_EC_pH_auto_control.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": true,
+        "x": 590,
+        "y": 3520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "661835450f15a6b4",
+        "type": "ui_switch",
+        "z": "84f9df6667326f98",
+        "d": true,
+        "g": "ad1743f076448914",
+        "name": "UV Automation",
+        "label": "UV Automation",
+        "tooltip": "",
+        "group": "",
+        "order": 4,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 1060,
+        "y": 2040,
+        "wires": [
+            [
+                "32897822979abecd",
+                "d3ac968ba6e2864f"
+            ]
+        ]
+    },
+    {
+        "id": "d785e496788ff69d",
+        "type": "ui_text",
+        "z": "84f9df6667326f98",
+        "d": true,
+        "g": "ad1743f076448914",
+        "group": "",
+        "order": 5,
+        "width": 3,
+        "height": 1,
+        "name": "UV Status",
+        "label": "UV Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 1650,
+        "y": 2040,
+        "wires": []
+    },
+    {
+        "id": "32897822979abecd",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "d": true,
+        "g": "ad1743f076448914",
+        "name": "flow.enable 저장",
+        "func": "flow.set('uv_enable', msg.payload === true);\nreturn null;",
+        "outputs": 0,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 2020,
+        "wires": []
+    },
+    {
+        "id": "c98d03a0abbedcbd",
+        "type": "inject",
+        "z": "84f9df6667326f98",
+        "d": true,
+        "g": "ad1743f076448914",
+        "name": "매 10분마다 실행",
+        "props": [],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 1070,
+        "y": 2120,
+        "wires": [
+            [
+                "aa04375898a1948b"
+            ]
+        ]
+    },
+    {
+        "id": "aa04375898a1948b",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "d": true,
+        "g": "ad1743f076448914",
+        "name": "스케줄 ON일 때만 1/0 결정 + 상태문구",
+        "func": "if (flow.get('uv_enable') !== true) return null;\nconst now = new Date();\nconst hour = now.getHours(); \nconst minutes = now.getMinutes();\nlet val = 1;               // 기본 OFF(1)\nlet text = 'OFF';\nif (hour >= 1 && hour < 13) { val = 0; text = 'ON'; }\n// if (minutes >= 25 && minutes < 26) { val = 0; text = 'ON'; }\n// 출력1: GPIO, 출력2: 상태문구\nreturn [ {payload: val}, {payload: text} ];\n\n// if (flow.get('uv_enable') !== true) return null;\n// 현재 시간(hour) 가져오기\n// let now = new Date();\n// let hour = now.getHours();\n// let minutes = now.getMinutes();\n// let pinState = 1;              // 기본 OFF(1)\n// let text = 'OFF';\n\n\n// // 00시 ~ 06시 사이 ON (0)\n// // if (hour >= 0 && hour < 6) {\n// if (minutes >= 22 && minutes < 23) {\n//     pinState = 0; // ON\n// } else {\n//     pinState = 1; // OFF\n// }\n\n// msg.payload = pinState;\n// return msg;",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1370,
+        "y": 2120,
+        "wires": [
+            [
+                "9f360e5a54c95af6"
+            ],
+            [
+                "d785e496788ff69d"
+            ]
+        ]
+    },
+    {
+        "id": "d3ac968ba6e2864f",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "d": true,
+        "g": "ad1743f076448914",
+        "name": "스위치 토글 시 현재상태 재표시",
+        "func": "const enabled = (msg.payload === true);\nif (!enabled) { return [{}, {payload:'OFF'}]; }\nconst now = new Date();\nconst hour = now.getHours();\nconst minutes = now.getMinutes();\nconst text = (hour >= 1 && hour < 3) ? 'ON' : 'OFF';\n// const text = (minutes >= 25 && minutes < 26) ? 'ON' : 'OFF';\nreturn [ {payload: Date.now()}, {payload: text} ];",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1360,
+        "y": 2060,
+        "wires": [
+            [
+                "aa04375898a1948b"
+            ],
+            [
+                "d785e496788ff69d"
+            ]
+        ]
+    },
+    {
+        "id": "9f360e5a54c95af6",
+        "type": "rpi-gpio out",
+        "z": "84f9df6667326f98",
+        "d": true,
+        "g": "ad1743f076448914",
+        "name": "GPIO18 (pin 12)",
+        "pin": "18",
+        "set": true,
+        "level": "1",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1680,
+        "y": 2120,
+        "wires": []
+    },
+    {
+        "id": "7a499e2de11fb75a",
+        "type": "pythonshell in",
+        "z": "84f9df6667326f98",
+        "g": "ad1743f076448914",
+        "name": "Dist_2_LED controller",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/Dist_2_LEDController.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": true,
+        "x": 1420,
+        "y": 1940,
+        "wires": [
+            [
+                "0b9b9d5aae2018ff"
+            ]
+        ]
+    },
+    {
+        "id": "e08d25bb4b05e048",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "g": "ad1743f076448914",
+        "name": "boolean to str",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "false",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "true",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1180,
+        "y": 1940,
+        "wires": [
+            [
+                "7a499e2de11fb75a"
+            ]
+        ]
+    },
+    {
+        "id": "0b9b9d5aae2018ff",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "g": "ad1743f076448914",
+        "name": "debug 19",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "ef29638c34485786",
+        "type": "ui_switch",
+        "z": "84f9df6667326f98",
+        "g": "ad1743f076448914",
+        "name": "",
+        "label": "LED",
+        "tooltip": "",
+        "group": "e3eac795c3a63651",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "false",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "true",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1030,
+        "y": 1940,
+        "wires": [
+            [
+                "e08d25bb4b05e048"
+            ]
+        ]
+    },
+    {
+        "id": "a1e65c136a4faf8e",
+        "type": "ui_text",
+        "z": "84f9df6667326f98",
+        "g": "ad1743f076448914",
+        "group": "e3eac795c3a63651",
+        "order": 1,
+        "width": 8,
+        "height": 1,
+        "name": "",
+        "label": "Lighting",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "style": true,
+        "font": "Arial,Arial,Helvetica,sans-serif",
+        "fontSize": "25",
+        "color": "#ffffff",
+        "x": 1040,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "4f385e73050961e1",
+        "type": "pythonshell in",
+        "z": "84f9df6667326f98",
+        "g": "978a9587f7a84adc",
+        "name": "Dist 2 Pump controller",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/Dist_2_PumpController.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": true,
+        "x": 1400,
+        "y": 2320,
+        "wires": [
+            [
+                "63e650f897ae7cfe"
+            ]
+        ]
+    },
+    {
+        "id": "f15e7c328f5d7fd4",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "g": "978a9587f7a84adc",
+        "name": "boolean to str",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "false",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "true",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1160,
+        "y": 2320,
+        "wires": [
+            [
+                "4f385e73050961e1"
+            ]
+        ]
+    },
+    {
+        "id": "63e650f897ae7cfe",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "g": "978a9587f7a84adc",
+        "name": "debug 20",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1600,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "3aa9a7e96d4cfe09",
+        "type": "ui_switch",
+        "z": "84f9df6667326f98",
+        "g": "978a9587f7a84adc",
+        "name": "",
+        "label": "Pump",
+        "tooltip": "",
+        "group": "e3eac795c3a63651",
+        "order": 7,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "false",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "true",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 990,
+        "y": 2320,
+        "wires": [
+            [
+                "f15e7c328f5d7fd4"
+            ]
+        ]
+    },
+    {
+        "id": "e320eb5d6e113614",
+        "type": "ui_text",
+        "z": "84f9df6667326f98",
+        "g": "978a9587f7a84adc",
+        "group": "e3eac795c3a63651",
+        "order": 6,
+        "width": 8,
+        "height": 1,
+        "name": "",
+        "label": "Nutrient solution control",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "className": "",
+        "style": true,
+        "font": "Arial,Arial,Helvetica,sans-serif",
+        "fontSize": "25",
+        "color": "#ffffff",
+        "x": 1050,
+        "y": 2260,
+        "wires": []
+    },
+    {
+        "id": "032638cc6c5fc9f2",
+        "type": "ui_text_input",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "injection volume A and B",
+        "label": "A, B input volume",
+        "tooltip": "",
+        "group": "e3eac795c3a63651",
+        "order": 9,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1430,
+        "y": 2980,
+        "wires": [
+            [
+                "742c215264b52d5d"
+            ]
+        ]
+    },
+    {
+        "id": "742c215264b52d5d",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "유량 저장 + 시간(초) 계산",
+        "func": "const ml = Number(msg.payload);\nif (isNaN(ml) || ml <= 0) return null;\n// 1.613 ml/s 가정 → sec = ml / 1.613\n// const secRaw = ml / 1.613;\n// const secRaw = ml / 1.6667;\nconst secRaw = ml / 1.65;\nconst secDisp = Math.round(secRaw * 10) / 10; // 표시용 소수1자리\nflow.set(\"pumpA_volume_ml\", ml);\nflow.set(\"pumpA_duration_sec\", secRaw);\nreturn { payload: `${ml} ml (${secDisp} s)` };",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1710,
+        "y": 2980,
+        "wires": [
+            [
+                "66ddab9642e34173"
+            ]
+        ]
+    },
+    {
+        "id": "66ddab9642e34173",
+        "type": "ui_text",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "group": "e3eac795c3a63651",
+        "order": 11,
+        "width": 4,
+        "height": 1,
+        "name": "Setting",
+        "label": "AB Setting",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 1970,
+        "y": 2980,
+        "wires": []
+    },
+    {
+        "id": "e4a0abcae8745f5d",
+        "type": "ui_button",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "Start injecting solutions A and B",
+        "group": "e3eac795c3a63651",
+        "order": 13,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "Start injecting A and B",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 1410,
+        "y": 3040,
+        "wires": [
+            [
+                "80cc8c87a9dcdff5"
+            ]
+        ]
+    },
+    {
+        "id": "80cc8c87a9dcdff5",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "GPIO25 ON→계산초 후 OFF + 로그/표시(시작만 기록)",
+        "func": "const ml = Number(flow.get(\"pumpA_volume_ml\"));\nconst sec = Number(flow.get(\"pumpA_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 A액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"pumpA_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + CSV 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeCsvMsg(\"PUMP_AB_START\", ml, sec),             // CSV: 시작만 기록\n  makeUiMsg(\"Start\")                            // UI\n]);\n\n// sec 후 OFF(1) — CSV 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                          // CSV 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeCsvMsg(action, ml, sec){\n  const ts = nowStr();\n  const secDisp = Math.round(sec*10)/10;\n  return { payload: `${ts},AB,volume,${ml},duration,${secDisp}s` };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
+        "outputs": 3,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1840,
+        "y": 3040,
+        "wires": [
+            [
+                "c7fe5d35e20589ec"
+            ],
+            [
+                "ce77e02c54e5281c"
+            ],
+            [
+                "e0b97cfcaafbe7a8"
+            ]
+        ]
+    },
+    {
+        "id": "c7fe5d35e20589ec",
+        "type": "rpi-gpio out",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "GPIO22 (0=ON,1=OFF)",
+        "pin": "22",
+        "set": true,
+        "level": "1",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 2210,
+        "y": 3020,
+        "wires": []
+    },
+    {
+        "id": "e0b97cfcaafbe7a8",
+        "type": "ui_text",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "group": "e3eac795c3a63651",
+        "order": 15,
+        "width": 8,
+        "height": 1,
+        "name": "Recent inputs (A, B)",
+        "label": "Recent inputs (A, B)",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 2260,
+        "y": 3060,
+        "wires": []
+    },
+    {
+        "id": "ce77e02c54e5281c",
+        "type": "file",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "A, B액 로그 CSV",
+        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_Solution_input_log.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 2260,
+        "y": 3120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d77f241745577d87",
+        "type": "inject",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "헤더 1회 기록",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.5,
+        "topic": "",
+        "payload": "timestamp,device,action,detail",
+        "payloadType": "str",
+        "x": 1460,
+        "y": 3120,
+        "wires": [
+            [
+                "f7516acac2b29596"
+            ]
+        ]
+    },
+    {
+        "id": "f7516acac2b29596",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "헤더 중복 방지",
+        "func": "if (flow.get('pumpA_csv_header_written')) return null;\nflow.set('pumpA_csv_header_written', true);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1680,
+        "y": 3120,
+        "wires": [
+            [
+                "ce77e02c54e5281c"
+            ]
+        ]
+    },
+    {
+        "id": "abf0f3cd0103cc31",
+        "type": "ui_text_input",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "injection volume Acid",
+        "label": "Acid input volume",
+        "tooltip": "",
+        "group": "e3eac795c3a63651",
+        "order": 10,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": 300,
+        "topic": "",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "str",
+        "x": 1450,
+        "y": 3220,
+        "wires": [
+            [
+                "083acd90c241f25d"
+            ]
+        ]
+    },
+    {
+        "id": "083acd90c241f25d",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "유량 저장 + 시간(초) 계산",
+        "func": "const ml = Number(msg.payload);\nif (isNaN(ml) || ml <= 0) return null;\n// 1.613 ml/s 가정 → sec = ml / 1.613\n// const secRaw = ml / 1.613;\n// const secRaw = ml / 1.6667;\nconst secRaw = ml / 1.65;\nconst secDisp = Math.round(secRaw * 10) / 10; // 표시용 소수1자리\nflow.set(\"pumpA_volume_ml\", ml);\nflow.set(\"pumpA_duration_sec\", secRaw);\nreturn { payload: `${ml} ml (${secDisp} s)` };",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1710,
+        "y": 3220,
+        "wires": [
+            [
+                "972eec39af78be9a"
+            ]
+        ]
+    },
+    {
+        "id": "972eec39af78be9a",
+        "type": "ui_text",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "group": "e3eac795c3a63651",
+        "order": 12,
+        "width": 4,
+        "height": 1,
+        "name": "Setting",
+        "label": "Acid Setting",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 1970,
+        "y": 3220,
+        "wires": []
+    },
+    {
+        "id": "ada5f246a3285a35",
+        "type": "ui_button",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "Start injecting Acid solutions",
+        "group": "e3eac795c3a63651",
+        "order": 14,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "label": "Start injecting Acid",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 1400,
+        "y": 3280,
+        "wires": [
+            [
+                "67dfe99f35a05924"
+            ]
+        ]
+    },
+    {
+        "id": "67dfe99f35a05924",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "GPIO25 ON→계산초 후 OFF + 로그/표시(시작만 기록)",
+        "func": "const ml = Number(flow.get(\"pumpA_volume_ml\"));\nconst sec = Number(flow.get(\"pumpA_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 A액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"pumpA_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + CSV 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeCsvMsg(\"PUMP_AB_START\", ml, sec),             // CSV: 시작만 기록\n  makeUiMsg(\"Start\")                            // UI\n]);\n\n// sec 후 OFF(1) — CSV 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                          // CSV 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeCsvMsg(action, ml, sec){\n  const ts = nowStr();\n  const secDisp = Math.round(sec*10)/10;\n  return { payload: `${ts},Acid,volume,${ml},duration,${secDisp}s` };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
+        "outputs": 3,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1760,
+        "y": 3280,
+        "wires": [
+            [
+                "21fc1765b77482f9"
+            ],
+            [
+                "8bfc716cf46fb70d"
+            ],
+            [
+                "f37eddb8c684e4ec"
+            ]
+        ]
+    },
+    {
+        "id": "21fc1765b77482f9",
+        "type": "rpi-gpio out",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "GPIO23 (0=ON,1=OFF)",
+        "pin": "23",
+        "set": true,
+        "level": "1",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 2210,
+        "y": 3260,
+        "wires": []
+    },
+    {
+        "id": "f37eddb8c684e4ec",
+        "type": "ui_text",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "group": "e3eac795c3a63651",
+        "order": 16,
+        "width": 8,
+        "height": 1,
+        "name": "Recent inputs (Acid)",
+        "label": "Recent inputs (Acid)",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 2220,
+        "y": 3300,
+        "wires": []
+    },
+    {
+        "id": "8bfc716cf46fb70d",
+        "type": "file",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "산성액 로그 CSV",
+        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_Solution_input_log.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 2200,
+        "y": 3360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d4e056cc41c01da1",
+        "type": "inject",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "헤더 1회 기록",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.5,
+        "topic": "",
+        "payload": "timestamp,device,action,detail",
+        "payloadType": "str",
+        "x": 1460,
+        "y": 3360,
+        "wires": [
+            [
+                "78091ee38cd1e0cc"
+            ]
+        ]
+    },
+    {
+        "id": "78091ee38cd1e0cc",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "name": "헤더 중복 방지",
+        "func": "if (flow.get('pumpA_csv_header_written')) return null;\nflow.set('pumpA_csv_header_written', true);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1680,
+        "y": 3360,
+        "wires": [
+            [
+                "8bfc716cf46fb70d"
+            ]
+        ]
+    },
+    {
+        "id": "e915b915a2f01c1b",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "name": "debug 21",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1640,
+        "y": 2200,
+        "wires": []
+    },
+    {
+        "id": "9396d3ba5291459f",
+        "type": "pythonshell in",
+        "z": "84f9df6667326f98",
+        "name": "Dist_2_UV controller",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/Dist_2_UVController.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": true,
+        "x": 1440,
+        "y": 2200,
+        "wires": [
+            [
+                "e915b915a2f01c1b"
+            ]
+        ]
+    },
+    {
+        "id": "d70b2a7a62c2872f",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "name": "boolean to str",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "false",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "true",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1200,
+        "y": 2200,
+        "wires": [
+            [
+                "9396d3ba5291459f"
+            ]
+        ]
+    },
+    {
+        "id": "004ded11443e61e3",
+        "type": "ui_switch",
+        "z": "84f9df6667326f98",
+        "name": "UV Automation",
+        "label": "UV Automation",
+        "tooltip": "",
+        "group": "e3eac795c3a63651",
+        "order": 3,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "false",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "true",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 1020,
+        "y": 2200,
+        "wires": [
+            [
+                "d70b2a7a62c2872f"
+            ]
+        ]
+    },
+    {
+        "id": "87d673785a0f96f7",
+        "type": "ui_switch",
+        "z": "84f9df6667326f98",
+        "name": "",
+        "label": "Fan",
+        "tooltip": "",
+        "group": "e3eac795c3a63651",
+        "order": 4,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "false",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "true",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 1050,
+        "y": 1800,
+        "wires": [
+            [
+                "eaabd177f90f6e07"
+            ]
+        ]
+    },
+    {
+        "id": "eaabd177f90f6e07",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "name": "boolean to str",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "false",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "true",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1220,
+        "y": 1800,
+        "wires": [
+            [
+                "07b2bd530ce25200"
+            ]
+        ]
+    },
+    {
+        "id": "07b2bd530ce25200",
+        "type": "pythonshell in",
+        "z": "84f9df6667326f98",
+        "name": "Dist 2 Fan controller",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/Dist_2_FanController.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": true,
+        "x": 1460,
+        "y": 1800,
+        "wires": [
+            [
+                "db5a25ff25f37f3e"
+            ]
+        ]
+    },
+    {
+        "id": "db5a25ff25f37f3e",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "name": "debug 22",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1660,
+        "y": 1800,
+        "wires": []
     },
     {
         "id": "inject_10min",
@@ -3575,13 +5711,15 @@
         "g": "e74e46c298b7c6cb",
         "name": "Read CSV File",
         "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Temp_humi_log.csv",
+        "filenameType": "str",
         "format": "utf8",
         "sendError": true,
+        "allProps": false,
         "x": 450,
         "y": 150,
         "wires": [
             [
-                "csv_to_json"
+                "734f54c626594136"
             ]
         ]
     },
@@ -3601,12 +5739,10 @@
         "strings": true,
         "include_empty_strings": "",
         "include_null_values": "",
-        "x": 670,
-        "y": 150,
+        "x": 680,
+        "y": 220,
         "wires": [
-            [
-                "table_ui"
-            ]
+            []
         ]
     },
     {
@@ -3698,16 +5834,15 @@
         "props": [
             {
                 "p": "filename",
-                "v": "/home/cja/Work/cja-skyfarms-project/sensors/EC_pH_log.csv",
+                "v": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv",
                 "vt": "str"
             }
         ],
         "repeat": "600",
+        "crontab": "",
         "once": true,
         "onceDelay": "1",
         "topic": "",
-        "payload": "",
-        "payloadType": "str",
         "x": 170,
         "y": 500,
         "wires": [
@@ -3751,7 +5886,7 @@
         "z": "flow_all",
         "g": "9b29f194d8a3aae8",
         "name": "파일경로 세팅",
-        "func": "msg.filename = \"/home/cja/Work/cja-skyfarms-project/sensors/EC_pH_log.csv\";\nreturn msg;",
+        "func": "msg.filename = \"/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv\";\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3771,11 +5906,13 @@
         "type": "file in",
         "z": "flow_all",
         "g": "9b29f194d8a3aae8",
-        "name": "Read EC_pH_log.csv (utf8)",
-        "filename": "",
+        "name": "Read Dist_1_EC_pH_log.csv (utf8)",
+        "filename": "filename",
+        "filenameType": "msg",
         "format": "utf8",
         "sendError": true,
-        "x": 460,
+        "allProps": false,
+        "x": 480,
         "y": 500,
         "wires": [
             [
@@ -3789,8 +5926,9 @@
         "z": "flow_all",
         "g": "9b29f194d8a3aae8",
         "name": "CSV → rows[]",
-        "func": "const text = (msg.payload||'').toString();\nif(!text.trim()) { msg.payload = []; return msg; }\nconst lines = text.replace(/\\r\\n?/g,'\\n').split('\\n').filter(l=>l.trim().length);\nlet header = [];\nif(lines[0].toLowerCase().startsWith('timestamp')){\n  header = lines[0].split(',').map(h=>h.trim());\n  lines.shift();\n} else {\n  header = ['Timestamp','EC','PH'];\n}\nconst rows = [];\nfor(const line of lines){\n  const cols = line.split(',');\n  if(cols.length < 3) continue;\n  rows.push({\n    [header[0]]: cols[0].trim(),\n    [header[1]]: Number(cols[1]),\n    [header[2]]: Number(cols[2])\n  });\n}\nmsg.payload = rows.slice(-500);\nreturn msg;",
+        "func": "const text = (msg.payload||'').toString();\nif(!text.trim()) { msg.payload = []; return msg; }\nconst lines = text.replace(/\\r\\n?/g,'\\n').split('\\n').filter(l=>l.trim().length);\nlet header = [];\nif(lines[0].toLowerCase().startsWith('timestamp')){\n  header = lines[0].split(',').map(h=>h.trim());\n  lines.shift();\n} else {\n  header = ['Date','EC','pH','Solution temp'];\n}\nconst rows = [];\nfor(const line of lines){\n  const cols = line.split(',');\n  if(cols.length < 3) continue;\n  rows.push({\n    [header[0]]: cols[0].trim(),\n    [header[1]]: Number(cols[1]),\n    [header[2]]: Number(cols[2]),\n    [header[3]]: Number(cols[3])\n  });\n}\nmsg.payload = rows.slice(-500);\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -3832,7 +5970,7 @@
         "order": 3,
         "width": 6,
         "height": 1,
-        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_ecph\" target=\"_self\">CSV Download</a>",
+        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_ecph_dist1\" target=\"_self\">CSV Download</a>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "resendOnRefresh": false,
@@ -3849,12 +5987,12 @@
         "type": "http in",
         "z": "flow_all",
         "g": "9b29f194d8a3aae8",
-        "name": "GET /download_ecph",
-        "url": "/download_ecph",
+        "name": "GET /download_ecph_dist1",
+        "url": "/download_ecph_dist1",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 170,
+        "x": 190,
         "y": 700,
         "wires": [
             [
@@ -3868,9 +6006,11 @@
         "z": "flow_all",
         "g": "9b29f194d8a3aae8",
         "name": "Read CSV (binary)",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/EC_pH_log.csv",
+        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv",
+        "filenameType": "str",
         "format": "binary",
         "sendError": true,
+        "allProps": false,
         "x": 430,
         "y": 700,
         "wires": [
@@ -3888,7 +6028,7 @@
         "statusCode": "",
         "headers": {
             "Content-Type": "text/csv; charset=utf-8",
-            "Content-Disposition": "attachment; filename=EC_pH_log.csv"
+            "Content-Disposition": "attachment; filename=Dist_1_EC_pH_log.csv"
         },
         "x": 650,
         "y": 700,
@@ -3914,7 +6054,7 @@
         "props": [
             {
                 "p": "filename",
-                "v": "/home/cja/Work/cja-skyfarms-project/sensors/Solution_input_log.csv",
+                "v": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv",
                 "vt": "str"
             }
         ],
@@ -3966,7 +6106,7 @@
         "z": "flow_all",
         "g": "d0f7352041fbc952",
         "name": "파일경로 세팅",
-        "func": "msg.filename = \"/home/cja/Work/cja-skyfarms-project/sensors/Solution_input_log.csv\";\nreturn msg;\n\n",
+        "func": "msg.filename = \"/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv\";\nreturn msg;\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3986,13 +6126,13 @@
         "type": "file in",
         "z": "flow_all",
         "g": "d0f7352041fbc952",
-        "name": "Read Solution_input_log.csv (utf8)",
+        "name": "Read Dist_1_Solution_input_log.csv (utf8)",
         "filename": "filename",
         "filenameType": "msg",
         "format": "utf8",
         "sendError": true,
         "allProps": false,
-        "x": 470,
+        "x": 480,
         "y": 900,
         "wires": [
             [
@@ -4006,14 +6146,14 @@
         "z": "flow_all",
         "g": "d0f7352041fbc952",
         "name": "CSV → rows[]",
-        "func": "// msg.payload: 파일에서 읽은 원문 CSV 텍스트\nconst text = (msg.payload || '').toString();\nif (!text.trim()) { msg.payload = []; return msg; }\n\n// 줄 나누기 + 정리\nconst lines = text.replace(/\\r\\n?/g, '\\n')\n                  .split('\\n')\n                  .map(l => l.trim())\n                  .filter(Boolean);\n\n// 결과 배열\nconst rows = [];\n\n// 매칭용 정규식\n// 예) 2025-11-05 17:10:08,AB,volume,50ml;duration,30.3s\nconst re = /^(.*?),(AB|Acid),volume,([^;]+);/i;\n\nfor (const line of lines) {\n  // 헤더가 들어있으면 스킵\n  if (/^timestamp/i.test(line)) continue;\n\n  const m = line.match(re);\n  if (!m) continue;\n\n  const ts = m[1].trim();\n  const solution = m[2].trim();\n  const volToken = m[3].trim();       // 예: \"50ml\"\n\n  // 숫자만 추출 → 50\n  const volumeMl = parseFloat(volToken.replace(/[^\\d.]/g, ''));\n\n  rows.push({\n    \"Timestamp\": ts,\n    \"Solution\": solution,\n    \"Input volume (ml)\": volumeMl\n  });\n}\n\n// 최근 500개만 유지 (원하면 제거 가능)\nmsg.payload = rows.slice(-500);\nreturn msg;",
+        "func": "const text = (msg.payload||'').toString();\nif(!text.trim()) { msg.payload = []; return msg; }\nconst lines = text.replace(/\\r\\n?/g,'\\n').split('\\n').filter(l=>l.trim().length);\nlet header = [];\nif(lines[0].toLowerCase().startsWith('timestamp')){\n  header = lines[0].split(',').map(h=>h.trim());\n  lines.shift();\n} else {\n  header = ['Date','Solution','volume','ml','Duration','Seconds'];\n}\nconst rows = [];\nfor(const line of lines){\n  const cols = line.split(',');\n  if(cols.length < 6) continue;\n  rows.push({\n    [header[0]]: cols[0].trim(),\n    [header[1]]: Number(cols[1]),\n    [header[2]]: Number(cols[2]),\n    [header[3]]: Number(cols[3]),\n    [header[4]]: Number(cols[4]),\n    [header[5]]: Number(cols[5])\n  });\n}\nmsg.payload = rows.slice(-500);\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 720,
+        "x": 740,
         "y": 900,
         "wires": [
             [
@@ -4050,7 +6190,7 @@
         "order": 3,
         "width": 6,
         "height": 1,
-        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_solution\" target=\"_self\">CSV Download</a>",
+        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_solution_dist1\" target=\"_self\">CSV Download</a>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "resendOnRefresh": false,
@@ -4067,12 +6207,12 @@
         "type": "http in",
         "z": "flow_all",
         "g": "d0f7352041fbc952",
-        "name": "GET /download_solution",
-        "url": "/download_solution",
+        "name": "GET /download_solution_dist1",
+        "url": "/download_solution_dist1",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 180,
+        "x": 190,
         "y": 1100,
         "wires": [
             [
@@ -4086,12 +6226,12 @@
         "z": "flow_all",
         "g": "d0f7352041fbc952",
         "name": "Read CSV (binary)",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Solution_input_log.csv",
+        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv",
         "filenameType": "str",
         "format": "binary",
         "sendError": true,
         "allProps": false,
-        "x": 420,
+        "x": 450,
         "y": 1100,
         "wires": [
             [
@@ -4108,7 +6248,7 @@
         "statusCode": "",
         "headers": {
             "Content-Type": "text/csv; charset=utf-8",
-            "Content-Disposition": "attachment; filename=Solution_input_log.csv"
+            "Content-Disposition": "attachment; filename=Dist_1_Solution_input_log.csv"
         },
         "x": 640,
         "y": 1100,
@@ -4126,43 +6266,466 @@
         "wires": []
     },
     {
-        "id": "inj_stop_1",
-        "type": "inject",
-        "z": "tab_mjpg_sched",
-        "name": "매일 04:00 STOP",
-        "props": [],
-        "repeat": "",
-        "crontab": "00 04 * * *",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 150,
-        "y": 120,
+        "id": "734f54c626594136",
+        "type": "function",
+        "z": "flow_all",
+        "g": "e74e46c298b7c6cb",
+        "name": "CSV → rows[]",
+        "func": "const text = (msg.payload||'').toString();\nif(!text.trim()) { msg.payload = []; return msg; }\nconst lines = text.replace(/\\r\\n?/g,'\\n').split('\\n').filter(l=>l.trim().length);\nlet header = [];\nif(lines[0].toLowerCase().startsWith('timestamp')){\n  header = lines[0].split(',').map(h=>h.trim());\n  lines.shift();\n} else {\n  header = ['Date','Temperature','Huminidty','CO2'];\n}\nconst rows = [];\nfor(const line of lines){\n  const cols = line.split(',');\n  if(cols.length < 3) continue;\n  rows.push({\n    [header[0]]: cols[0].trim(),\n    [header[1]]: Number(cols[1]),\n    [header[2]]: Number(cols[2]),\n    [header[3]]: Number(cols[3])\n  });\n}\nmsg.payload = rows.slice(-500);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 140,
         "wires": [
             [
-                "exec_stop"
+                "table_ui"
             ]
         ]
     },
     {
-        "id": "exec_stop",
-        "type": "exec",
-        "z": "tab_mjpg_sched",
-        "command": "bash -lc 'pgrep mjpg_streamer >/dev/null && pkill -f mjpg_streamer || true'",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "winHide": false,
-        "oldrc": false,
-        "name": "kill mjpg-streamer",
-        "x": 370,
-        "y": 120,
+        "id": "27fc66eaaca23794",
+        "type": "inject",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "name": "표 자동 새로고침 (10분)",
+        "props": [
+            {
+                "p": "filename",
+                "v": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_EC_pH_log.csv",
+                "vt": "str"
+            }
+        ],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 1270,
+        "y": 520,
         "wires": [
-            [],
-            [],
+            [
+                "3f0ad1a72df8b757"
+            ]
+        ]
+    },
+    {
+        "id": "61caf0db18f2428d",
+        "type": "ui_button",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "name": "Manual Refresh",
+        "group": "96111742475c44e1",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Data Refresh",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "refresh",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 1300,
+        "y": 580,
+        "wires": [
+            [
+                "c09b25e4d365be34"
+            ]
+        ]
+    },
+    {
+        "id": "c09b25e4d365be34",
+        "type": "function",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "name": "파일경로 세팅",
+        "func": "msg.filename = \"/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_EC_pH_log.csv\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1540,
+        "y": 580,
+        "wires": [
+            [
+                "3f0ad1a72df8b757"
+            ]
+        ]
+    },
+    {
+        "id": "3f0ad1a72df8b757",
+        "type": "file in",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "name": "Read Dist_2_EC_pH_log.csv (utf8)",
+        "filename": "filename",
+        "filenameType": "msg",
+        "format": "utf8",
+        "sendError": true,
+        "allProps": false,
+        "x": 1580,
+        "y": 520,
+        "wires": [
+            [
+                "5a814c3c8a19e0be"
+            ]
+        ]
+    },
+    {
+        "id": "5a814c3c8a19e0be",
+        "type": "function",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "name": "CSV → rows[]",
+        "func": "const text = (msg.payload||'').toString();\nif(!text.trim()) { msg.payload = []; return msg; }\nconst lines = text.replace(/\\r\\n?/g,'\\n').split('\\n').filter(l=>l.trim().length);\nlet header = [];\nif(lines[0].toLowerCase().startsWith('timestamp')){\n  header = lines[0].split(',').map(h=>h.trim());\n  lines.shift();\n} else {\n  header = ['Date','EC','pH','Solution temp'];\n}\nconst rows = [];\nfor(const line of lines){\n  const cols = line.split(',');\n  if(cols.length < 3) continue;\n  rows.push({\n    [header[0]]: cols[0].trim(),\n    [header[1]]: Number(cols[1]),\n    [header[2]]: Number(cols[2]),\n    [header[3]]: Number(cols[3])\n  });\n}\nmsg.payload = rows.slice(-500);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1840,
+        "y": 520,
+        "wires": [
+            [
+                "1ba33261f437d902"
+            ]
+        ]
+    },
+    {
+        "id": "1ba33261f437d902",
+        "type": "ui_table",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "group": "96111742475c44e1",
+        "name": "EC/pH Table",
+        "order": 1,
+        "width": 12,
+        "height": 10,
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 2030,
+        "y": 520,
+        "wires": [
             []
         ]
+    },
+    {
+        "id": "36344a406840362d",
+        "type": "ui_template",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "group": "96111742475c44e1",
+        "name": "Download CSV Button",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_ecph_dist2\" target=\"_self\">CSV Download</a>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1280,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b2a258edcf5a958e",
+        "type": "http in",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "name": "GET /download_ecph_dist2",
+        "url": "/download_ecph_dist2",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 1290,
+        "y": 720,
+        "wires": [
+            [
+                "9e97d9f96995bf28"
+            ]
+        ]
+    },
+    {
+        "id": "9e97d9f96995bf28",
+        "type": "file in",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "name": "Read CSV (binary)",
+        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_EC_pH_log.csv",
+        "filenameType": "str",
+        "format": "binary",
+        "sendError": true,
+        "allProps": false,
+        "x": 1530,
+        "y": 720,
+        "wires": [
+            [
+                "0be035f89455a795"
+            ]
+        ]
+    },
+    {
+        "id": "0be035f89455a795",
+        "type": "http response",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "name": "Send CSV",
+        "statusCode": "",
+        "headers": {
+            "Content-Type": "text/csv; charset=utf-8",
+            "Content-Disposition": "attachment; filename=Dist_2_EC_pH_log.csv"
+        },
+        "x": 1750,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "4d55c4ca6af1390e",
+        "type": "comment",
+        "z": "flow_all",
+        "g": "c62aa2d73263b188",
+        "name": "(W)Read EC&pH log csv file and show to the table on dashboard",
+        "info": "",
+        "x": 1370,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "e7891915e633acd2",
+        "type": "inject",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "name": "표 자동 새로고침 (10분)",
+        "props": [
+            {
+                "p": "filename",
+                "v": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_Solution_input_log.csv",
+                "vt": "str"
+            }
+        ],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 1260,
+        "y": 920,
+        "wires": [
+            [
+                "51704d967a421a19"
+            ]
+        ]
+    },
+    {
+        "id": "a6223c1af0cd3dd5",
+        "type": "ui_button",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "name": "Manual Refresh",
+        "group": "1b4aaf5eb31383f2",
+        "order": 2,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "label": "Data Refresh",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "refresh",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 1220,
+        "y": 980,
+        "wires": [
+            [
+                "8d665aadf1c7067c"
+            ]
+        ]
+    },
+    {
+        "id": "8d665aadf1c7067c",
+        "type": "function",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "name": "파일경로 세팅",
+        "func": "msg.filename = \"/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_Solution_input_log.csv\";\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 980,
+        "wires": [
+            [
+                "51704d967a421a19"
+            ]
+        ]
+    },
+    {
+        "id": "51704d967a421a19",
+        "type": "file in",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "name": "Read Dist_2_Solution_input_log.csv (utf8)",
+        "filename": "filename",
+        "filenameType": "msg",
+        "format": "utf8",
+        "sendError": true,
+        "encoding": "none",
+        "allProps": false,
+        "x": 1590,
+        "y": 920,
+        "wires": [
+            [
+                "01e0b9d102a39fd5"
+            ]
+        ]
+    },
+    {
+        "id": "01e0b9d102a39fd5",
+        "type": "function",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "name": "CSV → rows[]",
+        "func": "// // msg.payload: 파일에서 읽은 원문 CSV 텍스트\n// const text = (msg.payload || '').toString();\n// if (!text.trim()) { msg.payload = []; return msg; }\n\n// // 줄 나누기 + 정리\n// const lines = text.replace(/\\r\\n?/g, '\\n')\n//                   .split('\\n')\n//                   .map(l => l.trim())\n//                   .filter(Boolean);\n\n// // 결과 배열\n// const rows = [];\n\n// // 매칭용 정규식\n// // 예) 2025-11-05 17:10:08,AB,volume,50ml;duration,30.3s\n// const re = /^(.*?),(AB|Acid),volume,([^;]+);/i;\n\n// for (const line of lines) {\n//   // 헤더가 들어있으면 스킵\n//   if (/^timestamp/i.test(line)) continue;\n\n//   const m = line.match(re);\n//   if (!m) continue;\n\n//   const ts = m[1].trim();\n//   const solution = m[2].trim();\n//   const volToken = m[3].trim();       // 예: \"50ml\"\n\n//   // 숫자만 추출 → 50\n//   const volumeMl = parseFloat(volToken.replace(/[^\\d.]/g, ''));\n\n//   rows.push({\n//     \"Timestamp\": ts,\n//     \"Solution\": solution,\n//     \"Input volume (ml)\": volumeMl\n//   });\n// }\n\n// // 최근 500개만 유지 (원하면 제거 가능)\n// msg.payload = rows.slice(-500);\n// return msg;\n\nconst text = (msg.payload||'').toString();\nif(!text.trim()) { msg.payload = []; return msg; }\nconst lines = text.replace(/\\r\\n?/g,'\\n').split('\\n').filter(l=>l.trim().length);\nlet header = [];\nif(lines[0].toLowerCase().startsWith('timestamp')){\n  header = lines[0].split(',').map(h=>h.trim());\n  lines.shift();\n} else {\n  header = ['Date','Solution','volume','ml','Duration','Seconds'];\n}\nconst rows = [];\nfor(const line of lines){\n  const cols = line.split(',');\n  if(cols.length < 6) continue;\n  rows.push({\n    [header[0]]: cols[0].trim(),\n    [header[1]]: Number(cols[1]),\n    [header[2]]: Number(cols[2]),\n    [header[3]]: Number(cols[3]),\n    [header[4]]: Number(cols[4]),\n    [header[5]]: Number(cols[5])\n  });\n}\nmsg.payload = rows.slice(-500);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1840,
+        "y": 920,
+        "wires": [
+            [
+                "a3412107226a6d51"
+            ]
+        ]
+    },
+    {
+        "id": "a3412107226a6d51",
+        "type": "ui_table",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "group": "1b4aaf5eb31383f2",
+        "name": "Solution input Table",
+        "order": 1,
+        "width": 6,
+        "height": 10,
+        "columns": [],
+        "outputs": 1,
+        "cts": true,
+        "x": 2040,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9f1c418cd3f3a885",
+        "type": "ui_template",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "group": "1b4aaf5eb31383f2",
+        "name": "Download CSV Button",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_solution_dist2\" target=\"_self\">CSV Download</a>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 1270,
+        "y": 1060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "94b0f12f3bc1db62",
+        "type": "http in",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "name": "GET /download_solution_dist2",
+        "url": "/download_solution_dist2",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 1290,
+        "y": 1120,
+        "wires": [
+            [
+                "7fd7452d9cd017ef"
+            ]
+        ]
+    },
+    {
+        "id": "7fd7452d9cd017ef",
+        "type": "file in",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "name": "Read CSV (binary)",
+        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_Solution_input_log.csv",
+        "filenameType": "str",
+        "format": "binary",
+        "sendError": true,
+        "allProps": false,
+        "x": 1520,
+        "y": 1120,
+        "wires": [
+            [
+                "370b70a08f5dc235"
+            ]
+        ]
+    },
+    {
+        "id": "370b70a08f5dc235",
+        "type": "http response",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "name": "Send CSV",
+        "statusCode": "",
+        "headers": {
+            "Content-Type": "text/csv; charset=utf-8",
+            "Content-Disposition": "attachment; filename=Dist_2_Solution_input_log.csv"
+        },
+        "x": 1740,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "a9ea43292fd0feba",
+        "type": "comment",
+        "z": "flow_all",
+        "g": "be44b588c52432ea",
+        "name": "(W)Read Solution A/B/Acid log CSV and show/download",
+        "info": "",
+        "x": 1430,
+        "y": 860,
+        "wires": []
     },
     {
         "id": "inj_start_6",
@@ -4197,6 +6760,47 @@
         "name": "start mjpg-streamer",
         "x": 370,
         "y": 220,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "inj_stop_1",
+        "type": "inject",
+        "z": "tab_mjpg_sched",
+        "d": true,
+        "name": "매일 04:00 STOP",
+        "props": [],
+        "repeat": "",
+        "crontab": "00 04 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "exec_stop"
+            ]
+        ]
+    },
+    {
+        "id": "exec_stop",
+        "type": "exec",
+        "z": "tab_mjpg_sched",
+        "d": true,
+        "command": "bash -lc 'pgrep mjpg_streamer >/dev/null && pkill -f mjpg_streamer || true'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "kill mjpg-streamer",
+        "x": 370,
+        "y": 120,
         "wires": [
             [],
             [],

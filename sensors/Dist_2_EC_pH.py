@@ -10,7 +10,7 @@ import serial
 # Settings
 # ===============================
 
-PORT = "/dev/ttyUSB1"
+PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
 BAUD = 115200
 REQ  = "node000300|SensorReq|8985"
 
@@ -112,10 +112,77 @@ def request_once(ser):
     return ec, ph, temp, None
 
 
+# def main():
+#     ensure_csv_header(CSV_PATH)
+
+#     ec_list, ph_list, temp_list = [], [], []
+
+#     try:
+#         with serial.Serial(
+#             PORT, baudrate=BAUD,
+#             bytesize=serial.EIGHTBITS,
+#             parity=serial.PARITY_NONE,
+#             stopbits=serial.STOPBITS_ONE,
+#             timeout=0.1
+#         ) as ser:
+#             # Clear buffers once at the start
+#             time.sleep(0.2)
+#             ser.reset_input_buffer()
+#             ser.reset_output_buffer()
+
+#             for i in range(SAMPLES):
+#                 ec, ph, temp, err = request_once(ser)
+#                 if err:
+#                     # If one sample fails, just skip it (robust averaging)
+#                     # You can change this behavior to "fail fast" if you want.
+#                     time.sleep(SAMPLE_INTERVAL_SEC)
+#                     continue
+
+#                 ec_list.append(ec)
+#                 ph_list.append(ph)
+#                 temp_list.append(temp)
+
+#                 time.sleep(SAMPLE_INTERVAL_SEC)
+
+#     except Exception as e:
+#         print(json.dumps({"error": str(e)}, ensure_ascii=False), flush=True)
+#         return
+
+#     if not ec_list:
+#         print(json.dumps({"error": "no_valid_samples"}, ensure_ascii=False), flush=True)
+#         return
+
+#     avg_ec = round(sum(ec_list) / len(ec_list), 2)
+#     avg_ph = round(sum(ph_list) / len(ph_list), 2)
+#     avg_temp = round(sum(temp_list) / len(temp_list), 2)
+
+#     date_str = now_str(sec=False)
+
+#     # Append to CSV
+#     try:
+#         with open(CSV_PATH, mode="a", newline="") as f:
+#             writer = csv.writer(f)
+#             writer.writerow([date_str, avg_ec, avg_ph, avg_temp])
+#             f.flush()
+#             os.fsync(f.fileno())
+#     except Exception as e:
+#         print(json.dumps({"error": f"csv_write_failed: {e}"}, ensure_ascii=False), flush=True)
+#         return
+
+#     # Node-RED friendly JSON (matches your Change nodes)
+#     print(json.dumps({
+#         "date": date_str,
+#         "EC": avg_ec,
+#         "pH": avg_ph,
+#         "Solution_Temperature": avg_temp
+#     }, ensure_ascii=False), flush=True)
+
 def main():
     ensure_csv_header(CSV_PATH)
 
     ec_list, ph_list, temp_list = [], [], []
+    err_counts = {}
+    last_err = None
 
     try:
         with serial.Serial(
@@ -125,23 +192,22 @@ def main():
             stopbits=serial.STOPBITS_ONE,
             timeout=0.1
         ) as ser:
-            # Clear buffers once at the start
             time.sleep(0.2)
             ser.reset_input_buffer()
             ser.reset_output_buffer()
 
-            for i in range(SAMPLES):
+            for _ in range(SAMPLES):
                 ec, ph, temp, err = request_once(ser)
                 if err:
-                    # If one sample fails, just skip it (robust averaging)
-                    # You can change this behavior to "fail fast" if you want.
+                    last_err = err
+                    key = err.split(":")[0]  # e.g., "no_json_block", "json_load_error", "value_missing"
+                    err_counts[key] = err_counts.get(key, 0) + 1
                     time.sleep(SAMPLE_INTERVAL_SEC)
                     continue
 
                 ec_list.append(ec)
                 ph_list.append(ph)
                 temp_list.append(temp)
-
                 time.sleep(SAMPLE_INTERVAL_SEC)
 
     except Exception as e:
@@ -149,7 +215,11 @@ def main():
         return
 
     if not ec_list:
-        print(json.dumps({"error": "no_valid_samples"}, ensure_ascii=False), flush=True)
+        print(json.dumps({
+            "error": "no_valid_samples",
+            "err_counts": err_counts,
+            "last_err": (last_err[:400] if isinstance(last_err, str) else last_err)
+        }, ensure_ascii=False), flush=True)
         return
 
     avg_ec = round(sum(ec_list) / len(ec_list), 2)
@@ -158,7 +228,6 @@ def main():
 
     date_str = now_str(sec=False)
 
-    # Append to CSV
     try:
         with open(CSV_PATH, mode="a", newline="") as f:
             writer = csv.writer(f)
@@ -169,14 +238,13 @@ def main():
         print(json.dumps({"error": f"csv_write_failed: {e}"}, ensure_ascii=False), flush=True)
         return
 
-    # Node-RED friendly JSON (matches your Change nodes)
     print(json.dumps({
         "date": date_str,
         "EC": avg_ec,
         "pH": avg_ph,
-        "Solution_Temperature": avg_temp
+        "Solution_Temperature": avg_temp,
+        "valid_samples": len(ec_list)
     }, ensure_ascii=False), flush=True)
-
 
 if __name__ == "__main__":
     main()

@@ -27,8 +27,8 @@ DURATION_SEC = 20
 INTERVAL_SEC = 1
 
 # Control interval (test mode: every N minutes)
-CHECK_INTERVAL_HOUR = 4
-# CHECK_INTERVAL_MINUTE = 1
+# CHECK_INTERVAL_HOUR = 4
+CHECK_INTERVAL_MINUTE = 5
 
 # Thresholds
 EC_MIN = 0.7
@@ -338,11 +338,11 @@ def main_loop():
                 break
 
             now = datetime.datetime.now()
-            slot = (now.strftime("%Y-%m-%d"), now.hour)  # hour-based slots
-            # slot = (now.strftime("%Y-%m-%d"), now.minute)  # test: minute-based slots
+            # slot = (now.strftime("%Y-%m-%d"), now.hour)  # hour-based slots
+            slot = (now.strftime("%Y-%m-%d"), now.minute)  # test: minute-based slots
 
-            if (now.hour % CHECK_INTERVAL_HOUR == 0) and (slot != last_slot):
-            # if (now.minute % CHECK_INTERVAL_MINUTE == 0) and (slot != last_slot):
+            # if (now.hour % CHECK_INTERVAL_HOUR == 0) and (slot != last_slot):
+            if (now.minute % CHECK_INTERVAL_MINUTE == 0) and (slot != last_slot):
                 res = control_once()
                 last_slot = slot
                 if res == "STOP":
