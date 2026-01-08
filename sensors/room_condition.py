@@ -30,6 +30,19 @@ RETRY_ATTEMPTS = 3
 RETRY_DELAY_SEC = 0.25
 
 
+# ===============================
+# Timing (no drift)
+# ===============================
+def sleep_to_next_10s():
+    """Sleep until the next wall-clock 10-second boundary."""
+    now = time.time()
+    next_t = (int(now) // 10 + 1) * 10
+    time.sleep(max(0, next_t - now))
+
+
+# ===============================
+# Serial helpers
+# ===============================
 def read_one_response(ser, timeout=1.5, idle_gap=0.2):
     """Read until no more bytes arrive for a short idle gap (no newline protocol)."""
     ser.timeout = idle_gap
@@ -69,6 +82,9 @@ def get_value_by_id(data: dict, target_id: int):
     return None
 
 
+# ===============================
+# CSV helpers
+# ===============================
 def ensure_csv_header(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     if (not os.path.exists(path)) or (os.path.getsize(path) == 0):
@@ -88,6 +104,9 @@ def append_csv_row(path: str, date_str: str, temperature, humidity, co2):
         os.fsync(f.fileno())
 
 
+# ===============================
+# Sensor read (single + retry + lock)
+# ===============================
 def read_sensor_once():
     """Single attempt: open port, send request, read response, parse values."""
     with serial.Serial(PORT, BAUD, bytesize=8, parity="N", stopbits=1, timeout=0.2) as ser:
@@ -104,20 +123,23 @@ def read_sensor_once():
     if not json_part:
         return None, None, None, "no_json_block"
 
-    data = json.loads(json_part)
+    try:
+        data = json.loads(json_part)
+    except Exception as e:
+        return None, None, None, f"json_load_error: {e}"
 
     temperature = get_value_by_id(data, ID_TEMPERATURE)
     humidity = get_value_by_id(data, ID_HUMIDITY)
     co2_val = get_value_by_id(data, ID_CO2)
 
-    if co2_val is None:
-        co2 = None
-    else:
+    co2 = None
+    if co2_val is not None:
         try:
             co2 = int(co2_val)
         except:
             co2 = co2_val
 
+    # Allow partial updates? -> We only accept "good" sample when ALL are present.
     if temperature is None or humidity is None or co2 is None:
         return temperature, humidity, co2, "value_missing"
 
@@ -140,8 +162,10 @@ def read_sensor_with_lock_and_retry():
                 last_err = err
                 if err is None:
                     return t, h, c, None
-            except (SerialException, OSError, json.JSONDecodeError, ValueError) as e:
-                last_err = str(e)
+            except (SerialException, OSError) as e:
+                last_err = f"serial_error: {e}"
+            except Exception as e:
+                last_err = f"unknown_error: {e}"
 
             time.sleep(RETRY_DELAY_SEC)
 
@@ -155,18 +179,57 @@ def read_sensor_with_lock_and_retry():
         lockf.close()
 
 
-if __name__ == "__main__":
-    date_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-
-    temperature, humidity, co2, err = read_sensor_with_lock_and_retry()
-
+# ===============================
+# Main (continuous, no drift)
+# ===============================
+def main():
     ensure_csv_header(CSV_PATH)
-    append_csv_row(CSV_PATH, date_str, temperature, humidity, co2)
 
-    print(json.dumps({
-        "date": date_str,
-        "temperature": temperature,
-        "humidity": humidity,
-        "co2": co2,
-        "errors": {"sensor": err}
-    }, ensure_ascii=False), flush=True)
+    latest_t = None
+    latest_h = None
+    latest_c = None
+    latest_err = None
+    last_saved_minute = None  # "YYYY-MM-DD HH:MM"
+
+    while True:
+        # 1) Read every wall-clock 10 seconds (no drift)
+        sleep_to_next_10s()
+
+        t, h, c, err = read_sensor_with_lock_and_retry()
+        # Update latest only when sample is complete and valid
+        if err is None and t is not None and h is not None and c is not None:
+            latest_t, latest_h, latest_c = t, h, c
+            latest_err = None
+        else:
+            latest_err = err  # keep last error for debugging (do not overwrite good values)
+
+        now = datetime.datetime.now()
+        minute_key = now.strftime("%Y-%m-%d %H:%M")
+
+        # 2) Every 20 minutes, save/print ONLY ONCE per minute
+        if (
+            now.minute % 20 == 0
+            and last_saved_minute != minute_key
+            and latest_t is not None and latest_h is not None and latest_c is not None
+        ):
+            try:
+                append_csv_row(CSV_PATH, minute_key, latest_t, latest_h, latest_c)
+
+                print(json.dumps({
+                    "date": minute_key,
+                    "temperature": latest_t,
+                    "humidity": latest_h,
+                    "co2": latest_c,
+                    "errors": {"sensor": latest_err}
+                }, ensure_ascii=False), flush=True)
+
+                last_saved_minute = minute_key
+
+            except Exception as e:
+                print(json.dumps({
+                    "error": f"csv_write_failed: {e}"
+                }, ensure_ascii=False), flush=True)
+
+
+if __name__ == "__main__":
+    main()

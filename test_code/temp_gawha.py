@@ -43,7 +43,6 @@ if __name__ == "__main__":
             "port": PORT,
             "baud": BAUD,
             "raw_len": len(raw),
-            "raw_hex": raw.hex(),
             "text": text
         }, ensure_ascii=False), flush=True)
 

@@ -67,7 +67,7 @@ try:
                 break
 
             # Time-based control
-            if 0 <= now.minute < 4 or 20 <= now.minute < 24 or 40 <= now.minute < 44:
+            if 0 <= now.minute < 3 or 20 <= now.minute < 23 or 40 <= now.minute < 43:
                 GPIO.output(PUMP_1_PIN, False)
                 GPIO.output(PUMP_2_PIN, False)
                 result["pump_status"] = "ON"
