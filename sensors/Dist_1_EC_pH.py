@@ -10,7 +10,9 @@ import serial
 # ===============================
 # Modbus device settings
 # ===============================
-EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"
+# EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"
+EC_PH_PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
+
 
 dev = minimalmodbus.Instrument(EC_PH_PORT, 1, mode="rtu")
 dev.serial.baudrate = 9600
@@ -53,6 +55,7 @@ def sleep_to_next_10s():
     next_t = (int(now) // 10 + 1) * 10
     time.sleep(max(0, next_t - now))
 
+
 # ===============================
 # Main loop
 # ===============================
@@ -63,7 +66,8 @@ def main():
     latest_ph = None
     latest_temp = None
 
-    last_saved_minute = None
+    last_saved_minute = None     # for CSV (20 min)
+    last_printed_minute = None   # for JSON (3 min)
 
     while True:
         # --- align to next 10-second boundary (NO DRIFT) ---
@@ -71,40 +75,48 @@ def main():
 
         # --- read sensor ---
         ec, ph, temp = safe_read_once()
-        if ec is not None and ph is not None:
+        if ec is not None and ph is not None and temp is not None:
             latest_ec = ec
             latest_ph = ph
             latest_temp = temp
 
         now = datetime.datetime.now()
-        date_str = now.strftime("%Y-%m-%d %H:%M")
+        minute_key = now.strftime("%Y-%m-%d %H:%M")
 
-        # --- every 20 minutes, save ONLY ONCE ---
+        # --- JSON output every 3 minutes (once per minute) ---
+        if (
+            now.minute % 3 == 0
+            and latest_ec is not None
+            and last_printed_minute != minute_key
+        ):
+            print(json.dumps({
+                "date": minute_key,
+                "EC": latest_ec,
+                "pH": latest_ph,
+                "Solution_Temperature": latest_temp
+            }, ensure_ascii=False), flush=True)
+            last_printed_minute = minute_key
+
+        # --- CSV save every 20 minutes (once per minute) ---
         if (
             now.minute % 20 == 0
             and latest_ec is not None
-            and last_saved_minute != date_str
+            and last_saved_minute != minute_key
         ):
             try:
                 with open(CSV_PATH, "a", newline="") as f:
                     writer = csv.writer(f)
-                    writer.writerow([date_str, latest_ec, latest_ph, latest_temp])
+                    writer.writerow([minute_key, latest_ec, latest_ph, latest_temp])
                     f.flush()
                     os.fsync(f.fileno())
-
-                print(json.dumps({
-                    "date": date_str,
-                    "EC": latest_ec,
-                    "pH": latest_ph,
-                    "Solution_Temperature": latest_temp
-                }, ensure_ascii=False), flush=True)
-
-                last_saved_minute = date_str
-
+                last_saved_minute = minute_key
             except Exception as e:
                 print(json.dumps({
                     "error": f"CSV write failed: {e}"
                 }, ensure_ascii=False), flush=True)
+
+        # Optional: prevent tight looping within the same minute boundary
+        # time.sleep(0.2)
 
 
 if __name__ == "__main__":

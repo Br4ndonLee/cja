@@ -11,7 +11,7 @@ from serial.serialutil import SerialException
 # ===============================
 # Settings
 # ===============================
-PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
+PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:1.2:1.0-port0"
 BAUD = 115200
 REQ  = "node000000|SensorReq|0905"
 
@@ -189,24 +189,44 @@ def main():
     latest_h = None
     latest_c = None
     latest_err = None
-    last_saved_minute = None  # "YYYY-MM-DD HH:MM"
+
+    last_saved_minute = None      # for CSV save (20 min)
+    last_printed_minute = None    # for JSON print (3 min)
 
     while True:
         # 1) Read every wall-clock 10 seconds (no drift)
         sleep_to_next_10s()
 
         t, h, c, err = read_sensor_with_lock_and_retry()
+
         # Update latest only when sample is complete and valid
         if err is None and t is not None and h is not None and c is not None:
             latest_t, latest_h, latest_c = t, h, c
             latest_err = None
         else:
-            latest_err = err  # keep last error for debugging (do not overwrite good values)
+            # Keep last good values; only update error
+            latest_err = err
 
         now = datetime.datetime.now()
         minute_key = now.strftime("%Y-%m-%d %H:%M")
 
-        # 2) Every 20 minutes, save/print ONLY ONCE per minute
+        # 2) JSON output every 3 minutes (once per minute)
+        if (
+            now.minute % 3 == 0
+            and last_printed_minute != minute_key
+            and latest_t is not None and latest_h is not None and latest_c is not None
+        ):
+            print(json.dumps({
+                "date": minute_key,
+                "temperature": latest_t,
+                "humidity": latest_h,
+                "co2": latest_c,
+                "errors": {"sensor": latest_err}
+            }, ensure_ascii=False), flush=True)
+
+            last_printed_minute = minute_key
+
+        # 3) CSV save every 20 minutes (once per minute)
         if (
             now.minute % 20 == 0
             and last_saved_minute != minute_key
@@ -214,17 +234,7 @@ def main():
         ):
             try:
                 append_csv_row(CSV_PATH, minute_key, latest_t, latest_h, latest_c)
-
-                print(json.dumps({
-                    "date": minute_key,
-                    "temperature": latest_t,
-                    "humidity": latest_h,
-                    "co2": latest_c,
-                    "errors": {"sensor": latest_err}
-                }, ensure_ascii=False), flush=True)
-
                 last_saved_minute = minute_key
-
             except Exception as e:
                 print(json.dumps({
                     "error": f"csv_write_failed: {e}"

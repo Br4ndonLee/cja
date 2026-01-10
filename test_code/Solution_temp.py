@@ -7,7 +7,7 @@ import json
 # Modbus device setting
 # ===============================
 
-EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.0-usb-0:1.2:1.0-port0"
+EC_PH_PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
 
 dev = minimalmodbus.Instrument(EC_PH_PORT, 1, mode='rtu')
 
@@ -25,11 +25,9 @@ def read_all_registers():
     try:
         data = {}
 
-        # 확정된 값
         data["pH"] = dev.read_register(0x00, 2, functioncode=3)
         data["EC"] = dev.read_register(0x01, 2, functioncode=3) / 10
 
-        # 미확정 레지스터 (수온 후보 포함)
         for addr in range(0x02, 0x08):
             raw = dev.read_register(addr, 2, functioncode=3)
             data[f"raw_{addr:02X}"] = raw
@@ -40,7 +38,7 @@ def read_all_registers():
         return {"error": str(e)}
 
 # ===============================
-# Main (Node-RED 연동용)
+
 # ===============================
 if __name__ == "__main__":
     result = read_all_registers()
