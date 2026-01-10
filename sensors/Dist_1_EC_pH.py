@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-import time
 import csv
 import json
 import datetime
@@ -8,116 +7,91 @@ import minimalmodbus
 import serial
 
 # ===============================
-# Modbus device settings
+# Fixed settings
 # ===============================
-# EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"
-EC_PH_PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
+EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"
+SLAVE_ID = 1
 
+CSV_PATH = "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv"
 
-dev = minimalmodbus.Instrument(EC_PH_PORT, 1, mode="rtu")
+PRINT_EVERY_MIN = 3
+SAVE_EVERY_MIN = 20
+
+# ===============================
+# Modbus init
+# ===============================
+dev = minimalmodbus.Instrument(EC_PH_PORT, SLAVE_ID, mode="rtu")
 dev.serial.baudrate = 9600
 dev.serial.bytesize = 8
 dev.serial.parity   = serial.PARITY_NONE
-dev.serial.stopbits = 2
+dev.serial.stopbits = 1
 dev.serial.timeout  = 1
 dev.clear_buffers_before_each_transaction = True
 
 # ===============================
-# CSV settings
+# CSV helpers
 # ===============================
-CSV_PATH = "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv"
-
-def ensure_csv_ready(path):
+def ensure_csv_ready(path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     if (not os.path.exists(path)) or (os.path.getsize(path) == 0):
         with open(path, "a", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(["Date", "EC", "pH", "Solution_Temperature"])
+            w = csv.writer(f)
+            w.writerow(["Date", "EC", "pH", "Solution_Temperature"])
+
+def append_csv_row(path: str, date_str: str, ec, ph, temp):
+    with open(path, "a", newline="") as f:
+        w = csv.writer(f)
+        w.writerow([date_str, ec, ph, temp])
+        f.flush()
+        os.fsync(f.fileno())
 
 # ===============================
-# Sensor read
+# Read once
 # ===============================
-def safe_read_once():
-    try:
-        ph = dev.read_register(0x00, 2, functioncode=3)
-        ec = dev.read_register(0x01, 2, functioncode=3) / 10.0
-        solution_temp = dev.read_register(0x02, 2, functioncode=3) * 10.0
-        return round(ec, 2), round(ph, 2), round(solution_temp, 2)
-    except Exception:
-        return None, None, None
-
-def sleep_to_next_10s():
+def read_once():
     """
-    Sleep until the next wall-clock 10-second boundary.
-    e.g. HH:MM:00, :10, :20, :30, :40, :50
+    Read all three once.
+    - EC: /10
+    - pH: as-is
+    - Solution_Temperature: *10 (as you specified)
     """
-    now = time.time()
-    next_t = (int(now) // 10 + 1) * 10
-    time.sleep(max(0, next_t - now))
-
+    ph = dev.read_register(0x00, 2, functioncode=3)
+    ec = dev.read_register(0x01, 2, functioncode=3) / 10.0
+    tp = dev.read_register(0x02, 2, functioncode=3) * 10.0
+    return round(ec, 3), round(ph, 3), round(tp, 3)
 
 # ===============================
-# Main loop
+# Main (one-shot)
 # ===============================
 def main():
     ensure_csv_ready(CSV_PATH)
 
-    latest_ec = None
-    latest_ph = None
-    latest_temp = None
+    now = datetime.datetime.now()
+    minute_key = now.strftime("%Y-%m-%d %H:%M")
 
-    last_saved_minute = None     # for CSV (20 min)
-    last_printed_minute = None   # for JSON (3 min)
+    # 1) Try read
+    try:
+        ec, ph, tp = read_once()
+    except Exception:
+        # IMPORTANT: don't print non-JSON or partial JSON; Node-RED JSON node can break.
+        return
 
-    while True:
-        # --- align to next 10-second boundary (NO DRIFT) ---
-        sleep_to_next_10s()
+    # 2) JSON print only at minute%3==0
+    if now.minute % PRINT_EVERY_MIN == 0:
+        print(json.dumps({
+            "date": minute_key,
+            "EC": ec,
+            "pH": ph,
+            "Solution_Temperature": tp
+        }, ensure_ascii=False), flush=True)
 
-        # --- read sensor ---
-        ec, ph, temp = safe_read_once()
-        if ec is not None and ph is not None and temp is not None:
-            latest_ec = ec
-            latest_ph = ph
-            latest_temp = temp
-
-        now = datetime.datetime.now()
-        minute_key = now.strftime("%Y-%m-%d %H:%M")
-
-        # --- JSON output every 3 minutes (once per minute) ---
-        if (
-            now.minute % 3 == 0
-            and latest_ec is not None
-            and last_printed_minute != minute_key
-        ):
-            print(json.dumps({
-                "date": minute_key,
-                "EC": latest_ec,
-                "pH": latest_ph,
-                "Solution_Temperature": latest_temp
-            }, ensure_ascii=False), flush=True)
-            last_printed_minute = minute_key
-
-        # --- CSV save every 20 minutes (once per minute) ---
-        if (
-            now.minute % 20 == 0
-            and latest_ec is not None
-            and last_saved_minute != minute_key
-        ):
-            try:
-                with open(CSV_PATH, "a", newline="") as f:
-                    writer = csv.writer(f)
-                    writer.writerow([minute_key, latest_ec, latest_ph, latest_temp])
-                    f.flush()
-                    os.fsync(f.fileno())
-                last_saved_minute = minute_key
-            except Exception as e:
-                print(json.dumps({
-                    "error": f"CSV write failed: {e}"
-                }, ensure_ascii=False), flush=True)
-
-        # Optional: prevent tight looping within the same minute boundary
-        # time.sleep(0.2)
-
+    # 3) CSV save only at minute%20==0
+    if now.minute % SAVE_EVERY_MIN == 0:
+        try:
+            append_csv_row(CSV_PATH, minute_key, ec, ph, tp)
+        except Exception:
+            # keep silent to avoid breaking JSON parsing in Node-RED
+            pass
 
 if __name__ == "__main__":
     main()

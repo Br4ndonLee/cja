@@ -40,7 +40,7 @@ CSV_EVERY_MIN = 20
 # ===============================
 # NOTE: Adjust if your system uses different EC units/ranges.
 VALID_EC_MIN, VALID_EC_MAX = 0.00, 5.00        # dS/m
-VALID_PH_MIN, VALID_PH_MAX = 2.00, 10.00       # pH
+VALID_PH_MIN, VALID_PH_MAX = 3.00, 10.00       # pH
 VALID_TP_MIN, VALID_TP_MAX = 10.00, 50.00      # ¡ÆC
 
 # ===============================
@@ -174,39 +174,25 @@ def extract_value_for_id(text: str, target_id: int):
 
 def parse_ec_ph_tp(text: str):
     """
-    Primary: ID-based extraction
-    Fallback: scan near "sensors" and assign by physical ranges
+    Position-based parsing:
+    Extract the first 3 numeric 'value' fields in order.
+    Expected order in sensors[]:
+      1) pH, 2) Solution_Temperature, 3) EC
+    Return (ec, ph, tp) where each may be None.
     """
-    ec = extract_value_for_id(text, ID_EC)
-    ph = extract_value_for_id(text, ID_PH)
-    tp = extract_value_for_id(text, ID_TEMP)
-
-    if ec is not None and ph is not None and tp is not None:
-        return ec, ph, tp
-
-    lower = text.lower()
-    i = lower.find("sensors")
-    chunk = text[i:i+600] if i != -1 else text
-
-    nums = []
-    for mm in re.finditer(r'([0-9]+(?:[./][0-9]+)?)', chunk):
-        v = to_float_maybe(mm.group(1))
+    # Grab value tokens in order even if JSON is corrupted
+    vals = []
+    for m in re.finditer(r'value[^0-9]{0,30}([0-9]+(?:[./][0-9]+)?)', text, re.IGNORECASE):
+        v = to_float_maybe(m.group(1))
         if v is not None:
-            nums.append(v)
-
-    for v in nums:
-        if ph is None and (VALID_PH_MIN <= v <= VALID_PH_MAX):
-            ph = v
-            continue
-        if tp is None and (VALID_TP_MIN <= v <= VALID_TP_MAX):
-            tp = v
-            continue
-        if ec is None and (VALID_EC_MIN <= v <= VALID_EC_MAX):
-            ec = v
-            continue
-        if ec is not None and ph is not None and tp is not None:
+            vals.append(v)
+        if len(vals) >= 3:
             break
 
+    # If we don't get 3 values, return whatever we have (partial)
+    ph = vals[0] if len(vals) >= 1 else None
+    tp = vals[1] if len(vals) >= 2 else None
+    ec = vals[2] if len(vals) >= 3 else None
     return ec, ph, tp
 
 # ===============================
@@ -310,7 +296,7 @@ def mad(values, med):
     dev = [abs(v - med) for v in values]
     return median(dev)
 
-def hampel_accept(candidate, history, k=3.0):
+def hampel_accept(candidate, history, k=3.0, flat_abs_tol=0.2):
     """Hampel decision (True = accept)."""
     if not is_finite_number(candidate):
         return False
@@ -329,8 +315,10 @@ def hampel_accept(candidate, history, k=3.0):
         return True
 
     sigma = 1.4826 * mad_v
+
+    # If history is flat (MAD=0), allow small absolute deviation instead of exact match
     if sigma == 0:
-        return abs(c - m) < 1e-9
+        return abs(c - m) <= float(flat_abs_tol)
 
     return abs(c - m) <= (k * sigma)
 

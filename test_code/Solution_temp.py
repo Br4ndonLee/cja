@@ -7,7 +7,8 @@ import json
 # Modbus device setting
 # ===============================
 
-EC_PH_PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
+# EC_PH_PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
+EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"
 
 dev = minimalmodbus.Instrument(EC_PH_PORT, 1, mode='rtu')
 
@@ -27,6 +28,7 @@ def read_all_registers():
 
         data["pH"] = dev.read_register(0x00, 2, functioncode=3)
         data["EC"] = dev.read_register(0x01, 2, functioncode=3) / 10
+        data["Solution_Temperature"] = dev.read_register(0x02, 2, functioncode=3) * 10
 
         for addr in range(0x02, 0x08):
             raw = dev.read_register(addr, 2, functioncode=3)
