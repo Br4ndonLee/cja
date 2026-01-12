@@ -449,7 +449,7 @@ module.exports = {
                  * section of 'User Settings' within the editor
                  */
                 mode: "manual"
-            }
+            },
         },
 
         codeEditor: {

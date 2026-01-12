@@ -9,8 +9,8 @@
                 "view-grid-size": "20",
                 "view-node-status": true,
                 "view-node-show-label": true,
-                "view-show-tips": true,
-                "view-show-welcome-tours": true
+                "view-show-tips": false,
+                "view-show-welcome-tours": false
             },
             "tours": {
                 "welcome": "4.0.9"
@@ -36,7 +36,36 @@
         },
         "debug": {
             "filter": "filterAll",
-            "clearType": "all"
+            "clearType": "filtered",
+            "filteredNodes": [
+                "564506cb197cc954",
+                "57f723a2128c43d5",
+                "9bacb98be36f37dc",
+                "ce91a081135d3653",
+                "9c2f5d5a308616e6",
+                "839c019b8d38b1ce",
+                "34196794c1698420",
+                "bed3ea5061f3aa42",
+                "23d54e14bb05b234",
+                "0b9b9d5aae2018ff",
+                "6f78720a8e847149",
+                "63e650f897ae7cfe",
+                "e915b915a2f01c1b",
+                "db5a25ff25f37f3e",
+                "1f0406ae79e0ddfb",
+                "352c9682952738a1",
+                "209c9e40e526fa6c",
+                "b91f54bc77701ab9",
+                "a04387180383435c",
+                "7af2caa5030f659e",
+                "f66d5cc3cb3342a2",
+                "1aa3bbe8afdc012d",
+                "19575127be6263da",
+                "7c25ba5dd16a36b6",
+                "25a1fc18f884cf3a",
+                "bf53ee007fe03cd5",
+                "4cfd8f2b53cc451d"
+            ]
         },
         "menu-menu-item-sidebar": true
     }
