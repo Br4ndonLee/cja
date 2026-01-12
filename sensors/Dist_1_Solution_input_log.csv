@@ -262,3 +262,7 @@ timestamp,device,action,detail
 2026-01-09 17:14:29,AB,volume,1,duration,0.6s
 2026-01-09 17:15:20,AB,volume,1,duration,0.6s
 2026-01-09 17:15:25,Acid,volume,1,duration,0.6s
+timestamp,device,action,detail
+timestamp,device,action,detail
+timestamp,device,action,detail
+timestamp,device,action,detail
