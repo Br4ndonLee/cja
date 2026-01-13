@@ -13,7 +13,9 @@ from serial.serialutil import SerialException
 # ===============================
 # Settings
 # ===============================
-PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:1.2:1.0-port0"
+# PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:1.2:1.0-port0"
+PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
+
 BAUD = 115200
 REQ  = "node000300|SensorReq|8985"
 
@@ -46,7 +48,7 @@ VALID_TP_MIN, VALID_TP_MAX = 10.00, 50.00      # ¡ÆC
 # ===============================
 # Hampel filter settings
 # ===============================
-HAMPEL_WIN = 15          # 15 samples * 10s = 150s
+HAMPEL_WIN = 12          # 12 samples * 10s = 120s
 HAMPEL_K = 3.0
 
 # ===============================

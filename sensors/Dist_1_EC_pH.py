@@ -58,7 +58,7 @@ def read_once():
     ph = dev.read_register(0x00, 2, functioncode=3)
     ec = dev.read_register(0x01, 2, functioncode=3) / 10.0
     tp = dev.read_register(0x02, 2, functioncode=3) * 10.0
-    return round(ec, 3), round(ph, 3), round(tp, 3)
+    return round(ec, 2), round(ph, 2), round(tp, 2)
 
 # ===============================
 # Main (one-shot)
