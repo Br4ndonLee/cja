@@ -48,7 +48,7 @@ VALID_TP_MIN, VALID_TP_MAX = 10.00, 50.00      # ¡ÆC
 # ===============================
 # Hampel filter settings
 # ===============================
-HAMPEL_WIN = 12          # 12 samples * 10s = 120s
+HAMPEL_WIN = 6          # 6 samples * 10s = 60s
 HAMPEL_K = 3.0
 
 # ===============================

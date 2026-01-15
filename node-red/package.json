@@ -1,33 +1,16 @@
 {
-  "name": "node-red-project",
-  "description": "initially created for you by Node-RED 4.0.9",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "node-red-contrib-boolean-logic": "~0.0.3",
-    "node-red-contrib-buffer-parser": "^3.2.2",
-    "node-red-contrib-camerapi": "^0.0.39",
-    "node-red-contrib-chunks-to-lines": "~0.8.1",
-    "node-red-contrib-image-output": "~0.6.4",
-    "node-red-contrib-loop": "~1.0.1",
-    "node-red-contrib-mjpgcamera": "~2.0.0",
-    "node-red-contrib-msg-speed": "~2.1.0",
-    "node-red-contrib-multipart-stream-decoder": "~1.0.0",
-    "node-red-contrib-multipart-stream-encoder": "~0.0.2",
-    "node-red-contrib-play-audio": "^2.5.0",
-    "node-red-contrib-postgrestor-next": "~0.5.0",
-    "node-red-contrib-python-function-ps": "~0.1.1",
-    "node-red-contrib-pythonshell": "~1.5.4",
-    "node-red-contrib-ui-media": "~1.2.0",
-    "node-red-contrib-ui-upload": "~0.8.1",
-    "node-red-dashboard": "^3.6.5",
-    "node-red-node-base64": "^1.0.0",
-    "node-red-node-pi-gpio": "^2.0.6",
-    "node-red-node-ping": "^0.3.3",
-    "node-red-node-random": "^0.4.1",
-    "node-red-node-serialport": "^2.0.3",
-    "node-red-node-smooth": "^0.1.2",
-    "node-red-node-ui-table": "~0.4.4",
-    "node-red-node-ui-webcam": "~0.5.0"
-  }
+    "name": "cja-skyfarms",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "dependencies": {
+        "node-red-contrib-pythonshell": "1.5.4",
+        "node-red-dashboard": "3.6.5",
+        "node-red-node-pi-gpio": "2.0.6"
+    },
+    "node-red": {
+        "settings": {
+            "flowFile": "flows.json",
+            "credentialsFile": "flows_cred.json"
+        }
+    }
 }

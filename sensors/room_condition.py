@@ -11,7 +11,9 @@ from serial.serialutil import SerialException
 # ===============================
 # Settings
 # ===============================
-PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:1.2:1.0-port0"
+# PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:1.2:1.0-port0"
+PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
+
 BAUD = 115200
 REQ  = "node000000|SensorReq|0905"
 
