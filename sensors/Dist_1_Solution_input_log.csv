@@ -275,3 +275,4 @@ timestamp,device,action,detail
 2026-01-15 09:30:22,Acid,volume,5,duration,3s
 2026-01-15 09:30:42,AB,volume,5,duration,3s
 2026-01-15 14:00:32,Acid,volume,5,duration,3s
+timestamp,device,action,detail
