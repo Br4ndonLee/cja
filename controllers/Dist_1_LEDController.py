@@ -44,7 +44,7 @@ try:
                 break
 
             # Time-based control
-            if 5 <= now.hour < 23:
+            if 4 <= now.hour < 22:
             # if 0 <= now.second < 30:
                 GPIO.output(4, False)
                 # GPIO.output(6, False)

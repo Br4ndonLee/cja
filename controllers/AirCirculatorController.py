@@ -41,16 +41,24 @@ try:
                 print(json.dumps(result))
                 break
 
-            # Time-based control
-            if 6 <= now.hour < 20:
+            # # Time-based control
+            # if 0 <= now.hour < 24:
+            # # if 0 <= now.second < 30:
+            #     GPIO.output(16, False)
+            #     result["circulator_status"] = "ON"
+            #     result["condition"] = "Time OK: Circulator ON"
+            # else:
+            #     GPIO.output(16, True)
+            #     result["circulator_status"] = "OFF"
+            #     result["condition"] = "Time OUT: Circulator OFF"
+            
+            # Switch-based control
+            else :
             # if 0 <= now.second < 30:
                 GPIO.output(16, False)
                 result["circulator_status"] = "ON"
                 result["condition"] = "Time OK: Circulator ON"
-            else:
-                GPIO.output(16, True)
-                result["circulator_status"] = "OFF"
-                result["condition"] = "Time OUT: Circulator OFF"
+
 
             print(json.dumps(result))
             pause.seconds(5)

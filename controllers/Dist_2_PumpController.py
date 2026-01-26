@@ -68,6 +68,7 @@ try:
 
             # Time-based control
             # if 0 <= now.minute < 2 or 20 <= now.minute < 22 or 40 <= now.minute < 42:
+            # if 10 <= now.minute < 12:
             if 10 <= now.minute < 12 or 40 <= now.minute < 42:
                 GPIO.output(PUMP_1_PIN, False)
                 GPIO.output(PUMP_2_PIN, False)
