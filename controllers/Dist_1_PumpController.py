@@ -2,8 +2,7 @@
 import RPi.GPIO as GPIO
 import datetime
 import sys
-import json
-import pause
+import time
 import select
 import os
 import csv
@@ -43,30 +42,17 @@ try:
     if first_input is False:
         while True:
             now = datetime.datetime.now()
-            timestamp_json = now.strftime('%Y-%m-%d %H:%M')
             timestamp_csv = now.strftime('%Y/%m/%d %H:%M')
-
-            result = {
-                "timestamp": timestamp_json,
-                "pump_status": None,
-                "condition": None
-            }
 
             # Check for new payload input (non-blocking)
             new_input = read_payload()
             if new_input is True:
                 GPIO.output(5, True)
-                result["pump_status"] = "OFF"
-                result["condition"] = "Switch turned ON, exiting loop"
-                print(json.dumps(result))
                 break
 
             # Time-based control
             if 0 <= now.minute < 5 or 30 <= now.minute < 35:
                 GPIO.output(5, False)
-                result["pump_status"] = "ON"
-                result["condition"] = "Time OK: Pump ON"
-
                 # Log ON once per minute to avoid duplicates (loop runs every 5 seconds)
                 current_minute_key = now.strftime("%Y/%m/%d %H:%M")
                 if last_on_minute != current_minute_key:
@@ -75,23 +61,14 @@ try:
 
             else:
                 GPIO.output(5, True)
-                result["pump_status"] = "OFF"
-                result["condition"] = "Time OUT: Pump OFF"
-
-            print(json.dumps(result))
-            pause.seconds(5)
+            time.sleep(0.2)
 
     else:
         GPIO.output(5, True)
-        result = {
-            "timestamp": datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
-            "pump_status": "OFF",
-            "condition": "Initial input was TRUE: force OFF"
-        }
-        print(json.dumps(result))
 
 except KeyboardInterrupt:
     print("Stopped manually")
 
 finally:
     GPIO.cleanup()
+

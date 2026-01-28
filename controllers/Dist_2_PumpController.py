@@ -2,8 +2,7 @@
 import RPi.GPIO as GPIO
 import datetime
 import sys
-import json
-import pause
+import time
 import select
 import os
 import csv
@@ -47,23 +46,13 @@ try:
     if first_input is False:
         while True:
             now = datetime.datetime.now()
-            timestamp_json = now.strftime('%Y-%m-%d %H:%M')
             timestamp_csv = now.strftime('%Y/%m/%d %H:%M')
-
-            result = {
-                "timestamp": timestamp_json,
-                "pump_status": None,
-                "condition": None
-            }
 
             # Check for new payload input (non-blocking)
             new_input = read_payload()
             if new_input is True:
                 GPIO.output(PUMP_1_PIN, True)
                 GPIO.output(PUMP_2_PIN, True)
-                result["pump_status"] = "OFF"
-                result["condition"] = "Switch turned ON, exiting loop"
-                print(json.dumps(result))
                 break
 
             # Time-based control
@@ -72,8 +61,6 @@ try:
             if 10 <= now.minute < 12 or 40 <= now.minute < 42:
                 GPIO.output(PUMP_1_PIN, False)
                 GPIO.output(PUMP_2_PIN, False)
-                result["pump_status"] = "ON"
-                result["condition"] = "Time OK: Pump ON"
 
                 # Log ON once per minute to avoid duplicates (loop runs every 5 seconds)
                 current_minute_key = now.strftime("%Y/%m/%d %H:%M")
@@ -84,21 +71,11 @@ try:
             else:
                 GPIO.output(PUMP_1_PIN, True)
                 GPIO.output(PUMP_2_PIN, True)
-                result["pump_status"] = "OFF"
-                result["condition"] = "Time OUT: Pump OFF"
-
-            print(json.dumps(result))
-            pause.seconds(5)
+            time.sleep(0.2)
 
     else:
         GPIO.output(PUMP_1_PIN, True)
         GPIO.output(PUMP_2_PIN, True)
-        result = {
-            "timestamp": datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
-            "pump_status": "OFF",
-            "condition": "Initial input was TRUE: force OFF"
-        }
-        print(json.dumps(result))
 
 except KeyboardInterrupt:
     print("Stopped manually")

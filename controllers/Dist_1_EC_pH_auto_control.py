@@ -20,59 +20,39 @@ SLAVE_ID = 1
 
 # Log file paths
 SENSOR_CSV = "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv"
-INJECT_CSV = "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv"
 
 # Averaging window settings
 DURATION_SEC = 20
 INTERVAL_SEC = 1
 
-# Control interval (test mode: every N minutes)
-# CHECK_INTERVAL_HOUR = 4
-CHECK_INTERVAL_MINUTE = 5
+# ===============================
+# Schedule mode
+# ===============================
+# TEST: run at every HH:00 and HH:30 (minute boundary)
+# PROD: run at every 4 hours (00/04/08/12/16/20) at HH:00 only
+# SCHEDULE_MODE = "30min"   # "30min" or "4hour"
+
+# 20260127 JeongMin edit
+SCHEDULE_MODE = "4hour" # Production setting
 
 # Thresholds
-EC_MIN = 0.7
-PH_MAX = 6.5
-# EC_MIN = 1.5
-# PH_MAX = 5
+EC_MIN = 1.0
+PH_MAX = 6.4
 
-# Pump calibration (ml per second) and dosing volume
+# Pump dosing volume
+DOSE_ML = 5.0
+# ==============================================================
+
+# Pump calibration (ml per second)
 PUMP_ML_PER_SEC = 1.65
-DOSE_ML = 10.0
 
-# GPIO pins (BCM)
-# NOTE: Test pins (replace with actual pins when deploying)
-PIN_AB = 17
-PIN_ACID = 21
-# PIN_AB = 22
-# PIN_ACID = 23
+# Node-RED GPIO topics (these map to your rpi-gpio out nodes)
+TOPIC_AB = "GPIO17"   # AB pump relay
+TOPIC_ACID = "GPIO21" # Acid pump relay
 
-# ===============================
-# GPIO setup (RPi)
-# ===============================
-try:
-    import RPi.GPIO as GPIO
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
-
-    # Active-low relay: LOW=ON, HIGH=OFF
-    GPIO.setup(PIN_AB, GPIO.OUT, initial=GPIO.HIGH)
-    GPIO.setup(PIN_ACID, GPIO.OUT, initial=GPIO.HIGH)
-    GPIO_OK = True
-except Exception as e:
-    GPIO_OK = False
-    GPIO_ERR = str(e)
-
-# ===============================
-# Modbus setup
-# ===============================
-dev = minimalmodbus.Instrument(EC_PH_PORT, SLAVE_ID, mode="rtu")
-dev.serial.baudrate = 9600
-dev.serial.bytesize = 8
-dev.serial.parity   = serial.PARITY_NONE
-dev.serial.stopbits = 2
-dev.serial.timeout  = 1
-dev.clear_buffers_before_each_transaction = True
+# Active-low relay: 0=ON, 1=OFF
+GPIO_ON = 0
+GPIO_OFF = 1
 
 # ===============================
 # Node-RED switch (stdin) handling
@@ -94,11 +74,18 @@ def read_payload():
             return False
     return None
 
-def force_pumps_off():
-    """Safety function: force both pumps OFF."""
-    if GPIO_OK:
-        GPIO.output(PIN_AB, GPIO.HIGH)
-        GPIO.output(PIN_ACID, GPIO.HIGH)
+def emit(obj):
+    """Print one-line JSON for Node-RED (no extra prints)."""
+    print(json.dumps(obj, ensure_ascii=False), flush=True)
+
+def gpio(topic: str, value: int):
+    """Emit GPIO command JSON for Node-RED."""
+    emit({"type": "gpio", "topic": topic, "payload": int(value)})
+
+def force_all_off():
+    """Safety: force both relays OFF via Node-RED."""
+    gpio(TOPIC_AB, GPIO_OFF)
+    gpio(TOPIC_ACID, GPIO_OFF)
 
 # ===============================
 # CSV helpers
@@ -111,20 +98,24 @@ def ensure_csv_ready_sensor(path: str):
         with open(path, mode="a", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(["Date", "EC", "pH", "Solution_Temperature"])
-
-def ensure_csv_ready_inject(path: str):
-    """Create directory and write header for injection CSV if missing/empty."""
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    need_header = (not os.path.exists(path)) or (os.path.getsize(path) == 0)
-    if need_header:
-        with open(path, mode="a", newline="") as f:
-            # Keep the same style header as your Node-RED file node
-            f.write("timestamp,device,action,detail\n")
+            f.flush()
+            os.fsync(f.fileno())
 
 def now_str(sec=True) -> str:
     """Return current timestamp string."""
     fmt = "%Y-%m-%d %H:%M:%S" if sec else "%Y-%m-%d %H:%M"
     return datetime.datetime.now().strftime(fmt)
+
+# ===============================
+# Modbus setup
+# ===============================
+dev = minimalmodbus.Instrument(EC_PH_PORT, SLAVE_ID, mode="rtu")
+dev.serial.baudrate = 9600
+dev.serial.bytesize = 8
+dev.serial.parity   = serial.PARITY_NONE
+dev.serial.stopbits = 2
+dev.serial.timeout  = 1
+dev.clear_buffers_before_each_transaction = True
 
 # ===============================
 # Sensor read
@@ -177,126 +168,116 @@ def average_ec_ph_temp():
         return "FAIL", None, None, None
 
     avg_ec = round(sum(ec_list) / len(ec_list), 2)
-    # pH calibration correction based on your existing formula
-    avg_ph = round(0.9926 * (sum(ph_list) / len(ph_list)) - 0.2488, 2)
+    avg_ph = round(sum(ph_list) / len(ph_list), 2)
     avg_temp = round(sum(temp_list) / len(temp_list), 2)
 
     return "OK", avg_ec, avg_ph, avg_temp
+
+def fmt_num(x: float) -> str:
+    """Format numbers: 2.0 -> '2', 2.5 -> '2.5'."""
+    try:
+        xf = float(x)
+    except Exception:
+        return str(x)
+    if abs(xf - round(xf)) < 1e-9:
+        return str(int(round(xf)))
+    # Keep compact representation (e.g., 2.5, 1.23)
+    return f"{xf:g}"
 
 def log_sensor(date_str, ec, ph, temp):
     """Append one sensor row to SENSOR_CSV."""
     with open(SENSOR_CSV, mode="a", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow([date_str, ec, ph, temp])
-        f.flush()
-        os.fsync(f.fileno())
-
-def log_injection(device: str, ml: float, sec: float):
-    """
-    Append injection log to INJECT_CSV in the same style as your Node-RED file output.
-    Example:
-      '2025-12-23 12:34:56,AB,volume,10ml,duration,6.1s'
-    """
-    ts = now_str(sec=True)
-    sec_disp = round(sec, 1)
-    line = f"{ts},{device},volume,{ml},duration,{sec_disp}s\n"
-    with open(INJECT_CSV, mode="a", newline="") as f:
-        f.write(line)
+        # Write as strings to avoid 2.0 style in CSV
+        writer.writerow([date_str, fmt_num(ec), fmt_num(ph), fmt_num(temp)])
         f.flush()
         os.fsync(f.fileno())
 
 # ===============================
-# Pump control
+# Pump control via Node-RED GPIO
 # ===============================
-def run_pump(pin: int, seconds: float):
+def wait_with_abort(seconds: float):
     """
-    Run one pump for the given duration.
-    Active-low relay: LOW=ON, HIGH=OFF.
-    Also monitors switch OFF during pumping and aborts immediately.
+    Wait for seconds while monitoring Auto OFF.
+    Raises RuntimeError('auto_switch_off') if OFF arrives.
     """
-    if not GPIO_OK:
-        raise RuntimeError(f"GPIO not available: {GPIO_ERR}")
-
-    GPIO.output(pin, GPIO.LOW)  # ON
     t0 = time.monotonic()
+    while (time.monotonic() - t0) < max(0.0, seconds):
+        sw = read_payload()
+        if sw is False:
+            raise RuntimeError("auto_switch_off")
+        time.sleep(0.05)
+        
+def run_pump_via_nodered(topic: str, device_name: str, ml: float, sec_needed: float):
+    """
+    Run pump by emitting GPIO ON/OFF, and emit a log line object to Node-RED.
+    """
+    # ON
+    gpio(topic, GPIO_ON)
 
     try:
-        while (time.monotonic() - t0) < max(0.0, seconds):
-            sw = read_payload()
-            if sw is False:
-                raise RuntimeError("auto_switch_off")
-            time.sleep(0.05)  # Check every 50ms
+        wait_with_abort(sec_needed)
     finally:
-        GPIO.output(pin, GPIO.HIGH)  # OFF (always)
+        # Always OFF
+        gpio(topic, GPIO_OFF)
 
+    # Emit log line (Node-RED will append newline in file node)
+    ts = now_str(sec=True)
+    sec_disp = round(sec_needed, 1)
+
+    line = f"{ts},{device_name},volume,{fmt_num(ml)},duration,{fmt_num(sec_disp)}s"
+    emit({"type": "log", "device": device_name, "payload": line})
 # ===============================
 # One control cycle
 # ===============================
 def control_once():
     """
     One control cycle:
-      1) Lock RS485 bus (avoid Modbus collisions)
+      1) Lock RS485 bus
       2) Read averaged EC/pH/temp
-      3) Log sensor row
-      4) If EC < EC_MIN -> inject AB (10 ml)
-         If pH >= PH_MAX -> inject Acid (10 ml)
-      5) Log injections to INJECT_CSV
-      6) Print JSON output for Node-RED
+      3) Log sensor row (SENSOR_CSV)
+      4) If EC < EC_MIN -> dose AB
+         If pH >= PH_MAX -> dose Acid
+    NOTE: GPIO is controlled by Node-RED using emitted JSON commands.
     """
     lock = open("/tmp/rs485_bus.lock", "w")
     fcntl.flock(lock, fcntl.LOCK_EX)
 
     try:
         ensure_csv_ready_sensor(SENSOR_CSV)
-        ensure_csv_ready_inject(INJECT_CSV)
 
         status, avg_ec, avg_ph, avg_temp = average_ec_ph_temp()
         date_str = now_str(sec=False)
 
         if status == "STOP":
-            print(json.dumps({"stopped": True, "reason": "switch_off"}, ensure_ascii=False), flush=True)
+            # Do not spam logs; just stop cleanly
             return "STOP"
 
         if status == "FAIL" or avg_ec is None:
-            print(json.dumps({"error": "sensor_read_failed"}, ensure_ascii=False), flush=True)
+            # Keep quiet or emit a minimal error if you want:
+            # emit({"type":"log","device":"AB","payload":f"{now_str(True)},SYS,error,sensor_read_failed"})
             return "FAIL"
 
-        # Always log sensor reading
+        # Log sensor reading only when this control cycle runs (=> every 4 hours)
         log_sensor(date_str, avg_ec, avg_ph, avg_temp)
 
-        injected = {"AB_ml": 0.0, "Acid_ml": 0.0}
         sec_needed = DOSE_ML / PUMP_ML_PER_SEC
 
         # Control logic
-        if avg_ec < EC_MIN:
-            run_pump(PIN_AB, sec_needed)
-            log_injection("AB", DOSE_ML, sec_needed)
-            injected["AB_ml"] = DOSE_ML
+        if avg_ec <= EC_MIN:
+            run_pump_via_nodered(TOPIC_AB, "AB", DOSE_ML, sec_needed)
 
         if avg_ph >= PH_MAX:
-            run_pump(PIN_ACID, sec_needed)
-            log_injection("Acid", DOSE_ML, sec_needed)
-            injected["Acid_ml"] = DOSE_ML
-
-        # Node-RED JSON output
-        print(json.dumps({
-            "date": date_str,
-            "EC": avg_ec,
-            "pH": avg_ph,
-            "Solution_Temperature": avg_temp,
-            "injected": injected
-        }, ensure_ascii=False), flush=True)
+            run_pump_via_nodered(TOPIC_ACID, "Acid", DOSE_ML, sec_needed)
 
         return "OK"
 
     except Exception as e:
-        # Special case: switch OFF during pump run
         if str(e) == "auto_switch_off":
-            force_pumps_off()
-            print(json.dumps({"stopped": True, "reason": "switch_off_during_pump"}, ensure_ascii=False), flush=True)
+            force_all_off()
             return "STOP"
-
-        print(json.dumps({"error": str(e)}, ensure_ascii=False), flush=True)
+        # For safety, force OFF on any unexpected error
+        force_all_off()
         return "FAIL"
 
     finally:
@@ -306,53 +287,90 @@ def control_once():
         except:
             pass
 
+def is_on_boundary(dt: datetime.datetime) -> bool:
+    """
+    Decide whether current time is on the schedule boundary.
+    - 30min: minute is 0 or 30
+    - 4hour: hour is multiple of 4 AND minute is 0
+    """
+    if SCHEDULE_MODE == "30min":
+        return (dt.minute % 30 == 0)
+    # "4hour"
+    return (dt.hour % 4 == 0 and dt.minute == 0)
+
+def slot_stamp(dt: datetime.datetime) -> str:
+    """
+    Create a unique key for the current slot to prevent duplicate runs.
+    - 30min: YYYYMMDDHH + (00 or 30)
+    - 4hour: YYYYMMDD + HH (00/04/08/12/16/20)
+    """
+    dt0 = dt.replace(second=0, microsecond=0)
+
+    if SCHEDULE_MODE == "30min":
+        mm = 0 if dt0.minute < 30 else 30
+        return dt0.strftime("%Y%m%d%H") + f"{mm:02d}"
+
+    # "4hour"
+    hh = (dt0.hour // 4) * 4
+    return dt0.strftime("%Y%m%d") + f"{hh:02d}"
+
+
 # ===============================
-# Main loop (runs while switch is ON)
+# Main loop
 # ===============================
 def main_loop():
     """
     Controller-style stdin control:
       - Wait until we receive "true" (Auto ON) to start.
-      - While running, if "false" arrives (Auto OFF), stop immediately.
+      - Run control_once ONLY at predictable wall-clock boundaries:
+          * TEST  ("30min"): every HH:00 and HH:30
+          * PROD  ("4hour"): every 4 hours at HH:00 (00/04/08/12/16/20)
+      - No requirement to hit second==00. Runs once within that boundary minute.
+      - Duplicate runs inside the same boundary minute are prevented by slot_stamp().
+      - If "false" arrives, stop immediately and force pumps OFF.
     """
+    # Ensure OFF at boot
+    force_all_off()
+
     # Wait for initial ON signal
     while True:
         sw = read_payload()
         if sw is True:
             break
         if sw is False:
-            force_pumps_off()
-            print(json.dumps({"stopped": True, "reason": "initial_off"}, ensure_ascii=False), flush=True)
+            force_all_off()
             return
         time.sleep(0.1)
 
-    last_slot = None  # (YYYY-MM-DD, minute) for test mode
+    # Track last executed slot to avoid duplicate execution within same boundary minute
+    last_run_slot = None
 
     try:
         while True:
-            # Stop immediately if switch OFF arrives
+            # Check OFF quickly
             sw = read_payload()
             if sw is False:
-                force_pumps_off()
-                print(json.dumps({"stopped": True, "reason": "switch_off"}, ensure_ascii=False), flush=True)
+                force_all_off()
                 break
 
             now = datetime.datetime.now()
-            # slot = (now.strftime("%Y-%m-%d"), now.hour)  # hour-based slots
-            slot = (now.strftime("%Y-%m-%d"), now.minute)  # test: minute-based slots
 
-            # if (now.hour % CHECK_INTERVAL_HOUR == 0) and (slot != last_slot):
-            if (now.minute % CHECK_INTERVAL_MINUTE == 0) and (slot != last_slot):
-                res = control_once()
-                last_slot = slot
-                if res == "STOP":
-                    break
+            # Run only on boundary and only once per slot
+            if is_on_boundary(now):
+                cur_slot = slot_stamp(now)
+                if cur_slot != last_run_slot:
+                    res = control_once()
+                    if res == "STOP":
+                        break
+                    last_run_slot = cur_slot
 
-            time.sleep(0.2)  # Fast polling to react quickly to OFF
+            # Polling interval: small enough to not miss the boundary minute
+            # (00/30 or 00) but not too busy. 0.2~1.0s are fine.
+            time.sleep(0.2)
+
     finally:
-        force_pumps_off()
-        if GPIO_OK:
-            GPIO.cleanup()
+        force_all_off()
+
 
 if __name__ == "__main__":
     main_loop()

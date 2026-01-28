@@ -2,8 +2,7 @@
 import RPi.GPIO as GPIO
 import datetime
 import sys
-import json
-import pause
+import time
 import select
 
 GPIO.setwarnings(False)
@@ -26,51 +25,28 @@ try:
         while True:
             now = datetime.datetime.now()
             timestamp = now.strftime('%Y-%m-%d %H:%M')
-            result = {
-                "timestamp": timestamp,
-                "led_status": None,
-                "condition": None
-            }
 
             # Check for new payload input (non-blocking)
             new_input = read_payload()
             if new_input is True:
                 GPIO.output(16, True)
-                result["circulator_status"] = "OFF"
-                result["condition"] = "Switch turned ON, exiting loop"
-                print(json.dumps(result))
                 break
 
             # # Time-based control
             # if 0 <= now.hour < 24:
             # # if 0 <= now.second < 30:
             #     GPIO.output(16, False)
-            #     result["circulator_status"] = "ON"
-            #     result["condition"] = "Time OK: Circulator ON"
             # else:
             #     GPIO.output(16, True)
-            #     result["circulator_status"] = "OFF"
-            #     result["condition"] = "Time OUT: Circulator OFF"
             
             # Switch-based control
             else :
-            # if 0 <= now.second < 30:
                 GPIO.output(16, False)
-                result["circulator_status"] = "ON"
-                result["condition"] = "Time OK: Circulator ON"
 
-
-            print(json.dumps(result))
-            pause.seconds(5)
+                time.sleep(0.2)
 
     else:
         GPIO.output(16, True)
-        result = {
-            "timestamp": datetime.datetime.now().strftime('%Y-%m-%d %H:%M'),
-            "circulator_status": "OFF",
-            "condition": "Initial input was TRUE: force OFF"
-        }
-        print(json.dumps(result))
 
 except KeyboardInterrupt:
     print("Stopped manually")
