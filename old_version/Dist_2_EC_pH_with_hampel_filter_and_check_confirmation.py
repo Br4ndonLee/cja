@@ -13,12 +13,13 @@ from serial.serialutil import SerialException
 # ===============================
 # Settings
 # ===============================
+# PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:1.2:1.0-port0"
 PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
 
 BAUD = 115200
 REQ  = "node000300|SensorReq|8985"
 
-# Target sensor IDs (expected) - kept for documentation
+# Target sensor IDs (expected)
 ID_PH   = 16
 ID_TEMP = 29
 ID_EC   = 30
@@ -39,18 +40,25 @@ CSV_EVERY_MIN = 20
 # ===============================
 # Physical validity ranges (safe)
 # ===============================
-VALID_EC_MIN, VALID_EC_MAX = 0.00, 3.00        # dS/m
-VALID_PH_MIN, VALID_PH_MAX = 3.50, 10.00       # pH
-VALID_TP_MIN, VALID_TP_MAX = 10.00, 50.00      # °C
+# NOTE: Adjust if your system uses different EC units/ranges.
+VALID_EC_MIN, VALID_EC_MAX = 0.00, 5.00        # dS/m
+VALID_PH_MIN, VALID_PH_MAX = 3.00, 10.00       # pH
+VALID_TP_MIN, VALID_TP_MAX = 10.00, 50.00      # ¡ÆC
 
 # ===============================
-# Hampel filter settings (lightweight)
+# Hampel filter settings
 # ===============================
-HAMPEL_WIN = 6          # 6 samples * 10s = 60s history window
-HAMPEL_K = 3.0          # 3.0 is standard; relax to 3.5 if too strict
-HAMPEL_FLAT_TOL_EC = 0.10
-HAMPEL_FLAT_TOL_PH = 0.10
-HAMPEL_FLAT_TOL_TP = 0.50
+HAMPEL_WIN = 6          # 6 samples * 10s = 60s
+HAMPEL_K = 3.0
+
+# ===============================
+# Confirmation settings
+# ===============================
+CONFIRM_N = 3
+CONFIRM_M = 2
+EC_BAND_ABS = 0.20
+PH_BAND_ABS = 0.50
+TP_BAND_ABS = 2.0
 
 # ===============================
 # Timing helpers (no drift)
@@ -141,6 +149,31 @@ def to_float_maybe(s: str):
         return None
     return None
 
+def extract_value_for_id(text: str, target_id: int):
+    """
+    Try to extract the numeric value that follows a given id.
+    Works even if quotes/colons are partially corrupted, as long as 'id' + digits survive.
+    """
+    m = re.search(
+        r'(?:id)[^0-9]{0,10}' + re.escape(str(target_id)) + r'[^0-9]{0,100}',
+        text,
+        re.IGNORECASE
+    )
+    if not m:
+        return None
+
+    window = text[m.start(): m.start() + 260]
+
+    mv = re.search(r'(?:value)[^0-9]{0,30}([0-9]+(?:[./][0-9]+)?)', window, re.IGNORECASE)
+    if mv:
+        return to_float_maybe(mv.group(1))
+
+    mn = re.search(r'([0-9]+(?:[./][0-9]+)?)', window)
+    if mn:
+        return to_float_maybe(mn.group(1))
+
+    return None
+
 def parse_ec_ph_tp(text: str):
     """
     Position-based parsing:
@@ -149,6 +182,7 @@ def parse_ec_ph_tp(text: str):
       1) pH, 2) Solution_Temperature, 3) EC
     Return (ec, ph, tp) where each may be None.
     """
+    # Grab value tokens in order even if JSON is corrupted
     vals = []
     for m in re.finditer(r'value[^0-9]{0,30}([0-9]+(?:[./][0-9]+)?)', text, re.IGNORECASE):
         v = to_float_maybe(m.group(1))
@@ -157,6 +191,7 @@ def parse_ec_ph_tp(text: str):
         if len(vals) >= 3:
             break
 
+    # If we don't get 3 values, return whatever we have (partial)
     ph = vals[0] if len(vals) >= 1 else None
     tp = vals[1] if len(vals) >= 2 else None
     ec = vals[2] if len(vals) >= 3 else None
@@ -228,7 +263,7 @@ def request_once_with_lock_and_retry():
         lockf.close()
 
 # ===============================
-# Filtering helpers (Hampel only)
+# Filtering helpers
 # ===============================
 def is_finite_number(x) -> bool:
     """Check x is a finite float-like number."""
@@ -269,7 +304,6 @@ def hampel_accept(candidate, history, k=3.0, flat_abs_tol=0.2):
         return False
     c = float(candidate)
 
-    # Not enough history -> accept early
     if len(history) < max(5, HAMPEL_WIN // 3):
         return True
 
@@ -284,11 +318,42 @@ def hampel_accept(candidate, history, k=3.0, flat_abs_tol=0.2):
 
     sigma = 1.4826 * mad_v
 
-    # If history is flat (MAD=0), allow a small absolute deviation
+    # If history is flat (MAD=0), allow small absolute deviation instead of exact match
     if sigma == 0:
         return abs(c - m) <= float(flat_abs_tol)
 
     return abs(c - m) <= (k * sigma)
+
+def within_band(a, b, band_abs):
+    """Check if two values are close enough."""
+    if a is None or b is None:
+        return False
+    try:
+        return abs(float(a) - float(b)) <= float(band_abs)
+    except:
+        return False
+
+def confirmation_update(rep, pending_list, candidate, band_abs, n=3, m=2):
+    """M-of-N confirmation promotion."""
+    c = float(candidate)
+
+    if rep is None:
+        return c, [], "accepted_first"
+
+    if within_band(c, rep, band_abs):
+        return c, [], "accepted_near_rep"
+
+    pending_list = (pending_list + [c])[-n:]
+    pm = median(pending_list)
+    if pm is None:
+        return rep, pending_list, "pending"
+
+    close = [x for x in pending_list if abs(x - pm) <= band_abs]
+    if len(close) >= m:
+        new_rep = median(close)
+        return new_rep, [], "promoted_confirmed"
+
+    return rep, pending_list, "pending"
 
 # ===============================
 # Main loop
@@ -299,8 +364,11 @@ def main():
     # Histories for Hampel (accepted samples only)
     hist_ec, hist_ph, hist_tp = [], [], []
 
-    # Representatives: latest accepted sample (no confirmation delay)
+    # Representatives (confirmed) - updated per-variable independently
     rep_ec = rep_ph = rep_tp = None
+
+    # Pending for confirmation
+    pend_ec, pend_ph, pend_tp = [], [], []
 
     last_json_minute = None
     last_csv_minute = None
@@ -313,10 +381,7 @@ def main():
         "baud": BAUD,
         "req": REQ,
         "json_every_min": JSON_EVERY_MIN,
-        "csv_every_min": CSV_EVERY_MIN,
-        "filter": "hampel_only",
-        "hampel_win": HAMPEL_WIN,
-        "hampel_k": HAMPEL_K
+        "csv_every_min": CSV_EVERY_MIN
     }, ensure_ascii=False), flush=True)
 
     while True:
@@ -332,41 +397,42 @@ def main():
             # EC
             if valid_ec(ec):
                 ec = float(ec)
-                if hampel_accept(ec, hist_ec, HAMPEL_K, HAMPEL_FLAT_TOL_EC):
+                if hampel_accept(ec, hist_ec, HAMPEL_K):
                     hist_ec.append(ec)
                     hist_ec = hist_ec[-(HAMPEL_WIN * 3):]
-                    rep_ec = ec
+                    rep_ec, pend_ec, _ = confirmation_update(rep_ec, pend_ec, ec, EC_BAND_ABS, CONFIRM_N, CONFIRM_M)
                     updated_any = True
                 else:
                     last_err = "hampel_outlier_ec"
 
-            # pH
+            # pH (allow missing/invalid, do NOT block others)
             if valid_ph(ph):
                 ph = float(ph)
-                if hampel_accept(ph, hist_ph, HAMPEL_K, HAMPEL_FLAT_TOL_PH):
+                if hampel_accept(ph, hist_ph, HAMPEL_K):
                     hist_ph.append(ph)
                     hist_ph = hist_ph[-(HAMPEL_WIN * 3):]
-                    rep_ph = ph
+                    rep_ph, pend_ph, _ = confirmation_update(rep_ph, pend_ph, ph, PH_BAND_ABS, CONFIRM_N, CONFIRM_M)
                     updated_any = True
                 else:
                     last_err = "hampel_outlier_ph"
             else:
-                # If pH is present but invalid (except 0.0), keep a note
+                # pH=0.0 is common in your corrupted frames -> invalid by design
                 if ph is not None and is_finite_number(ph) and float(ph) != 0.0:
                     last_err = "invalid_ph"
 
             # Temp
             if valid_tp(tp):
                 tp = float(tp)
-                if hampel_accept(tp, hist_tp, HAMPEL_K, HAMPEL_FLAT_TOL_TP):
+                if hampel_accept(tp, hist_tp, HAMPEL_K):
                     hist_tp.append(tp)
                     hist_tp = hist_tp[-(HAMPEL_WIN * 3):]
-                    rep_tp = tp
+                    rep_tp, pend_tp, _ = confirmation_update(rep_tp, pend_tp, tp, TP_BAND_ABS, CONFIRM_N, CONFIRM_M)
                     updated_any = True
                 else:
                     last_err = "hampel_outlier_tp"
 
             if updated_any:
+                # If we got at least one good update, clear stale error
                 last_err = None
 
         now = datetime.datetime.now()
@@ -405,6 +471,7 @@ def main():
                         "error": f"csv_write_failed: {e}"
                     }, ensure_ascii=False), flush=True)
             else:
+                # No EC/temp representative yet -> skip saving safely
                 print(json.dumps({
                     "type": "csv_skip",
                     "date": minute_key,

@@ -36,8 +36,8 @@ INTERVAL_SEC = 1
 SCHEDULE_MODE = "4hour" # Production setting
 
 # Thresholds
-EC_MIN = 1.0
-PH_MAX = 6.4
+EC_MIN = 1.1
+PH_MAX = 6.1
 
 # Pump dosing volume
 DOSE_ML = 5.0
@@ -61,17 +61,18 @@ def read_payload():
     """
     Non-blocking stdin read for Node-RED pythonshell input.
     Expected values:
-      - "true"  -> keep running (Auto ON)
-      - "false" -> stop immediately (Auto OFF)
+      - "false"  -> keep running (Auto ON)
+      - "true" -> stop immediately (Auto OFF)
+    Because fucking Raspberry Pi's stdin is inverted GPIO.
     Returns:
       True / False / None (if no new input)
     """
     if select.select([sys.stdin], [], [], 0)[0]:
         raw = sys.stdin.readline().strip().lower()
         if raw == "true":
-            return True
-        if raw == "false":
             return False
+        if raw == "false":
+            return True
     return None
 
 def emit(obj):
