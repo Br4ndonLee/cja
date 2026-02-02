@@ -10,7 +10,7 @@
     {
         "id": "c7d9c1b1f0a6a111",
         "type": "tab",
-        "label": "\bChart from CSV",
+        "label": "\bChart from DB",
         "disabled": false,
         "info": ""
     },
@@ -138,68 +138,6 @@
         "h": 582
     },
     {
-        "id": "e74e46c298b7c6cb",
-        "type": "group",
-        "z": "flow_all",
-        "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
-            "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
-        },
-        "nodes": [
-            "inject_10min",
-            "uib_refresh",
-            "tmpl_download",
-            "table_read_file",
-            "csv_to_json",
-            "table_ui",
-            "http_in_download",
-            "read_file_download",
-            "http_response_download",
-            "eccd6ca216a8ac97",
-            "734f54c626594136"
-        ],
-        "x": 34,
-        "y": 19,
-        "w": 972,
-        "h": 342
-    },
-    {
-        "id": "9b29f194d8a3aae8",
-        "type": "group",
-        "z": "flow_all",
-        "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
-            "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
-        },
-        "nodes": [
-            "c6456d1672233c77",
-            "9bb8aa797d2db538",
-            "6fd08ead6c34727b",
-            "888936cb5be63657",
-            "7d38609966719e04",
-            "ee81447397a9b21c",
-            "d68f35126f715e09",
-            "e3164829ad2f9c99",
-            "d7ba64a61cb93a1c",
-            "bd6f7ce9ccfb1bf7",
-            "2205b965641cc936"
-        ],
-        "x": 14,
-        "y": 399,
-        "w": 1012,
-        "h": 342
-    },
-    {
         "id": "466f7742a246e74a",
         "type": "group",
         "z": "84f9df6667326f98",
@@ -222,12 +160,16 @@
             "0834272c61fa1d91",
             "53e4c030b80e8a42",
             "1d50e0dd0e72e657",
-            "893d48d19cc2c365"
+            "893d48d19cc2c365",
+            "91b2109638828671",
+            "dca8353ba4f4c218",
+            "9527ba84ddcf42d2",
+            "29ecb140bf1f8d74"
         ],
         "x": 34,
-        "y": 1379,
+        "y": 1319,
         "w": 1042,
-        "h": 322
+        "h": 442
     },
     {
         "id": "912ed1b86333869f",
@@ -261,39 +203,8 @@
         ],
         "x": 34,
         "y": 2939,
-        "w": 1132,
+        "w": 1632,
         "h": 462
-    },
-    {
-        "id": "d0f7352041fbc952",
-        "type": "group",
-        "z": "flow_all",
-        "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
-            "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
-        },
-        "nodes": [
-            "459214eb53b8201a",
-            "f57f70b40106ba3b",
-            "ae6fd6772d53e43a",
-            "c1c5d1be217dd1ca",
-            "74fee1ff15336b2e",
-            "2923571850219960",
-            "e9b78c33d6da39ab",
-            "1d899e847958cc51",
-            "762997c612a3239b",
-            "d62e857fdfc39204",
-            "64e0010d99179742"
-        ],
-        "x": 4,
-        "y": 799,
-        "w": 1052,
-        "h": 342
     },
     {
         "id": "915bc3b1ca228f03",
@@ -456,72 +367,10 @@
             "d4e056cc41c01da1",
             "78091ee38cd1e0cc"
         ],
-        "x": 1254,
+        "x": 1734,
         "y": 2939,
-        "w": 1132,
-        "h": 462
-    },
-    {
-        "id": "c62aa2d73263b188",
-        "type": "group",
-        "z": "flow_all",
-        "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
-            "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
-        },
-        "nodes": [
-            "27fc66eaaca23794",
-            "61caf0db18f2428d",
-            "c09b25e4d365be34",
-            "3f0ad1a72df8b757",
-            "5a814c3c8a19e0be",
-            "1ba33261f437d902",
-            "36344a406840362d",
-            "b2a258edcf5a958e",
-            "9e97d9f96995bf28",
-            "0be035f89455a795",
-            "4d55c4ca6af1390e"
-        ],
-        "x": 1114,
-        "y": 419,
-        "w": 1012,
-        "h": 342
-    },
-    {
-        "id": "be44b588c52432ea",
-        "type": "group",
-        "z": "flow_all",
-        "style": {
-            "stroke": "#999999",
-            "stroke-opacity": "1",
-            "fill": "none",
-            "fill-opacity": "1",
-            "label": true,
-            "label-position": "nw",
-            "color": "#a4a4a4"
-        },
-        "nodes": [
-            "e7891915e633acd2",
-            "a6223c1af0cd3dd5",
-            "8d665aadf1c7067c",
-            "51704d967a421a19",
-            "01e0b9d102a39fd5",
-            "a3412107226a6d51",
-            "9f1c418cd3f3a885",
-            "94b0f12f3bc1db62",
-            "7fd7452d9cd017ef",
-            "370b70a08f5dc235",
-            "a9ea43292fd0feba"
-        ],
-        "x": 1104,
-        "y": 819,
-        "w": 1052,
-        "h": 342
+        "w": 1592,
+        "h": 482
     },
     {
         "id": "7e05584f07adae7b",
@@ -532,9 +381,6 @@
             "label": true
         },
         "nodes": [
-            "f1b1e91b834b1e7b",
-            "e6bfb513d88ab35f",
-            "0fe32ae7f7830fa0",
             "84915ae7f5c9b3c6",
             "7b2f5b8520aa74d8",
             "6104d3b154bae62a",
@@ -542,7 +388,9 @@
             "66dddb17279fa4ea",
             "2ca82c801cc78dcf",
             "7bcaa443ae916920",
-            "c17e5970c5cc707c"
+            "c17e5970c5cc707c",
+            "6b044a38741310f6",
+            "413edac3ab2c73bf"
         ],
         "x": 34,
         "y": 319,
@@ -559,16 +407,15 @@
         },
         "nodes": [
             "9a7f2b6b84f6a001",
-            "6f1e2d3c4b5a6978",
-            "f5a4c3b2d1e0f999",
             "2c1d3e4f5a6b7c80",
             "3d2e4f5a6b7c8d90",
             "4e3f5a6b7c8d9ea0",
-            "3a6b1b2c3d4e5f60",
             "fc506592c792073d",
             "2b11787c0f4b97a0",
             "fcc61e3763443285",
-            "9e58a61289d8c37b"
+            "9e58a61289d8c37b",
+            "b5943a1f7cf1632b",
+            "8d576cf243516148"
         ],
         "x": 34,
         "y": 39,
@@ -586,19 +433,109 @@
         "nodes": [
             "9d672b31c0fdbdf0",
             "11c49a6273f636d3",
-            "a2f36fd67d9dfe31",
             "efb0d37433575254",
             "e7fd9e961e86b1b1",
             "74989654888b2172",
-            "88a05da35409bfbf",
             "61d28f90c35a0e04",
             "c3284b9db2edcac0",
-            "b4b069056ce7fe97"
+            "b4b069056ce7fe97",
+            "e9bba788651eb3d4",
+            "715c885393e8b131"
         ],
         "x": 14,
         "y": 599,
         "w": 1372,
         "h": 202
+    },
+    {
+        "id": "89edff7748839507",
+        "type": "group",
+        "z": "84f9df6667326f98",
+        "name": "Dist 1 EC pH Auto control",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "ui_auto_switch",
+            "fn_set_auto_flag",
+            "b17d8c4a3bca04cb",
+            "7cf8ec733dff273c",
+            "57f723a2128c43d5",
+            "59b0ff71adae82a7",
+            "ccf0ccf62190c269",
+            "977cea532afc089a",
+            "7dcc7bbc6be0b9f7"
+        ],
+        "x": 34,
+        "y": 3419,
+        "w": 1172,
+        "h": 242
+    },
+    {
+        "id": "121d5ec0629dc581",
+        "type": "group",
+        "z": "84f9df6667326f98",
+        "name": "Dist 2 EC pH Auto control",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "8f09733d80d00645",
+            "13cb5d10e2e2abf5",
+            "d97d2f46df0c69b4",
+            "386503bda4f5c254",
+            "11668b201f94f5a6",
+            "d172c8ca1a88f8c0",
+            "97a7ee0f561696f6",
+            "46aa6ebe59e28fc0"
+        ],
+        "x": 1654,
+        "y": 3469,
+        "w": 1352,
+        "h": 172
+    },
+    {
+        "id": "8446b5ed352ca2d8",
+        "type": "group",
+        "z": "flow_all",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "adc9839917f22d12",
+            "944e216c6a520e54",
+            "a22b223becb16273",
+            "197112b240ad2134",
+            "2588aa26c880e550",
+            "90d2176c35e8e7cb",
+            "a0eaac3edf8af92e",
+            "96aa85f9b22bce2a",
+            "14035e35d8173d54",
+            "10b47748db311969",
+            "1d859b1f08e16750",
+            "5492ffead4d707b1",
+            "5d24488e666ee37c",
+            "9a6aa10181469ac7",
+            "ad92971d35a3f9b1",
+            "6db4030be30fbdb9",
+            "716fa25ba9db853a",
+            "cae69a4b087570ee",
+            "d4739939fd8e23db",
+            "b125209d3d41004e",
+            "f5a6a15636c2ae8a",
+            "7dc725beeaba75fc",
+            "6897d08c634f30b3"
+        ],
+        "x": 94,
+        "y": 59,
+        "w": 1152,
+        "h": 462
     },
     {
         "id": "f8142c59ee10a26e",
@@ -686,7 +623,7 @@
             "allowSwipe": "false",
             "lockMenu": "false",
             "allowTempTheme": "true",
-            "dateFormat": "YYY/MM/DD",
+            "dateFormat": "YYYY/MM/DD",
             "sizes": {
                 "sx": 48,
                 "sy": 48,
@@ -775,11 +712,11 @@
     {
         "id": "ui_grp_table",
         "type": "ui_group",
-        "name": "Room Condition Data",
+        "name": "Database",
         "tab": "ui_tab_dashboard",
         "order": 1,
         "disp": true,
-        "width": 6,
+        "width": 12,
         "collapse": false,
         "className": ""
     },
@@ -806,17 +743,6 @@
         "className": ""
     },
     {
-        "id": "grp_dl",
-        "type": "ui_group",
-        "name": "Dist 1. Solution Data",
-        "tab": "ui_tab_dashboard",
-        "order": 2,
-        "disp": true,
-        "width": 6,
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "ui_grp_ctrl",
         "type": "ui_group",
         "name": "Controls",
@@ -825,17 +751,6 @@
         "disp": true,
         "width": "6",
         "collapse": false
-    },
-    {
-        "id": "0c96d57341bb54fa",
-        "type": "ui_group",
-        "name": "Dist 1. Solution Input Data",
-        "tab": "ui_tab_dashboard",
-        "order": 3,
-        "disp": true,
-        "width": 6,
-        "collapse": false,
-        "className": ""
     },
     {
         "id": "9a12b08656165df4",
@@ -911,28 +826,6 @@
         "className": ""
     },
     {
-        "id": "96111742475c44e1",
-        "type": "ui_group",
-        "name": "Dist 2. Solution data",
-        "tab": "ui_tab_dashboard",
-        "order": 4,
-        "disp": true,
-        "width": 6,
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "1b4aaf5eb31383f2",
-        "type": "ui_group",
-        "name": "Dist 2. Solution Input Data",
-        "tab": "ui_tab_dashboard",
-        "order": 5,
-        "disp": true,
-        "width": 6,
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "f325796ebb721579",
         "type": "ui_group",
         "name": "Dist 1. Controller",
@@ -987,14 +880,32 @@
         "region": "sg"
     },
     {
-        "id": "51780bed2fb0d2a6",
+        "id": "a812be762c63db42",
         "type": "ui_spacer",
         "z": "84f9df6667326f98",
         "name": "spacer",
-        "group": "e3eac795c3a63651",
-        "order": 5,
+        "group": "f325796ebb721579",
+        "order": 8,
         "width": 4,
         "height": 1
+    },
+    {
+        "id": "8a2dbce163db26b4",
+        "type": "sqlitedb",
+        "db": "/home/cja/Work/cja-skyfarms-project/data/data.db",
+        "mode": "RO"
+    },
+    {
+        "id": "b4b6d0cdbd70071a",
+        "type": "sqlitedb",
+        "db": "/home/cja/Work/cja-skyfarms-project/data/data.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "sql_db_cfg",
+        "type": "sqlitedb",
+        "db": "/home/cja/Work/cja-skyfarms-project/data/data.db",
+        "mode": "RWC"
     },
     {
         "id": "1ef22f386c9aec37",
@@ -1481,7 +1392,7 @@
         "animate": false,
         "className": "Node-Red Dashboard Custom CSS",
         "x": 340,
-        "y": 1440,
+        "y": 1380,
         "wires": [
             [
                 "1d50e0dd0e72e657",
@@ -1508,7 +1419,7 @@
         "fontSize": "25",
         "color": "#ffffff",
         "x": 140,
-        "y": 1480,
+        "y": 1420,
         "wires": []
     },
     {
@@ -1524,18 +1435,19 @@
         "out": "out",
         "bcm": true,
         "x": 960,
-        "y": 1500,
+        "y": 1440,
         "wires": []
     },
     {
         "id": "3cba5f141191ab45",
         "type": "ui_switch",
         "z": "84f9df6667326f98",
+        "d": true,
         "g": "466f7742a246e74a",
         "name": "",
         "label": "Circulator",
         "tooltip": "",
-        "group": "f325796ebb721579",
+        "group": "",
         "order": 7,
         "width": 4,
         "height": 1,
@@ -1555,7 +1467,7 @@
         "animate": false,
         "className": "",
         "x": 340,
-        "y": 1560,
+        "y": 1500,
         "wires": [
             [
                 "a807676ee13f76fc",
@@ -1567,6 +1479,7 @@
         "id": "249836baa17d7698",
         "type": "rpi-gpio out",
         "z": "84f9df6667326f98",
+        "d": true,
         "g": "466f7742a246e74a",
         "name": "GPIO: 16",
         "pin": "16",
@@ -1576,7 +1489,7 @@
         "out": "out",
         "bcm": true,
         "x": 940,
-        "y": 1640,
+        "y": 1580,
         "wires": []
     },
     {
@@ -2642,7 +2555,7 @@
         "finalize": "",
         "libs": [],
         "x": 670,
-        "y": 1520,
+        "y": 1460,
         "wires": [
             [
                 "43877a5160c9b295"
@@ -2671,7 +2584,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 970,
-        "y": 1440,
+        "y": 1380,
         "wires": []
     },
     {
@@ -2688,7 +2601,7 @@
         "finalize": "",
         "libs": [],
         "x": 660,
-        "y": 1460,
+        "y": 1400,
         "wires": [
             [
                 "0834272c61fa1d91"
@@ -2712,7 +2625,7 @@
         "finalize": "",
         "libs": [],
         "x": 610,
-        "y": 1420,
+        "y": 1360,
         "wires": []
     },
     {
@@ -2728,7 +2641,7 @@
         "onceDelay": 0.1,
         "topic": "",
         "x": 360,
-        "y": 1520,
+        "y": 1460,
         "wires": [
             [
                 "0834272c61fa1d91"
@@ -2739,6 +2652,7 @@
         "id": "bf3cffe8b8bf90c4",
         "type": "inject",
         "z": "84f9df6667326f98",
+        "d": true,
         "g": "466f7742a246e74a",
         "name": "매 5초마다 실행",
         "props": [],
@@ -2748,7 +2662,7 @@
         "onceDelay": 0.1,
         "topic": "",
         "x": 360,
-        "y": 1660,
+        "y": 1600,
         "wires": [
             [
                 "e5c0943a8969389f"
@@ -2759,9 +2673,10 @@
         "id": "e5c0943a8969389f",
         "type": "function",
         "z": "84f9df6667326f98",
+        "d": true,
         "g": "466f7742a246e74a",
         "name": "스케줄 ON일 때만 1/0 결정 + 상태문구",
-        "func": "if (flow.get('circulator_enable') !== true) return null;\nconst now = new Date();\nconst hour = now.getHours(); \nconst minutes = now.getMinutes();\nlet val = 1;               // 기본 OFF(1)\nlet text = 'OFF';\nif (hour >= 5 && hour < 23) { val = 0; text = 'ON'; }\n// if (minutes >= 25 && minutes < 26) { val = 0; text = 'ON'; }\n// 출력1: GPIO, 출력2: 상태문구\nreturn [ {payload: val}, {payload: text} ];\n\n// if (flow.get('uv_enable') !== true) return null;\n// 현재 시간(hour) 가져오기\n// let now = new Date();\n// let hour = now.getHours();\n// let minutes = now.getMinutes();\n// let pinState = 1;              // 기본 OFF(1)\n// let text = 'OFF';\n\n\n// // 00시 ~ 06시 사이 ON (0)\n// // if (hour >= 0 && hour < 6) {\n// if (minutes >= 22 && minutes < 23) {\n//     pinState = 0; // ON\n// } else {\n//     pinState = 1; // OFF\n// }\n\n// msg.payload = pinState;\n// return msg;",
+        "func": "if (flow.get('circulator_enable') !== true) return null;\nconst now = new Date();\nconst hour = now.getHours(); \nconst minutes = now.getMinutes();\nlet val = 1;               // 기본 OFF(1)\nlet text = 'OFF';\n// if (hour >= 5 && hour < 23) { val = 0; text = 'ON'; }\nif (hour >= 0 && hour < 24) { val = 0; text = 'ON'; }\n// if (minutes >= 25 && minutes < 26) { val = 0; text = 'ON'; }\n// 출력1: GPIO, 출력2: 상태문구\nreturn [ {payload: val}, {payload: text} ];\n\n// if (flow.get('uv_enable') !== true) return null;\n// 현재 시간(hour) 가져오기\n// let now = new Date();\n// let hour = now.getHours();\n// let minutes = now.getMinutes();\n// let pinState = 1;              // 기본 OFF(1)\n// let text = 'OFF';\n\n\n// // 00시 ~ 06시 사이 ON (0)\n// // if (hour >= 0 && hour < 6) {\n// if (minutes >= 22 && minutes < 23) {\n//     pinState = 0; // ON\n// } else {\n//     pinState = 1; // OFF\n// }\n\n// msg.payload = pinState;\n// return msg;",
         "outputs": 2,
         "timeout": "",
         "noerr": 0,
@@ -2769,7 +2684,7 @@
         "finalize": "",
         "libs": [],
         "x": 670,
-        "y": 1660,
+        "y": 1600,
         "wires": [
             [
                 "249836baa17d7698"
@@ -2783,9 +2698,10 @@
         "id": "4e27f9d174bd08fd",
         "type": "function",
         "z": "84f9df6667326f98",
+        "d": true,
         "g": "466f7742a246e74a",
         "name": "스위치 토글 시 현재상태 재표시",
-        "func": "const enabled = (msg.payload === true);\nif (!enabled) { return [{}, {payload:'OFF'}]; }\nconst now = new Date();\nconst hour = now.getHours();\nconst minutes = now.getMinutes();\nconst text = (hour >= 5 && hour < 23) ? 'ON' : 'OFF';\n// const text = (minutes >= 25 && minutes < 26) ? 'ON' : 'OFF';\nreturn [ {payload: Date.now()}, {payload: text} ];",
+        "func": "const enabled = (msg.payload === true);\nif (!enabled) { return [{}, {payload:'OFF'}]; }\nconst now = new Date();\nconst hour = now.getHours();\nconst minutes = now.getMinutes();\n// const text = (hour >= 5 && hour < 23) ? 'ON' : 'OFF';\nconst text = (hour >= 0 && hour < 24) ? 'ON' : 'OFF';\n// const text = (minutes >= 25 && minutes < 26) ? 'ON' : 'OFF';\nreturn [ {payload: Date.now()}, {payload: text} ];",
         "outputs": 2,
         "timeout": "",
         "noerr": 0,
@@ -2793,7 +2709,7 @@
         "finalize": "",
         "libs": [],
         "x": 660,
-        "y": 1600,
+        "y": 1540,
         "wires": [
             [
                 "e5c0943a8969389f"
@@ -2807,6 +2723,7 @@
         "id": "a807676ee13f76fc",
         "type": "function",
         "z": "84f9df6667326f98",
+        "d": true,
         "g": "466f7742a246e74a",
         "name": "flow.enable 저장",
         "func": "flow.set('circulator_enable', msg.payload === true);\nreturn null;",
@@ -2817,15 +2734,16 @@
         "finalize": "",
         "libs": [],
         "x": 610,
-        "y": 1560,
+        "y": 1500,
         "wires": []
     },
     {
         "id": "7b17019d9694c425",
         "type": "ui_text",
         "z": "84f9df6667326f98",
+        "d": true,
         "g": "466f7742a246e74a",
-        "group": "f325796ebb721579",
+        "group": "",
         "order": 8,
         "width": 4,
         "height": 1,
@@ -2839,7 +2757,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 970,
-        "y": 1580,
+        "y": 1520,
         "wires": []
     },
     {
@@ -2851,7 +2769,7 @@
         "label": "A, B input volume",
         "tooltip": "",
         "group": "f325796ebb721579",
-        "order": 12,
+        "order": 13,
         "width": 4,
         "height": 1,
         "passthru": true,
@@ -2896,7 +2814,7 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "group": "f325796ebb721579",
-        "order": 14,
+        "order": 15,
         "width": 4,
         "height": 1,
         "name": "Setting",
@@ -2919,7 +2837,7 @@
         "g": "912ed1b86333869f",
         "name": "Start injecting solutions A and B",
         "group": "f325796ebb721579",
-        "order": 16,
+        "order": 17,
         "width": 4,
         "height": 1,
         "passthru": false,
@@ -2980,7 +2898,7 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 990,
+        "x": 1510,
         "y": 3020,
         "wires": []
     },
@@ -3002,7 +2920,7 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 1040,
+        "x": 1520,
         "y": 3060,
         "wires": []
     },
@@ -3018,7 +2936,7 @@
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 1040,
+        "x": 1520,
         "y": 3120,
         "wires": [
             []
@@ -3080,7 +2998,7 @@
         "label": "Acid input volume",
         "tooltip": "",
         "group": "f325796ebb721579",
-        "order": 13,
+        "order": 12,
         "width": 4,
         "height": 1,
         "passthru": true,
@@ -3125,7 +3043,7 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "group": "f325796ebb721579",
-        "order": 15,
+        "order": 14,
         "width": 4,
         "height": 1,
         "name": "Setting",
@@ -3148,7 +3066,7 @@
         "g": "912ed1b86333869f",
         "name": "Start injecting Acid solutions",
         "group": "f325796ebb721579",
-        "order": 17,
+        "order": 16,
         "width": 4,
         "height": 1,
         "passthru": false,
@@ -3209,7 +3127,7 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 990,
+        "x": 1530,
         "y": 3260,
         "wires": []
     },
@@ -3231,7 +3149,7 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 1000,
+        "x": 1500,
         "y": 3300,
         "wires": []
     },
@@ -3244,10 +3162,10 @@
         "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv",
         "filenameType": "str",
         "appendNewline": true,
-        "createDir": true,
+        "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 980,
+        "x": 1460,
         "y": 3360,
         "wires": [
             []
@@ -4313,6 +4231,7 @@
         "id": "ui_auto_switch",
         "type": "ui_switch",
         "z": "84f9df6667326f98",
+        "g": "89edff7748839507",
         "name": "Auto Mode",
         "label": "Auto mode",
         "tooltip": "",
@@ -4325,23 +4244,22 @@
         "topic": "",
         "topicType": "str",
         "style": "",
-        "onvalue": "true",
+        "onvalue": "false",
         "onvalueType": "bool",
         "onicon": "",
         "oncolor": "",
-        "offvalue": "false",
+        "offvalue": "true",
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
         "animate": true,
         "className": "",
-        "x": 150,
+        "x": 130,
         "y": 3460,
         "wires": [
             [
                 "fn_set_auto_flag",
-                "b17d8c4a3bca04cb",
-                "9bacb98be36f37dc"
+                "b17d8c4a3bca04cb"
             ]
         ]
     },
@@ -4349,6 +4267,7 @@
         "id": "fn_set_auto_flag",
         "type": "function",
         "z": "84f9df6667326f98",
+        "g": "89edff7748839507",
         "name": "set flow.auto_mode",
         "func": "flow.set('auto_mode', !!msg.payload);\nreturn {payload: flow.get('auto_mode')};",
         "outputs": 1,
@@ -4357,7 +4276,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
+        "x": 350,
         "y": 3460,
         "wires": [
             []
@@ -4367,6 +4286,7 @@
         "id": "b17d8c4a3bca04cb",
         "type": "change",
         "z": "84f9df6667326f98",
+        "g": "89edff7748839507",
         "name": "boolean to str",
         "rules": [
             {
@@ -4393,12 +4313,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 340,
-        "y": 3520,
+        "x": 160,
+        "y": 3540,
         "wires": [
             [
-                "7cf8ec733dff273c",
-                "564506cb197cc954"
+                "7cf8ec733dff273c"
             ]
         ]
     },
@@ -4406,16 +4325,18 @@
         "id": "7cf8ec733dff273c",
         "type": "pythonshell in",
         "z": "84f9df6667326f98",
+        "g": "89edff7748839507",
         "name": "Dist 1 EC pH Automation",
         "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/Dist_1_EC_pH_auto_control.py",
         "virtualenv": "",
         "continuous": true,
         "stdInData": true,
-        "x": 590,
-        "y": 3520,
+        "x": 390,
+        "y": 3540,
         "wires": [
             [
-                "57f723a2128c43d5"
+                "57f723a2128c43d5",
+                "977cea532afc089a"
             ]
         ]
     },
@@ -4635,7 +4556,7 @@
         "label": "Pump",
         "tooltip": "",
         "group": "e3eac795c3a63651",
-        "order": 4,
+        "order": 5,
         "width": 4,
         "height": 1,
         "passthru": true,
@@ -4667,7 +4588,7 @@
         "z": "84f9df6667326f98",
         "g": "978a9587f7a84adc",
         "group": "e3eac795c3a63651",
-        "order": 6,
+        "order": 4,
         "width": 8,
         "height": 1,
         "name": "",
@@ -4702,7 +4623,7 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "str",
-        "x": 1430,
+        "x": 1910,
         "y": 2980,
         "wires": [
             [
@@ -4723,7 +4644,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1710,
+        "x": 2190,
         "y": 2980,
         "wires": [
             [
@@ -4749,7 +4670,7 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 1970,
+        "x": 2450,
         "y": 2980,
         "wires": []
     },
@@ -4774,7 +4695,7 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 1410,
+        "x": 1890,
         "y": 3040,
         "wires": [
             [
@@ -4795,7 +4716,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1840,
+        "x": 2320,
         "y": 3040,
         "wires": [
             [
@@ -4821,7 +4742,7 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 2210,
+        "x": 3190,
         "y": 3020,
         "wires": []
     },
@@ -4843,8 +4764,8 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 2260,
-        "y": 3060,
+        "x": 3180,
+        "y": 3080,
         "wires": []
     },
     {
@@ -4859,7 +4780,7 @@
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 2260,
+        "x": 3160,
         "y": 3120,
         "wires": [
             []
@@ -4883,7 +4804,7 @@
         "topic": "",
         "payload": "timestamp,device,action,detail",
         "payloadType": "str",
-        "x": 1460,
+        "x": 1940,
         "y": 3120,
         "wires": [
             [
@@ -4904,7 +4825,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1680,
+        "x": 2160,
         "y": 3120,
         "wires": [
             [
@@ -4931,7 +4852,7 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "str",
-        "x": 1450,
+        "x": 1930,
         "y": 3220,
         "wires": [
             [
@@ -4952,7 +4873,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1710,
+        "x": 2190,
         "y": 3220,
         "wires": [
             [
@@ -4978,7 +4899,7 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 1970,
+        "x": 2450,
         "y": 3220,
         "wires": []
     },
@@ -5003,7 +4924,7 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 1400,
+        "x": 1880,
         "y": 3280,
         "wires": [
             [
@@ -5024,7 +4945,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1760,
+        "x": 2240,
         "y": 3280,
         "wires": [
             [
@@ -5050,7 +4971,7 @@
         "freq": "",
         "out": "out",
         "bcm": true,
-        "x": 2210,
+        "x": 3190,
         "y": 3260,
         "wires": []
     },
@@ -5072,8 +4993,8 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 2220,
-        "y": 3300,
+        "x": 3180,
+        "y": 3320,
         "wires": []
     },
     {
@@ -5088,8 +5009,8 @@
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 2200,
-        "y": 3360,
+        "x": 3160,
+        "y": 3380,
         "wires": [
             []
         ]
@@ -5112,7 +5033,7 @@
         "topic": "",
         "payload": "timestamp,device,action,detail",
         "payloadType": "str",
-        "x": 1460,
+        "x": 1940,
         "y": 3360,
         "wires": [
             [
@@ -5133,7 +5054,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1680,
+        "x": 2160,
         "y": 3360,
         "wires": [
             [
@@ -5248,43 +5169,10 @@
         "wires": []
     },
     {
-        "id": "9bacb98be36f37dc",
-        "type": "debug",
-        "z": "84f9df6667326f98",
-        "name": "Auto mode switch",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 290,
-        "y": 3660,
-        "wires": []
-    },
-    {
-        "id": "564506cb197cc954",
-        "type": "debug",
-        "z": "84f9df6667326f98",
-        "name": "Auto mode bool to str",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 580,
-        "y": 3620,
-        "wires": []
-    },
-    {
         "id": "57f723a2128c43d5",
         "type": "debug",
         "z": "84f9df6667326f98",
+        "g": "89edff7748839507",
         "name": "Auto mode code",
         "active": false,
         "tosidebar": true,
@@ -5294,8 +5182,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 890,
-        "y": 3620,
+        "x": 580,
+        "y": 3600,
         "wires": []
     },
     {
@@ -5331,7 +5219,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "60",
+        "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
@@ -5519,6 +5407,442 @@
         ]
     },
     {
+        "id": "91b2109638828671",
+        "type": "ui_switch",
+        "z": "84f9df6667326f98",
+        "g": "466f7742a246e74a",
+        "name": "",
+        "label": "Circulator",
+        "tooltip": "",
+        "group": "f325796ebb721579",
+        "order": 7,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "false",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "true",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 340,
+        "y": 1660,
+        "wires": [
+            [
+                "dca8353ba4f4c218"
+            ]
+        ]
+    },
+    {
+        "id": "dca8353ba4f4c218",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "g": "466f7742a246e74a",
+        "name": "boolean to str",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "false",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "true",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 1660,
+        "wires": [
+            [
+                "29ecb140bf1f8d74"
+            ]
+        ]
+    },
+    {
+        "id": "9527ba84ddcf42d2",
+        "type": "inject",
+        "z": "84f9df6667326f98",
+        "g": "466f7742a246e74a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "str",
+        "x": 330,
+        "y": 1720,
+        "wires": [
+            [
+                "dca8353ba4f4c218"
+            ]
+        ]
+    },
+    {
+        "id": "29ecb140bf1f8d74",
+        "type": "pythonshell in",
+        "z": "84f9df6667326f98",
+        "g": "466f7742a246e74a",
+        "name": "Circulator",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/AirCirculatorController.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": true,
+        "x": 740,
+        "y": 1660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "59b0ff71adae82a7",
+        "type": "json",
+        "z": "84f9df6667326f98",
+        "g": "89edff7748839507",
+        "name": "parse python JSON",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 850,
+        "y": 3540,
+        "wires": [
+            [
+                "ccf0ccf62190c269"
+            ]
+        ]
+    },
+    {
+        "id": "ccf0ccf62190c269",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "89edff7748839507",
+        "name": "Dispatch GPIO by topic",
+        "func": "// Expect msg.payload to be an object after JSON node.\nconst p = msg.payload;\n\n// outputs:\n// 1: GPIO17\n// 2: GPIO21\n// 3: AB CSV line\n// 4: Acid CSV line\n// 5: AB Recent ui_text\n// 6: Acid Recent ui_text\n\nif (!p || typeof p !== \"object\") return [null, null, null, null, null, null];\n\n// 1) GPIO commands\n// {type:\"gpio\", topic:\"GPIO17\"|\"GPIO21\", payload:0|1}\nif (p.type === \"gpio\") {\n  const t = String(p.topic || \"\");\n  const v = Number(p.payload);\n\n  if (t === \"GPIO17\") return [{ payload: v }, null, null, null, null, null];\n  if (t === \"GPIO21\") return [null, { payload: v }, null, null, null, null];\n\n  return [null, null, null, null, null, null];\n}\n\n// 2) Log lines\n// {type:\"log\", device:\"AB\"|\"Acid\", payload:\"2026-... ,Acid,volume,2.0,duration,1.2s\"}\nif (p.type === \"log\") {\n  const dev = String(p.device || \"\");\n  const line = String(p.payload || \"\");\n  if (!line) return [null, null, null, null, null, null];\n\n  if (dev === \"AB\") {\n    // CSV + UI 둘 다 보냄\n    return [null, null, { payload: line }, null, { payload: line }, null];\n  }\n  if (dev === \"Acid\") {\n    return [null, null, null, { payload: line }, null, { payload: line }];\n  }\n\n  return [null, null, null, null, null, null];\n}\n\nreturn [null, null, null, null, null, null];\n",
+        "outputs": 6,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1070,
+        "y": 3540,
+        "wires": [
+            [
+                "gpio25_out"
+            ],
+            [
+                "1a838d3ee158ae54"
+            ],
+            [
+                "file_a_csv"
+            ],
+            [
+                "6dddb568535969eb"
+            ],
+            [
+                "txt_a_last"
+            ],
+            [
+                "6044e01bb19ae4bc"
+            ]
+        ]
+    },
+    {
+        "id": "977cea532afc089a",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "89edff7748839507",
+        "name": "split lines to JSON msgs",
+        "func": "// Split msg.payload (multi-line string) into multiple messages, 1 JSON per line.\nconst raw = msg.payload;\n\n// If it's already an object, just pass through.\nif (raw && typeof raw === \"object\" && !Buffer.isBuffer(raw)) return msg;\n\n// Convert to string safely\nlet s = Buffer.isBuffer(raw) ? raw.toString(\"utf8\") : (raw ?? \"\").toString();\n\n// If multiple JSON objects are glued together without newline, normalize them\ns = s.replace(/}\\s*{/g, \"}\\n{\");\n\n// Split lines, trim, drop empty\nconst lines = s.split(/\\r?\\n/).map(l => l.trim()).filter(l => l.length > 0);\n\n// No lines -> drop\nif (lines.length === 0) return null;\n\n// Emit one msg per line\nreturn lines.map(line => ({ ...msg, payload: line }));\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 3540,
+        "wires": [
+            [
+                "59b0ff71adae82a7"
+            ]
+        ]
+    },
+    {
+        "id": "7dcc7bbc6be0b9f7",
+        "type": "inject",
+        "z": "84f9df6667326f98",
+        "g": "89edff7748839507",
+        "name": "false",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "str",
+        "x": 130,
+        "y": 3620,
+        "wires": [
+            [
+                "b17d8c4a3bca04cb"
+            ]
+        ]
+    },
+    {
+        "id": "8f09733d80d00645",
+        "type": "ui_switch",
+        "z": "84f9df6667326f98",
+        "g": "121d5ec0629dc581",
+        "name": "Auto Mode",
+        "label": "Auto mode",
+        "tooltip": "",
+        "group": "e3eac795c3a63651",
+        "order": 6,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "",
+        "topicType": "str",
+        "style": "",
+        "onvalue": "false",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "true",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": true,
+        "className": "",
+        "x": 1750,
+        "y": 3540,
+        "wires": [
+            [
+                "13cb5d10e2e2abf5"
+            ]
+        ]
+    },
+    {
+        "id": "13cb5d10e2e2abf5",
+        "type": "change",
+        "z": "84f9df6667326f98",
+        "g": "121d5ec0629dc581",
+        "name": "boolean to str",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "false",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "true",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1960,
+        "y": 3540,
+        "wires": [
+            [
+                "d97d2f46df0c69b4"
+            ]
+        ]
+    },
+    {
+        "id": "d97d2f46df0c69b4",
+        "type": "pythonshell in",
+        "z": "84f9df6667326f98",
+        "g": "121d5ec0629dc581",
+        "name": "Dist 2 EC pH Automation",
+        "pyfile": "/home/cja/Work/cja-skyfarms-project/controllers/Dist_2_EC_pH_auto_control.py",
+        "virtualenv": "",
+        "continuous": true,
+        "stdInData": true,
+        "x": 2190,
+        "y": 3540,
+        "wires": [
+            [
+                "386503bda4f5c254",
+                "97a7ee0f561696f6"
+            ]
+        ]
+    },
+    {
+        "id": "386503bda4f5c254",
+        "type": "debug",
+        "z": "84f9df6667326f98",
+        "g": "121d5ec0629dc581",
+        "name": "Auto mode code",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2380,
+        "y": 3600,
+        "wires": []
+    },
+    {
+        "id": "11668b201f94f5a6",
+        "type": "json",
+        "z": "84f9df6667326f98",
+        "g": "121d5ec0629dc581",
+        "name": "parse python JSON",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 2650,
+        "y": 3540,
+        "wires": [
+            [
+                "d172c8ca1a88f8c0"
+            ]
+        ]
+    },
+    {
+        "id": "d172c8ca1a88f8c0",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "121d5ec0629dc581",
+        "name": "Dispatch GPIO by topic",
+        "func": "// Expect msg.payload to be an object after JSON node.\nconst p = msg.payload;\n\n// outputs:\n// 1: GPIO22\n// 2: GPIO23\n// 3: AB CSV line\n// 4: Acid CSV line\n// 5: AB Recent ui_text\n// 6: Acid Recent ui_text\n\nif (!p || typeof p !== \"object\") return [null, null, null, null, null, null];\n\n// 1) GPIO commands\n// {type:\"gpio\", topic:\"GPIO22\"|\"GPIO23\", payload:0|1}\nif (p.type === \"gpio\") {\n  const t = String(p.topic || \"\");\n  const v = Number(p.payload);\n\n  if (t === \"GPIO22\") return [{ payload: v }, null, null, null, null, null];\n  if (t === \"GPIO23\") return [null, { payload: v }, null, null, null, null];\n\n  return [null, null, null, null, null, null];\n}\n\n// 2) Log lines\n// {type:\"log\", device:\"AB\"|\"Acid\", payload:\"2026-... ,Acid,volume,2.0,duration,1.2s\"}\nif (p.type === \"log\") {\n  const dev = String(p.device || \"\");\n  const line = String(p.payload || \"\");\n  if (!line) return [null, null, null, null, null, null];\n\n  if (dev === \"AB\") {\n    // CSV + UI 둘 다 보냄\n    return [null, null, { payload: line }, null, { payload: line }, null];\n  }\n  if (dev === \"Acid\") {\n    return [null, null, null, { payload: line }, null, { payload: line }];\n  }\n\n  return [null, null, null, null, null, null];\n}\n\nreturn [null, null, null, null, null, null];\n",
+        "outputs": 6,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2870,
+        "y": 3540,
+        "wires": [
+            [
+                "c7fe5d35e20589ec"
+            ],
+            [
+                "21fc1765b77482f9"
+            ],
+            [
+                "ce77e02c54e5281c"
+            ],
+            [
+                "8bfc716cf46fb70d"
+            ],
+            [
+                "e0b97cfcaafbe7a8"
+            ],
+            [
+                "f37eddb8c684e4ec"
+            ]
+        ]
+    },
+    {
+        "id": "97a7ee0f561696f6",
+        "type": "function",
+        "z": "84f9df6667326f98",
+        "g": "121d5ec0629dc581",
+        "name": "split lines to JSON msgs",
+        "func": "// Split msg.payload (multi-line string) into multiple messages, 1 JSON per line.\nconst raw = msg.payload;\n\n// If it's already an object, just pass through.\nif (raw && typeof raw === \"object\" && !Buffer.isBuffer(raw)) return msg;\n\n// Convert to string safely\nlet s = Buffer.isBuffer(raw) ? raw.toString(\"utf8\") : (raw ?? \"\").toString();\n\n// If multiple JSON objects are glued together without newline, normalize them\ns = s.replace(/}\\s*{/g, \"}\\n{\");\n\n// Split lines, trim, drop empty\nconst lines = s.split(/\\r?\\n/).map(l => l.trim()).filter(l => l.length > 0);\n\n// No lines -> drop\nif (lines.length === 0) return null;\n\n// Emit one msg per line\nreturn lines.map(line => ({ ...msg, payload: line }));\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2430,
+        "y": 3540,
+        "wires": [
+            [
+                "11668b201f94f5a6"
+            ]
+        ]
+    },
+    {
+        "id": "46aa6ebe59e28fc0",
+        "type": "inject",
+        "z": "84f9df6667326f98",
+        "g": "121d5ec0629dc581",
+        "name": "false",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "str",
+        "x": 1750,
+        "y": 3600,
+        "wires": [
+            [
+                "13cb5d10e2e2abf5"
+            ]
+        ]
+    },
+    {
         "id": "9a7f2b6b84f6a001",
         "type": "inject",
         "z": "c7d9c1b1f0a6a111",
@@ -5544,75 +5868,8 @@
         "y": 120,
         "wires": [
             [
-                "3a6b1b2c3d4e5f60"
+                "8d576cf243516148"
             ]
-        ]
-    },
-    {
-        "id": "3a6b1b2c3d4e5f60",
-        "type": "file in",
-        "z": "c7d9c1b1f0a6a111",
-        "g": "be6e98c17615581b",
-        "name": "Read CSV",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": true,
-        "encoding": "none",
-        "allProps": false,
-        "x": 330,
-        "y": 120,
-        "wires": [
-            [
-                "6f1e2d3c4b5a6978"
-            ]
-        ]
-    },
-    {
-        "id": "6f1e2d3c4b5a6978",
-        "type": "csv",
-        "z": "c7d9c1b1f0a6a111",
-        "g": "be6e98c17615581b",
-        "name": "CSV → array",
-        "sep": ",",
-        "hdrin": true,
-        "hdrout": "none",
-        "multi": "mult",
-        "ret": "\\n",
-        "temp": "",
-        "skip": "0",
-        "strings": true,
-        "include_empty_strings": "",
-        "include_null_values": "",
-        "x": 530,
-        "y": 120,
-        "wires": [
-            [
-                "fc506592c792073d"
-            ]
-        ]
-    },
-    {
-        "id": "f5a4c3b2d1e0f999",
-        "type": "function",
-        "z": "c7d9c1b1f0a6a111",
-        "d": true,
-        "g": "be6e98c17615581b",
-        "name": "Filter last 7 days + build chart points",
-        "func": "// msg.payload = array of objects from CSV node\n// Header: Date,EC,pH,Solution_Temperature\n\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\nconst now = Date.now();\nconst cutoff = now - 7 * 24 * 60 * 60 * 1000; // last 7 days\n\nfunction toMs(dateStr){\n  if(!dateStr) return null;\n  const iso = String(dateStr).trim().replace(\" \", \"T\");\n  const t = new Date(iso).getTime();\n  return Number.isFinite(t) ? t : null;\n}\n\nfunction toNum(v){\n  const n = Number(String(v).trim());\n  return Number.isFinite(n) ? n : null;\n}\n\n// Build per-point messages (one msg per sample)\nconst outEC = [];\nconst outPH = [];\nconst outTP = [];\n\nfor(const r of rows){\n  const t = toMs(r.Date);\n  if(t === null || t < cutoff) continue;\n\n  const ec = toNum(r.EC);\n  const ph = toNum(r.pH);\n  const tp = toNum(r.Solution_Temperature);\n\n  if(ec !== null) outEC.push({ payload: ec, timestamp: t, topic: \"EC\" });\n  if(ph !== null) outPH.push({ payload: ph, timestamp: t, topic: \"pH\" });\n  if(tp !== null) outTP.push({ payload: tp, timestamp: t, topic: \"Solution_Temperature\" });\n}\n\n// Important: return arrays of messages (Node-RED will send them sequentially)\nreturn [outEC, outPH, outTP];",
-        "outputs": 3,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 810,
-        "y": 120,
-        "wires": [
-            [],
-            [],
-            []
         ]
     },
     {
@@ -5723,7 +5980,7 @@
         "nodata": "No data",
         "dot": false,
         "ymin": "10",
-        "ymax": "50",
+        "ymax": "35",
         "removeOlder": "7",
         "removeOlderPoints": "",
         "removeOlderUnit": "86400",
@@ -5776,75 +6033,8 @@
         "y": 380,
         "wires": [
             [
-                "f1b1e91b834b1e7b"
+                "6b044a38741310f6"
             ]
-        ]
-    },
-    {
-        "id": "f1b1e91b834b1e7b",
-        "type": "file in",
-        "z": "c7d9c1b1f0a6a111",
-        "g": "7e05584f07adae7b",
-        "name": "Read CSV",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_EC_pH_log.csv",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": true,
-        "encoding": "none",
-        "allProps": false,
-        "x": 350,
-        "y": 380,
-        "wires": [
-            [
-                "e6bfb513d88ab35f"
-            ]
-        ]
-    },
-    {
-        "id": "e6bfb513d88ab35f",
-        "type": "csv",
-        "z": "c7d9c1b1f0a6a111",
-        "g": "7e05584f07adae7b",
-        "name": "CSV → array",
-        "sep": ",",
-        "hdrin": true,
-        "hdrout": "none",
-        "multi": "mult",
-        "ret": "\\n",
-        "temp": "",
-        "skip": "0",
-        "strings": true,
-        "include_empty_strings": "",
-        "include_null_values": "",
-        "x": 510,
-        "y": 380,
-        "wires": [
-            [
-                "66dddb17279fa4ea"
-            ]
-        ]
-    },
-    {
-        "id": "0fe32ae7f7830fa0",
-        "type": "function",
-        "z": "c7d9c1b1f0a6a111",
-        "d": true,
-        "g": "7e05584f07adae7b",
-        "name": "Filter last 7 days + build chart points",
-        "func": "// msg.payload = array of objects from CSV node\n// Header: Date,EC,pH,Solution_Temperature\n\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\nconst now = Date.now();\nconst cutoff = now - 7 * 24 * 60 * 60 * 1000; // last 7 days\n\nfunction toMs(dateStr){\n  if(!dateStr) return null;\n  const iso = String(dateStr).trim().replace(\" \", \"T\");\n  const t = new Date(iso).getTime();\n  return Number.isFinite(t) ? t : null;\n}\n\nfunction toNum(v){\n  const n = Number(String(v).trim());\n  return Number.isFinite(n) ? n : null;\n}\n\n// Build per-point messages (one msg per sample)\nconst outEC = [];\nconst outPH = [];\nconst outTP = [];\n\nfor(const r of rows){\n  const t = toMs(r.Date);\n  if(t === null || t < cutoff) continue;\n\n  const ec = toNum(r.EC);\n  const ph = toNum(r.pH);\n  const tp = toNum(r.Solution_Temperature);\n\n  if(ec !== null) outEC.push({ payload: ec, timestamp: t, topic: \"EC\" });\n  if(ph !== null) outPH.push({ payload: ph, timestamp: t, topic: \"pH\" });\n  if(tp !== null) outTP.push({ payload: tp, timestamp: t, topic: \"Solution_Temperature\" });\n}\n\n// Important: return arrays of messages (Node-RED will send them sequentially)\nreturn [outEC, outPH, outTP];",
-        "outputs": 3,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 790,
-        "y": 380,
-        "wires": [
-            [],
-            [],
-            []
         ]
     },
     {
@@ -5955,7 +6145,7 @@
         "nodata": "No data",
         "dot": false,
         "ymin": "10",
-        "ymax": "50",
+        "ymax": "35",
         "removeOlder": "7",
         "removeOlderPoints": "",
         "removeOlderUnit": "86400",
@@ -6008,28 +6198,7 @@
         "y": 680,
         "wires": [
             [
-                "a2f36fd67d9dfe31"
-            ]
-        ]
-    },
-    {
-        "id": "a2f36fd67d9dfe31",
-        "type": "file in",
-        "z": "c7d9c1b1f0a6a111",
-        "g": "89c2f9d79f818571",
-        "name": "Read Temp_humi_log.csv",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Temp_humi_log.csv",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": true,
-        "encoding": "none",
-        "allProps": false,
-        "x": 360,
-        "y": 680,
-        "wires": [
-            [
-                "88a05da35409bfbf"
+                "e9bba788651eb3d4"
             ]
         ]
     },
@@ -6039,7 +6208,7 @@
         "z": "c7d9c1b1f0a6a111",
         "g": "89c2f9d79f818571",
         "name": "Filter last 7 days & split",
-        "func": "// Comment: Build UI chart points safely (limit + downsample)\n// Input: msg.payload = array of objects from CSV node\n// Header: date,temperature,humidity,co2\n\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\n\n// === Config ===\nconst DAYS = 7;\nconst MAX_POINTS = 500;   // Max points per series to send to ui_chart\nconst DEBUG_LOG = false;  // true로 바꾸면 카운트 로그 출력\n\nconst now = Date.now();\nconst cutoff = now - DAYS * 24 * 60 * 60 * 1000;\n\n// --- Helpers ---\nfunction toMs(dateStr) {\n  if (!dateStr) return null;\n  const s = String(dateStr).trim();\n  const iso = s.includes(\"T\") ? s : s.replace(\" \", \"T\");\n  const t = new Date(iso).getTime();\n  return Number.isFinite(t) ? t : null;\n}\n\nfunction toNum(v) {\n  if (v === undefined || v === null) return null;\n  const s = String(v).trim();\n  if (!s.length) return null;\n  const n = Number(s);\n  return Number.isFinite(n) ? n : null;\n}\n\nfunction sortByTimestamp(arr) {\n  arr.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));\n  return arr;\n}\n\nfunction downsampleEvenly(arr, maxPoints) {\n  if (arr.length <= maxPoints) return arr;\n  const step = Math.ceil(arr.length / maxPoints);\n  const out = [];\n  for (let i = 0; i < arr.length; i += step) out.push(arr[i]);\n  return out;\n}\n\nfunction capAndDownsample(arr, maxPoints) {\n  if (arr.length <= maxPoints) return arr;\n  // 최신 데이터 위주로 조금 넉넉히 잡고(4배) 균일 다운샘플\n  const tail = arr.slice(-maxPoints * 4);\n  return downsampleEvenly(tail, maxPoints);\n}\n\n// --- Outputs ---\nconst outTemp = [];\nconst outHumi = [];\nconst outCO2 = [];\n\nfor (const r of rows) {\n  const t = toMs(r.date);\n  if (t === null || t < cutoff) continue;\n\n  const temp = toNum(r.temperature);\n  const humi = toNum(r.humidity);\n  const co2  = toNum(r.co2);\n\n  if (temp !== null) outTemp.push({ payload: temp, timestamp: t, topic: \"Temperature\" });\n  if (humi !== null) outHumi.push({ payload: humi, timestamp: t, topic: \"Humidity\" });\n  if (co2  !== null) outCO2.push({ payload: co2,  timestamp: t, topic: \"CO2\" });\n}\n\n// Sort then cap/downsample\nsortByTimestamp(outTemp);\nsortByTimestamp(outHumi);\nsortByTimestamp(outCO2);\n\nconst tempFinal = capAndDownsample(outTemp, MAX_POINTS);\nconst humiFinal = capAndDownsample(outHumi, MAX_POINTS);\nconst co2Final  = capAndDownsample(outCO2,  MAX_POINTS);\n\nif (DEBUG_LOG) {\n  node.warn({\n    rows: rows.length,\n    built: { temp: outTemp.length, humi: outHumi.length, co2: outCO2.length },\n    sent:  { temp: tempFinal.length, humi: humiFinal.length, co2: co2Final.length }\n  });\n}\n\n// Important: return arrays of messages\nreturn [tempFinal, humiFinal, co2Final];",
+        "func": "/**\n * Room Condition Chart Data Processor\n * Input: msg.payload (Array of rows from SQLite)\n * Expected Columns: Date, Temperature, Humidity, CO2\n */\n\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\n\nconst MAX_POINTS = 500;     // UI 성능을 위한 최대 포인트 제한\nconst DEBUG_LOG = false;\n\n// --- Helpers ---\n\n/**\n * 타임존 수정: \"YYYY-MM-DD HH:mm\"을 로컬 시간으로 파싱\n * 하이픈(-)을 슬래시(/)로 바꿔야 자바스크립트가 UTC로 오해하지 않습니다.\n */\nfunction toMs(dateStr) {\n    if (!dateStr) return null;\n    const s = String(dateStr).trim();\n    const localFormat = s.replace(/-/g, \"/\");\n    const t = new Date(localFormat).getTime();\n    return Number.isFinite(t) ? t : null;\n}\n\nfunction toNum(v) {\n    if (v === null || v === undefined) return null;\n    if (typeof v === \"number\") return Number.isFinite(v) ? v : null;\n    const s = String(v).trim();\n    if (!s.length) return null;\n    const n = Number(s);\n    return Number.isFinite(n) ? n : null;\n}\n\nfunction sortByTimestamp(arr) {\n    arr.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));\n    return arr;\n}\n\nfunction downsampleEvenly(arr, maxPoints) {\n    if (arr.length <= maxPoints) return arr;\n    const step = Math.ceil(arr.length / maxPoints);\n    const out = [];\n    for (let i = 0; i < arr.length; i += step) out.push(arr[i]);\n    return out;\n}\n\nfunction capAndDownsample(arr, maxPoints) {\n    if (arr.length <= maxPoints) return arr;\n    const tail = arr.slice(-maxPoints * 4);\n    return downsampleEvenly(tail, maxPoints);\n}\n\n// --- 데이터 빌드 ---\n\nconst outT = [];\nconst outH = [];\nconst outC = [];\n\nfor (const r of rows) {\n    const t = toMs(r.Date);\n    if (t === null) continue;\n\n    const temp = toNum(r.Temperature);\n    const humi = toNum(r.Humidity);\n    const co2 = toNum(r.CO2);\n\n    // 차트 노드에 보낼 데이터 포인트 객체 생성\n    if (temp !== null) outT.push({ x: t, y: temp });\n    if (humi !== null) outH.push({ x: t, y: humi });\n    if (co2 !== null) outC.push({ x: t, y: co2 });\n}\n\n// 시간순 정렬 및 포인트 최적화\nconst tFinal = capAndDownsample(sortByTimestamp(outT), MAX_POINTS);\nconst hFinal = capAndDownsample(sortByTimestamp(outH), MAX_POINTS);\nconst cFinal = capAndDownsample(sortByTimestamp(outC), MAX_POINTS);\n\n/**\n * 중요: 데이터를 [ [Array], [Array], [Array] ] 형태로 반환하지 않고\n * 각 출력 포트(Output)마다 하나의 메세지 객체에 배열을 담아서 보냅니다.\n * 그래야 차트가 기존 데이터를 \"덧씌우지 않고\" 완전히 \"새로고침\"합니다.\n */\nreturn [\n    { payload: [{ series: [\"Temperature\"], data: [tFinal], labels: [\"Temperature\"] }] },\n    { payload: [{ series: [\"Humidity\"], data: [hFinal], labels: [\"Humidity\"] }] },\n    { payload: [{ series: [\"CO2\"], data: [cFinal], labels: [\"CO2\"] }] }\n];",
         "outputs": 3,
         "timeout": "",
         "noerr": 0,
@@ -6122,8 +6291,8 @@
         "interpolate": "linear",
         "nodata": "",
         "dot": false,
-        "ymin": "",
-        "ymax": "",
+        "ymin": "20",
+        "ymax": "90",
         "removeOlder": "7",
         "removeOlderPoints": "",
         "removeOlderUnit": "86400",
@@ -6196,44 +6365,20 @@
         ]
     },
     {
-        "id": "88a05da35409bfbf",
-        "type": "csv",
-        "z": "c7d9c1b1f0a6a111",
-        "g": "89c2f9d79f818571",
-        "name": "CSV → array",
-        "sep": ",",
-        "hdrin": true,
-        "hdrout": "none",
-        "multi": "mult",
-        "ret": "\\n",
-        "temp": "",
-        "skip": "0",
-        "strings": true,
-        "include_empty_strings": "",
-        "include_null_values": "",
-        "x": 600,
-        "y": 680,
-        "wires": [
-            [
-                "efb0d37433575254"
-            ]
-        ]
-    },
-    {
         "id": "fc506592c792073d",
         "type": "function",
         "z": "c7d9c1b1f0a6a111",
         "g": "be6e98c17615581b",
         "name": "Filter last 7 days + build chart points",
-        "func": "// Comment: Build UI chart points safely (limit + downsample)\n// Input: msg.payload = array of objects from CSV node (hdrin:true)\n// Expected headers: Date, EC, pH, Solution_Temperature\n\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\n\n// === Config ===\nconst DAYS = 7;\nconst MAX_POINTS = 500;          // Max points per series to send to ui_chart\nconst DEBUG_LOG = true;          // Set false to silence node.warn logs\nconst REQUIRE_HEADERS = false;   // If true, skip rows missing Date\n\nconst now = Date.now();\nconst cutoff = now - DAYS * 24 * 60 * 60 * 1000;\n\n// --- Helpers ---\nfunction toMs(dateStr) {\n  if (!dateStr) return null;\n\n  // Accept \"YYYY-MM-DD HH:MM:SS\" or ISO\n  const s = String(dateStr).trim();\n\n  // If it already contains 'T', keep it. Otherwise replace first space with 'T'\n  const iso = s.includes(\"T\") ? s : s.replace(\" \", \"T\");\n\n  const t = new Date(iso).getTime();\n  return Number.isFinite(t) ? t : null;\n}\n\nfunction toNum(v) {\n  if (v === null || v === undefined) return null;\n  const s = String(v).trim();\n  if (!s.length) return null;\n  const n = Number(s);\n  return Number.isFinite(n) ? n : null;\n}\n\nfunction sortByTimestamp(arr) {\n  // Ensure chart draws in time order\n  arr.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));\n  return arr;\n}\n\nfunction downsampleEvenly(arr, maxPoints) {\n  if (arr.length <= maxPoints) return arr;\n  const step = Math.ceil(arr.length / maxPoints);\n  const out = [];\n  for (let i = 0; i < arr.length; i += step) out.push(arr[i]);\n  return out;\n}\n\nfunction capAndDownsample(arr, maxPoints) {\n  // Keep most recent points, then downsample evenly if still too many\n  if (arr.length <= maxPoints) return arr;\n  const tail = arr.slice(-maxPoints * 4); // keep a bigger tail before downsample\n  return downsampleEvenly(tail, maxPoints);\n}\n\nfunction maxPayloadStrLen(arr) {\n  // For debugging: what's the longest payload string length?\n  let m = 0;\n  for (const p of arr) {\n    const s = String(p.payload);\n    if (s.length > m) m = s.length;\n  }\n  return m;\n}\n\n// --- Build messages ---\nconst outEC = [];\nconst outPH = [];\nconst outTP = [];\n\nfor (const r of rows) {\n  const t = toMs(r.Date);\n\n  if (t === null) {\n    if (REQUIRE_HEADERS) continue;\n    // If Date is invalid, skip safely\n    continue;\n  }\n  if (t < cutoff) continue;\n\n  const ec = toNum(r.EC);\n  const ph = toNum(r.pH);\n  const tp = toNum(r.Solution_Temperature);\n\n  if (ec !== null) outEC.push({ payload: ec, timestamp: t, topic: \"EC\" });\n  if (ph !== null) outPH.push({ payload: ph, timestamp: t, topic: \"pH\" });\n  if (tp !== null) outTP.push({ payload: tp, timestamp: t, topic: \"Solution_Temperature\" });\n}\n\n// Sort then cap/downsample (important if file isn't strictly chronological)\nsortByTimestamp(outEC);\nsortByTimestamp(outPH);\nsortByTimestamp(outTP);\n\nconst ecFinal = capAndDownsample(outEC, MAX_POINTS);\nconst phFinal = capAndDownsample(outPH, MAX_POINTS);\nconst tpFinal = capAndDownsample(outTP, MAX_POINTS);\n\n// --- Debug info (helps identify \"message flood\" vs \"huge payload\") ---\nif (DEBUG_LOG) {\n  node.warn({\n    rows: rows.length,\n    cutoffISO: new Date(cutoff).toISOString(),\n    built: { EC: outEC.length, pH: outPH.length, TP: outTP.length },\n    sent: { EC: ecFinal.length, pH: phFinal.length, TP: tpFinal.length },\n    maxPayloadLen: {\n      EC: maxPayloadStrLen(ecFinal),\n      pH: maxPayloadStrLen(phFinal),\n      TP: maxPayloadStrLen(tpFinal)\n    }\n  });\n}\n\n// Return arrays of messages (Node-RED will send them sequentially)\nreturn [ecFinal, phFinal, tpFinal];",
+        "func": "// Build UI chart points safely (limit + downsample)\n// Input: msg.payload = array of rows from SQLite\n// Columns expected: Date, EC, pH, Solution_Temperature\n\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\n\n// === Config ===\nconst DAYS = 7;\nconst MAX_POINTS = 500;        // Limit data points to keep UI responsive\nconst DEBUG_LOG = false;\n\nconst now = Date.now();\nconst cutoff = now - DAYS * 24 * 60 * 60 * 1000;\n\n// --- Helpers ---\nfunction toMs(dateStr) {\n  if (!dateStr) return null;\n\n  const s = String(dateStr).trim();\n\n  /* TIMEZONE FIX:\n     JavaScript treats \"YYYY-MM-DDTHH:mm\" as UTC.\n     Replacing \"-\" with \"/\" and avoiding \"T\" forces the parser \n     to interpret the string as LOCAL TIME.\n  */\n  const localFormat = s.replace(/-/g, \"/\");\n  const t = new Date(localFormat).getTime();\n\n  return Number.isFinite(t) ? t : null;\n}\n\nfunction toNum(v) {\n  if (v === null || v === undefined) return null;\n  if (typeof v === \"number\") return Number.isFinite(v) ? v : null;\n  const s = String(v).trim();\n  if (!s.length) return null;\n  const n = Number(s);\n  return Number.isFinite(n) ? n : null;\n}\n\nfunction sortByTimestamp(arr) {\n  arr.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));\n  return arr;\n}\n\nfunction downsampleEvenly(arr, maxPoints) {\n  if (arr.length <= maxPoints) return arr;\n  const step = Math.ceil(arr.length / maxPoints);\n  const out = [];\n  for (let i = 0; i < arr.length; i += step) out.push(arr[i]);\n  return out;\n}\n\nfunction capAndDownsample(arr, maxPoints) {\n  if (arr.length <= maxPoints) return arr;\n  // Extract a larger tail before downsampling to ensure smooth recent trends\n  const tail = arr.slice(-maxPoints * 4);\n  return downsampleEvenly(tail, maxPoints);\n}\n\n// --- Build Data Series ---\nconst outEC = [];\nconst outPH = [];\nconst outTP = [];\n\nfor (const r of rows) {\n  const t = toMs(r.Date);\n\n  // Redundant filter in case SQL query returns broader range\n  if (t === null || t < cutoff) continue;\n\n  const ec = toNum(r.EC);\n  const ph = toNum(r.pH);\n  const tp = toNum(r.Solution_Temperature);\n\n  if (ec !== null) outEC.push({ payload: ec, timestamp: t, topic: \"EC\" });\n  if (ph !== null) outPH.push({ payload: ph, timestamp: t, topic: \"pH\" });\n  if (tp !== null) outTP.push({ payload: tp, timestamp: t, topic: \"Solution_Temperature\" });\n}\n\n// Sort and downsample to maintain dashboard performance\nsortByTimestamp(outEC);\nsortByTimestamp(outPH);\nsortByTimestamp(outTP);\n\nconst ecFinal = capAndDownsample(outEC, MAX_POINTS);\nconst phFinal = capAndDownsample(outPH, MAX_POINTS);\nconst tpFinal = capAndDownsample(outTP, MAX_POINTS);\n\n// Return 3 separate outputs for EC, pH, and Temperature charts\nreturn [ecFinal, phFinal, tpFinal];",
         "outputs": 3,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 810,
-        "y": 180,
+        "x": 790,
+        "y": 160,
         "wires": [
             [
                 "2b11787c0f4b97a0"
@@ -6252,7 +6397,7 @@
         "z": "c7d9c1b1f0a6a111",
         "g": "7e05584f07adae7b",
         "name": "Filter last 7 days + build chart points",
-        "func": "// Comment: Build UI chart points safely (limit + downsample)\n// Input: msg.payload = array of objects from CSV node (hdrin:true)\n// Expected headers: Date, EC, pH, Solution_Temperature\n\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\n\n// === Config ===\nconst DAYS = 7;\nconst MAX_POINTS = 500;          // Max points per series to send to ui_chart\nconst DEBUG_LOG = true;          // Set false to silence node.warn logs\nconst REQUIRE_HEADERS = false;   // If true, skip rows missing Date\n\nconst now = Date.now();\nconst cutoff = now - DAYS * 24 * 60 * 60 * 1000;\n\n// --- Helpers ---\nfunction toMs(dateStr) {\n  if (!dateStr) return null;\n\n  // Accept \"YYYY-MM-DD HH:MM:SS\" or ISO\n  const s = String(dateStr).trim();\n\n  // If it already contains 'T', keep it. Otherwise replace first space with 'T'\n  const iso = s.includes(\"T\") ? s : s.replace(\" \", \"T\");\n\n  const t = new Date(iso).getTime();\n  return Number.isFinite(t) ? t : null;\n}\n\nfunction toNum(v) {\n  if (v === null || v === undefined) return null;\n  const s = String(v).trim();\n  if (!s.length) return null;\n  const n = Number(s);\n  return Number.isFinite(n) ? n : null;\n}\n\nfunction sortByTimestamp(arr) {\n  // Ensure chart draws in time order\n  arr.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));\n  return arr;\n}\n\nfunction downsampleEvenly(arr, maxPoints) {\n  if (arr.length <= maxPoints) return arr;\n  const step = Math.ceil(arr.length / maxPoints);\n  const out = [];\n  for (let i = 0; i < arr.length; i += step) out.push(arr[i]);\n  return out;\n}\n\nfunction capAndDownsample(arr, maxPoints) {\n  // Keep most recent points, then downsample evenly if still too many\n  if (arr.length <= maxPoints) return arr;\n  const tail = arr.slice(-maxPoints * 4); // keep a bigger tail before downsample\n  return downsampleEvenly(tail, maxPoints);\n}\n\nfunction maxPayloadStrLen(arr) {\n  // For debugging: what's the longest payload string length?\n  let m = 0;\n  for (const p of arr) {\n    const s = String(p.payload);\n    if (s.length > m) m = s.length;\n  }\n  return m;\n}\n\n// --- Build messages ---\nconst outEC = [];\nconst outPH = [];\nconst outTP = [];\n\nfor (const r of rows) {\n  const t = toMs(r.Date);\n\n  if (t === null) {\n    if (REQUIRE_HEADERS) continue;\n    // If Date is invalid, skip safely\n    continue;\n  }\n  if (t < cutoff) continue;\n\n  const ec = toNum(r.EC);\n  const ph = toNum(r.pH);\n  const tp = toNum(r.Solution_Temperature);\n\n  if (ec !== null) outEC.push({ payload: ec, timestamp: t, topic: \"EC\" });\n  if (ph !== null) outPH.push({ payload: ph, timestamp: t, topic: \"pH\" });\n  if (tp !== null) outTP.push({ payload: tp, timestamp: t, topic: \"Solution_Temperature\" });\n}\n\n// Sort then cap/downsample (important if file isn't strictly chronological)\nsortByTimestamp(outEC);\nsortByTimestamp(outPH);\nsortByTimestamp(outTP);\n\nconst ecFinal = capAndDownsample(outEC, MAX_POINTS);\nconst phFinal = capAndDownsample(outPH, MAX_POINTS);\nconst tpFinal = capAndDownsample(outTP, MAX_POINTS);\n\n// --- Debug info (helps identify \"message flood\" vs \"huge payload\") ---\nif (DEBUG_LOG) {\n  node.warn({\n    rows: rows.length,\n    cutoffISO: new Date(cutoff).toISOString(),\n    built: { EC: outEC.length, pH: outPH.length, TP: outTP.length },\n    sent: { EC: ecFinal.length, pH: phFinal.length, TP: tpFinal.length },\n    maxPayloadLen: {\n      EC: maxPayloadStrLen(ecFinal),\n      pH: maxPayloadStrLen(phFinal),\n      TP: maxPayloadStrLen(tpFinal)\n    }\n  });\n}\n\n// Return arrays of messages (Node-RED will send them sequentially)\nreturn [ecFinal, phFinal, tpFinal];",
+        "func": "// Build UI chart points safely (limit + downsample)\n// Input: msg.payload = array of rows from SQLite\n// Columns expected: Date, EC, pH, Solution_Temperature\n\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\n\n// === Config ===\nconst DAYS = 7;\nconst MAX_POINTS = 500;        // Limit data points to keep UI responsive\nconst DEBUG_LOG = false;\n\nconst now = Date.now();\nconst cutoff = now - DAYS * 24 * 60 * 60 * 1000;\n\n// --- Helpers ---\nfunction toMs(dateStr) {\n  if (!dateStr) return null;\n\n  const s = String(dateStr).trim();\n\n  /* TIMEZONE FIX:\n     JavaScript treats \"YYYY-MM-DDTHH:mm\" as UTC.\n     Replacing \"-\" with \"/\" and avoiding \"T\" forces the parser \n     to interpret the string as LOCAL TIME.\n  */\n  const localFormat = s.replace(/-/g, \"/\");\n  const t = new Date(localFormat).getTime();\n\n  return Number.isFinite(t) ? t : null;\n}\n\nfunction toNum(v) {\n  if (v === null || v === undefined) return null;\n  if (typeof v === \"number\") return Number.isFinite(v) ? v : null;\n  const s = String(v).trim();\n  if (!s.length) return null;\n  const n = Number(s);\n  return Number.isFinite(n) ? n : null;\n}\n\nfunction sortByTimestamp(arr) {\n  arr.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));\n  return arr;\n}\n\nfunction downsampleEvenly(arr, maxPoints) {\n  if (arr.length <= maxPoints) return arr;\n  const step = Math.ceil(arr.length / maxPoints);\n  const out = [];\n  for (let i = 0; i < arr.length; i += step) out.push(arr[i]);\n  return out;\n}\n\nfunction capAndDownsample(arr, maxPoints) {\n  if (arr.length <= maxPoints) return arr;\n  // Extract a larger tail before downsampling to ensure smooth recent trends\n  const tail = arr.slice(-maxPoints * 4);\n  return downsampleEvenly(tail, maxPoints);\n}\n\n// --- Build Data Series ---\nconst outEC = [];\nconst outPH = [];\nconst outTP = [];\n\nfor (const r of rows) {\n  const t = toMs(r.Date);\n\n  // Redundant filter in case SQL query returns broader range\n  if (t === null || t < cutoff) continue;\n\n  const ec = toNum(r.EC);\n  const ph = toNum(r.pH);\n  const tp = toNum(r.Solution_Temperature);\n\n  if (ec !== null) outEC.push({ payload: ec, timestamp: t, topic: \"EC\" });\n  if (ph !== null) outPH.push({ payload: ph, timestamp: t, topic: \"pH\" });\n  if (tp !== null) outTP.push({ payload: tp, timestamp: t, topic: \"Solution_Temperature\" });\n}\n\n// Sort and downsample to maintain dashboard performance\nsortByTimestamp(outEC);\nsortByTimestamp(outPH);\nsortByTimestamp(outTP);\n\nconst ecFinal = capAndDownsample(outEC, MAX_POINTS);\nconst phFinal = capAndDownsample(outPH, MAX_POINTS);\nconst tpFinal = capAndDownsample(outTP, MAX_POINTS);\n\n// Return 3 separate outputs for EC, pH, and Temperature charts\nreturn [ecFinal, phFinal, tpFinal];",
         "outputs": 3,
         "timeout": "",
         "noerr": 0,
@@ -6282,7 +6427,7 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "20",
+        "rate": "100",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
@@ -6308,7 +6453,7 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "20",
+        "rate": "100",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
@@ -6334,7 +6479,7 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "20",
+        "rate": "100",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
@@ -6360,7 +6505,7 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "20",
+        "rate": "100",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
@@ -6386,7 +6531,7 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "20",
+        "rate": "100",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
@@ -6412,7 +6557,7 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "20",
+        "rate": "10",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
@@ -6438,7 +6583,7 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "20",
+        "rate": "100",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
@@ -6464,7 +6609,7 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "20",
+        "rate": "100",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
@@ -6490,7 +6635,7 @@
         "pauseType": "rate",
         "timeout": "5",
         "timeoutUnits": "seconds",
-        "rate": "20",
+        "rate": "100",
         "nbRateUnits": "1",
         "rateUnits": "second",
         "randomFirst": "1",
@@ -6508,10 +6653,124 @@
         ]
     },
     {
-        "id": "inject_10min",
+        "id": "b5943a1f7cf1632b",
+        "type": "sqlite",
+        "z": "c7d9c1b1f0a6a111",
+        "g": "be6e98c17615581b",
+        "mydb": "8a2dbce163db26b4",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "Dist 1 EC pH sqlite",
+        "x": 510,
+        "y": 120,
+        "wires": [
+            [
+                "fc506592c792073d"
+            ]
+        ]
+    },
+    {
+        "id": "8d576cf243516148",
+        "type": "function",
+        "z": "c7d9c1b1f0a6a111",
+        "g": "be6e98c17615581b",
+        "name": "Build SQL",
+        "func": "// Build SQL for SQLite node (Dist_1_EC_pH_log)\n// Output: msg.topic = SQL, msg._meta = settings\n\nconst DAYS = 7;\nconst LIMIT_ROWS = 700; // 보험 (20분 저장이면 504행 정도라 사실상 영향 없음)\n\nmsg.topic = `\nSELECT Date, EC, pH, Solution_Temperature\nFROM Dist_1_EC_pH_log\nWHERE Date >= datetime('now','localtime','-${DAYS} days')\nORDER BY Date ASC\nLIMIT ${LIMIT_ROWS};\n`;\n\nmsg._meta = { days: DAYS, limit: LIMIT_ROWS, source: \"sqlite\" };\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 120,
+        "wires": [
+            [
+                "b5943a1f7cf1632b"
+            ]
+        ]
+    },
+    {
+        "id": "6b044a38741310f6",
+        "type": "function",
+        "z": "c7d9c1b1f0a6a111",
+        "g": "7e05584f07adae7b",
+        "name": "Build SQL",
+        "func": "const DAYS = 7;\nconst LIMIT_ROWS = 700;\n\nmsg.topic =\n    \"SELECT Date, EC, pH, Solution_Temperature, \" +\n    \"CAST(strftime('%s', Date) AS INTEGER) * 1000 AS ts \" +\n    \"FROM Dist_2_EC_pH_log \" +\n    `WHERE Date >= datetime('now','localtime','-${DAYS} days') ` +\n    \"ORDER BY Date ASC \" +\n    `LIMIT ${LIMIT_ROWS};`;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 380,
+        "wires": [
+            [
+                "413edac3ab2c73bf"
+            ]
+        ]
+    },
+    {
+        "id": "413edac3ab2c73bf",
+        "type": "sqlite",
+        "z": "c7d9c1b1f0a6a111",
+        "g": "7e05584f07adae7b",
+        "mydb": "8a2dbce163db26b4",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "Dist 2 EC pH sqlite",
+        "x": 510,
+        "y": 380,
+        "wires": [
+            [
+                "66dddb17279fa4ea"
+            ]
+        ]
+    },
+    {
+        "id": "e9bba788651eb3d4",
+        "type": "function",
+        "z": "c7d9c1b1f0a6a111",
+        "g": "89c2f9d79f818571",
+        "name": "Build SQL",
+        "func": "const DAYS = 7;\nconst LIMIT_ROWS = 800;\n\nmsg.topic =\n    \"SELECT Date, Temperature, Humidity, CO2, \" +\n    \"CAST(strftime('%s', Date) AS INTEGER) * 1000 AS ts \" +\n    \"FROM Temp_humi_log \" +\n    `WHERE CAST(strftime('%s', Date) AS INTEGER) >= CAST(strftime('%s','now','localtime','-${DAYS} days') AS INTEGER) ` +\n    \"ORDER BY ts ASC \" +\n    `LIMIT ${LIMIT_ROWS};`;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 680,
+        "wires": [
+            [
+                "715c885393e8b131"
+            ]
+        ]
+    },
+    {
+        "id": "715c885393e8b131",
+        "type": "sqlite",
+        "z": "c7d9c1b1f0a6a111",
+        "g": "89c2f9d79f818571",
+        "mydb": "8a2dbce163db26b4",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "Room condition sqlite",
+        "x": 520,
+        "y": 680,
+        "wires": [
+            [
+                "efb0d37433575254"
+            ]
+        ]
+    },
+    {
+        "id": "adc9839917f22d12",
         "type": "inject",
         "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
+        "g": "8446b5ed352ca2d8",
         "name": "Auto Refresh",
         "props": [
             {
@@ -6525,23 +6784,24 @@
         "topic": "",
         "payload": "",
         "payloadType": "str",
-        "x": 170,
-        "y": 120,
+        "x": 220,
+        "y": 160,
         "wires": [
             [
-                "table_read_file"
+                "197112b240ad2134",
+                "d4739939fd8e23db"
             ]
         ]
     },
     {
-        "id": "uib_refresh",
+        "id": "944e216c6a520e54",
         "type": "ui_button",
         "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
+        "g": "8446b5ed352ca2d8",
         "name": "Manual Refresh",
         "group": "ui_grp_table",
-        "order": 2,
-        "width": 3,
+        "order": 7,
+        "width": 6,
         "height": 1,
         "passthru": false,
         "label": "Data Refresh",
@@ -6554,1058 +6814,465 @@
         "payloadType": "str",
         "topic": "",
         "topicType": "str",
-        "x": 210,
+        "x": 220,
+        "y": 220,
+        "wires": [
+            [
+                "197112b240ad2134"
+            ]
+        ]
+    },
+    {
+        "id": "a22b223becb16273",
+        "type": "ui_template",
+        "z": "flow_all",
+        "g": "8446b5ed352ca2d8",
+        "group": "ui_grp_table",
+        "name": "Download CSV Button",
+        "order": 6,
+        "width": 6,
+        "height": 2,
+        "format": "<div style=\"display:flex; gap:8px; flex-direction:column;\">\n  <a class=\"md-button md-raised md-primary\"\n     style=\"width:100%;display:flex;align-items:center;justify-content:center;\"\n     ng-href=\"/download_csv?table={{msg.table}}&start={{msg.start}}&end={{msg.end}}\"\n     target=\"_self\">\n    CSV Download\n  </a>\n  <div style=\"font-size:12px; opacity:0.7;\">\n    {{msg.table}} / {{msg.start}} ~ {{msg.end}}\n  </div>\n</div>",
+        "storeOutMessages": false,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 820,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "197112b240ad2134",
+        "type": "function",
+        "z": "flow_all",
+        "g": "8446b5ed352ca2d8",
+        "name": "Build SQL (latest 200)",
+        "func": "// Build SQL to show latest rows in ui_table.\n// You can change TIME_COL if your schema uses a different column name.\n\nconst table = flow.get('dl_table') || 'Temp_humi_log';\n\nconst ALLOWED = new Set([\n  'Temp_humi_log',\n  'Dist_1_EC_pH_log',\n  'Dist_1_Solution_input_log',\n  'Dist_2_EC_pH_log',\n  'Dist_2_Solution_input_log'\n]);\nif(!ALLOWED.has(table)) {\n  msg.payload = [];\n  return msg;\n}\n\nconst TIME_COL = {\n  'Temp_humi_log': 'Date',\n  'Dist_1_EC_pH_log': 'Date',\n  'Dist_1_Solution_input_log': 'timestamp',\n  'Dist_2_EC_pH_log': 'Date',\n  'Dist_2_Solution_input_log': 'Date'\n};\n\nconst timeCol = TIME_COL[table];\nmsg.topic = `SELECT * FROM ${table} ORDER BY ${timeCol} DESC LIMIT 200`;\nmsg._table = table;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
         "y": 180,
         "wires": [
             [
-                "table_read_file"
+                "10b47748db311969"
             ]
         ]
     },
     {
-        "id": "tmpl_download",
-        "type": "ui_template",
-        "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
-        "group": "ui_grp_table",
-        "name": "Download CSV Button",
-        "order": 3,
-        "width": 3,
-        "height": 1,
-        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_csv\" target=\"_self\">CSV Download</a>",
-        "storeOutMessages": false,
-        "fwdInMessages": false,
-        "resendOnRefresh": false,
-        "templateScope": "local",
-        "className": "",
-        "x": 240,
-        "y": 240,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "table_read_file",
-        "type": "file in",
-        "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
-        "name": "Read CSV File",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Temp_humi_log.csv",
-        "filenameType": "str",
-        "format": "utf8",
-        "sendError": true,
-        "allProps": false,
-        "x": 450,
-        "y": 150,
-        "wires": [
-            [
-                "734f54c626594136"
-            ]
-        ]
-    },
-    {
-        "id": "csv_to_json",
-        "type": "csv",
-        "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
-        "name": "CSV to JSON",
-        "sep": ",",
-        "hdrin": true,
-        "hdrout": "none",
-        "multi": "mult",
-        "ret": "\\n",
-        "temp": "",
-        "skip": "0",
-        "strings": true,
-        "include_empty_strings": "",
-        "include_null_values": "",
-        "x": 680,
-        "y": 220,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "table_ui",
+        "id": "2588aa26c880e550",
         "type": "ui_table",
         "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
+        "g": "8446b5ed352ca2d8",
         "group": "ui_grp_table",
-        "name": "Temp/Humi Table",
-        "order": 1,
-        "width": 6,
-        "height": 10,
+        "name": "Table",
+        "order": 4,
+        "width": 12,
+        "height": 8,
         "columns": [],
         "outputs": 1,
         "cts": true,
-        "x": 890,
-        "y": 150,
+        "x": 1150,
+        "y": 180,
         "wires": [
             []
         ]
     },
     {
-        "id": "http_in_download",
+        "id": "90d2176c35e8e7cb",
         "type": "http in",
         "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
+        "g": "8446b5ed352ca2d8",
         "name": "GET /download_csv",
         "url": "/download_csv",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 170,
-        "y": 320,
+        "x": 230,
+        "y": 480,
         "wires": [
             [
-                "read_file_download"
+                "b125209d3d41004e"
             ]
         ]
     },
     {
-        "id": "read_file_download",
-        "type": "file in",
-        "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
-        "name": "Read CSV (binary)",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Temp_humi_log.csv",
-        "format": "binary",
-        "sendError": true,
-        "x": 420,
-        "y": 320,
-        "wires": [
-            [
-                "http_response_download"
-            ]
-        ]
-    },
-    {
-        "id": "http_response_download",
+        "id": "a0eaac3edf8af92e",
         "type": "http response",
         "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
+        "g": "8446b5ed352ca2d8",
         "name": "Send CSV",
         "statusCode": "",
-        "headers": {
-            "Content-Type": "text/csv; charset=utf-8",
-            "Content-Disposition": "attachment; filename=Temp_humi_log.csv"
-        },
-        "x": 640,
-        "y": 320,
+        "headers": {},
+        "x": 1150,
+        "y": 480,
         "wires": []
     },
     {
-        "id": "eccd6ca216a8ac97",
+        "id": "96aa85f9b22bce2a",
         "type": "comment",
         "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
-        "name": "(W)Read Temp&Humi log csv file and show to the table on dashboard",
+        "g": "8446b5ed352ca2d8",
+        "name": "(W) Read from SQLite DB, show latest rows, and download CSV by date range",
         "info": "",
-        "x": 310,
-        "y": 60,
+        "x": 390,
+        "y": 100,
         "wires": []
     },
     {
-        "id": "c6456d1672233c77",
-        "type": "inject",
+        "id": "14035e35d8173d54",
+        "type": "function",
         "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "name": "Auto Refresh",
-        "props": [
-            {
-                "p": "filename",
-                "v": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "00 11 * * *",
-        "once": true,
-        "onceDelay": "1",
-        "topic": "",
-        "x": 140,
-        "y": 500,
+        "g": "8446b5ed352ca2d8",
+        "name": "CSV → rows[] (unused)",
+        "func": "// This node is kept for compatibility but no longer used.\n// Previously used for CSV file parsing.\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10b47748db311969",
+        "type": "sqlite",
+        "z": "flow_all",
+        "g": "8446b5ed352ca2d8",
+        "mydb": "sql_db_cfg",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQLite (latest)",
+        "x": 760,
+        "y": 180,
         "wires": [
             [
-                "888936cb5be63657"
+                "1d859b1f08e16750"
             ]
         ]
     },
     {
-        "id": "9bb8aa797d2db538",
-        "type": "ui_button",
+        "id": "1d859b1f08e16750",
+        "type": "function",
         "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "name": "Manual Refresh",
-        "group": "grp_dl",
-        "order": 2,
-        "width": 3,
-        "height": 1,
-        "passthru": false,
-        "label": "Data Refresh",
+        "g": "8446b5ed352ca2d8",
+        "name": "Rows → ui_table payload",
+        "func": "// Prepare rows for ui_table.\n// ui_table expects msg.payload to be an array of objects.\n\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\n// Reverse to chronological order (oldest → newest) if you prefer.\nrows.reverse();\nmsg.payload = rows;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 180,
+        "wires": [
+            [
+                "2588aa26c880e550"
+            ]
+        ]
+    },
+    {
+        "id": "5492ffead4d707b1",
+        "type": "ui_dropdown",
+        "z": "flow_all",
+        "g": "8446b5ed352ca2d8",
+        "name": "Select Table",
+        "label": "Table",
         "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "refresh",
+        "place": "select",
+        "group": "ui_grp_table",
+        "order": 1,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Temp_humi_log",
+                "value": "Temp_humi_log",
+                "type": "str"
+            },
+            {
+                "label": "Dist_1_EC_pH_log",
+                "value": "Dist_1_EC_pH_log",
+                "type": "str"
+            },
+            {
+                "label": "Dist_1_Solution_input_log",
+                "value": "Dist_1_Solution_input_log",
+                "type": "str"
+            },
+            {
+                "label": "Dist_2_EC_pH_log",
+                "value": "Dist_2_EC_pH_log",
+                "type": "str"
+            },
+            {
+                "label": "Dist_2_Solution_input_log",
+                "value": "Dist_2_Solution_input_log",
+                "type": "str"
+            }
+        ],
         "payload": "",
-        "payloadType": "str",
         "topic": "",
         "topicType": "str",
+        "className": "",
+        "x": 210,
+        "y": 260,
+        "wires": [
+            [
+                "ad92971d35a3f9b1",
+                "197112b240ad2134"
+            ]
+        ]
+    },
+    {
+        "id": "5d24488e666ee37c",
+        "type": "ui_date_picker",
+        "z": "flow_all",
+        "g": "8446b5ed352ca2d8",
+        "name": "Start Date",
+        "label": "Start",
+        "group": "ui_grp_table",
+        "order": 2,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 210,
+        "y": 320,
+        "wires": [
+            [
+                "6db4030be30fbdb9"
+            ]
+        ]
+    },
+    {
+        "id": "9a6aa10181469ac7",
+        "type": "ui_date_picker",
+        "z": "flow_all",
+        "g": "8446b5ed352ca2d8",
+        "name": "End Date",
+        "label": "End",
+        "group": "ui_grp_table",
+        "order": 3,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "topic": "",
+        "topicType": "str",
+        "className": "",
         "x": 200,
-        "y": 560,
+        "y": 360,
         "wires": [
             [
-                "6fd08ead6c34727b"
+                "716fa25ba9db853a"
             ]
         ]
     },
     {
-        "id": "6fd08ead6c34727b",
+        "id": "ad92971d35a3f9b1",
         "type": "function",
         "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "name": "파일경로 세팅",
-        "func": "msg.filename = \"/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv\";\nreturn msg;",
+        "g": "8446b5ed352ca2d8",
+        "name": "Store table (flow)",
+        "func": "// Save selected table into flow context.\nconst v = (msg.payload || 'Temp_humi_log').toString();\nflow.set('dl_table', v);\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 440,
-        "y": 560,
+        "x": 490,
+        "y": 280,
         "wires": [
-            [
-                "888936cb5be63657"
-            ]
+            []
         ]
     },
     {
-        "id": "888936cb5be63657",
-        "type": "file in",
+        "id": "6db4030be30fbdb9",
+        "type": "function",
         "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "name": "Read Dist_1_EC_pH_log.csv (utf8)",
-        "filename": "filename",
-        "filenameType": "msg",
-        "format": "utf8",
-        "sendError": true,
-        "allProps": false,
+        "g": "8446b5ed352ca2d8",
+        "name": "Store start (flow)",
+        "func": "// Save start date (YYYY-MM-DD) into flow context.\n// ui_date_picker usually outputs a Date object or timestamp; normalize to YYYY-MM-DD.\nlet d = msg.payload;\nlet dt;\nif (typeof d === 'number') dt = new Date(d);\nelse if (d instanceof Date) dt = d;\nelse dt = new Date(d);\nconst yyyy = dt.getFullYear();\nconst mm = String(dt.getMonth() + 1).padStart(2,'0');\nconst dd = String(dt.getDate()).padStart(2,'0');\nflow.set('dl_start', `${yyyy}-${mm}-${dd}`);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "716fa25ba9db853a",
+        "type": "function",
+        "z": "flow_all",
+        "g": "8446b5ed352ca2d8",
+        "name": "Store end (flow)",
+        "func": "// Save end date (YYYY-MM-DD) into flow context.\nlet d = msg.payload;\nlet dt;\nif (typeof d === 'number') dt = new Date(d);\nelse if (d instanceof Date) dt = d;\nelse dt = new Date(d);\nconst yyyy = dt.getFullYear();\nconst mm = String(dt.getMonth() + 1).padStart(2,'0');\nconst dd = String(dt.getDate()).padStart(2,'0');\nflow.set('dl_end', `${yyyy}-${mm}-${dd}`);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
         "x": 480,
-        "y": 500,
+        "y": 360,
         "wires": [
-            [
-                "7d38609966719e04"
-            ]
+            []
         ]
     },
     {
-        "id": "7d38609966719e04",
-        "type": "function",
+        "id": "cae69a4b087570ee",
+        "type": "ui_button",
         "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "name": "CSV → rows[]",
-        "func": "// Comment: CSV text -> rows[] for ui_table (EC/pH/Temp)\n\nconst text = (msg.payload || \"\").toString();\nif (!text.trim()) { msg.payload = []; return msg; }\n\nconst lines = text.replace(/\\r\\n?/g, \"\\n\").split(\"\\n\").filter(l => l.trim().length);\nif (lines.length === 0) { msg.payload = []; return msg; }\n\nconst first = lines[0].trim().toLowerCase();\nlet header;\n\nif (first.startsWith(\"date\") || first.startsWith(\"timestamp\")) {\n  header = lines[0].split(\",\").map(h => h.trim());\n  lines.shift();\n} else {\n  header = [\"Date\", \"EC\", \"pH\", \"Solution_Temperature\"];\n}\n\nfunction toNumOrNull(v) {\n  const s = String(v ?? \"\").trim();\n  if (!s) return null;\n  const n = Number(s);\n  return Number.isFinite(n) ? n : null;\n}\n\nconst rows = [];\nfor (const line of lines) {\n  const cols = line.split(\",\");\n  if (cols.length < 4) continue;\n\n  rows.push({\n    [header[0]]: cols[0].trim(),\n    [header[1]]: toNumOrNull(cols[1]),\n    [header[2]]: toNumOrNull(cols[2]),\n    [header[3]]: toNumOrNull(cols[3]),\n  });\n}\n\nmsg.payload = rows.slice(-200);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 740,
-        "y": 500,
-        "wires": [
-            [
-                "ee81447397a9b21c"
-            ]
-        ]
-    },
-    {
-        "id": "ee81447397a9b21c",
-        "type": "ui_table",
-        "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "group": "grp_dl",
-        "name": "EC/pH Table",
-        "order": 1,
+        "g": "8446b5ed352ca2d8",
+        "name": "Apply Range",
+        "group": "ui_grp_table",
+        "order": 5,
         "width": 6,
-        "height": 10,
-        "columns": [],
-        "outputs": 1,
-        "cts": true,
-        "x": 930,
-        "y": 500,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d68f35126f715e09",
-        "type": "ui_template",
-        "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "group": "grp_dl",
-        "name": "Download CSV Button",
-        "order": 3,
-        "width": 3,
         "height": 1,
-        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_ecph_dist1\" target=\"_self\">CSV Download</a>",
-        "storeOutMessages": false,
-        "fwdInMessages": false,
-        "resendOnRefresh": false,
-        "templateScope": "local",
+        "passthru": false,
+        "label": "Apply (Update Download Link)",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
         "className": "",
-        "x": 180,
-        "y": 640,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e3164829ad2f9c99",
-        "type": "http in",
-        "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "name": "GET /download_ecph_dist1",
-        "url": "/download_ecph_dist1",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 190,
-        "y": 700,
-        "wires": [
-            [
-                "d7ba64a61cb93a1c"
-            ]
-        ]
-    },
-    {
-        "id": "d7ba64a61cb93a1c",
-        "type": "file in",
-        "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "name": "Read CSV (binary)",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv",
-        "filenameType": "str",
-        "format": "binary",
-        "sendError": true,
-        "allProps": false,
-        "x": 430,
-        "y": 700,
-        "wires": [
-            [
-                "bd6f7ce9ccfb1bf7"
-            ]
-        ]
-    },
-    {
-        "id": "bd6f7ce9ccfb1bf7",
-        "type": "http response",
-        "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "name": "Send CSV",
-        "statusCode": "",
-        "headers": {
-            "Content-Type": "text/csv; charset=utf-8",
-            "Content-Disposition": "attachment; filename=Dist_1_EC_pH_log.csv"
-        },
-        "x": 650,
-        "y": 700,
-        "wires": []
-    },
-    {
-        "id": "2205b965641cc936",
-        "type": "comment",
-        "z": "flow_all",
-        "g": "9b29f194d8a3aae8",
-        "name": "(W)Read EC&pH log csv file and show to the table on dashboard",
-        "info": "",
+        "icon": "check",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
         "x": 270,
+        "y": 400,
+        "wires": [
+            [
+                "d4739939fd8e23db"
+            ]
+        ]
+    },
+    {
+        "id": "d4739939fd8e23db",
+        "type": "function",
+        "z": "flow_all",
+        "g": "8446b5ed352ca2d8",
+        "name": "Apply → template msg",
+        "func": "function fmtDate(d) {\n  const yyyy = d.getFullYear();\n  const mm = String(d.getMonth() + 1).padStart(2, '0');\n  const dd = String(d.getDate()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd}`;\n}\n\nconst table = flow.get('dl_table') || 'Temp_humi_log';\nlet start = flow.get('dl_start');\nlet end = flow.get('dl_end');\n\nconst today = new Date();\nif (!end) {\n  end = fmtDate(today);\n  flow.set('dl_end', end);\n}\nif (!start) {\n  const d = new Date();\n  d.setDate(today.getDate() - 7);\n  start = fmtDate(d);\n  flow.set('dl_start', start);\n}\n\nmsg.table = table;\nmsg.start = start;\nmsg.end = end;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 400,
+        "wires": [
+            [
+                "a22b223becb16273"
+            ]
+        ]
+    },
+    {
+        "id": "b125209d3d41004e",
+        "type": "function",
+        "z": "flow_all",
+        "g": "8446b5ed352ca2d8",
+        "name": "Build SQL (range)",
+        "func": "// Build SQL for CSV download WITHOUT placeholders (avoid sqlite param binding issues)\n// Time columns are TEXT and sortable as strings if formatted like YYYY-MM-DD HH:MM(:SS)\n\nconst q = (msg.req && msg.req.query) ? msg.req.query : {};\nconst table = (q.table || 'Temp_humi_log').toString();\nconst start = (q.start || '').toString();\nconst end = (q.end || '').toString();\n\nconst ALLOWED = new Set([\n  'Temp_humi_log',\n  'Dist_1_EC_pH_log',\n  'Dist_1_Solution_input_log',\n  'Dist_2_EC_pH_log',\n  'Dist_2_Solution_input_log'\n]);\n\nif (!ALLOWED.has(table)) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid table';\n  return [null, msg];\n}\n\nconst COLUMN_MAP = {\n  'Temp_humi_log': 'Date',                 // text: YYYY-MM-DD HH:MM\n  'Dist_1_EC_pH_log': 'Date',\n  'Dist_2_EC_pH_log': 'Date',\n  'Dist_2_Solution_input_log': 'Date',\n  'Dist_1_Solution_input_log': 'timestamp' // text\n};\n\nconst timeCol = COLUMN_MAP[table];\nif (!timeCol) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid table mapping';\n  return [null, msg];\n}\n\n// Normalize to minute/second precision depending on column name\nfunction normForDateCol(s, isEnd) {\n  if (!s) return null;\n  const t = s.replace('T', ' ').trim();\n  if (t.length === 10) return isEnd ? `${t} 23:59` : `${t} 00:00`;\n  if (t.length >= 16) return t.slice(0, 16);   // YYYY-MM-DD HH:MM\n  return t;\n}\nfunction normForTimestampCol(s, isEnd) {\n  if (!s) return null;\n  const t = s.replace('T', ' ').trim();\n  if (t.length === 10) return isEnd ? `${t} 23:59:59` : `${t} 00:00:00`;\n  if (t.length === 16) return isEnd ? `${t}:59` : `${t}:00`; // add seconds\n  if (t.length >= 19) return t.slice(0, 19);   // YYYY-MM-DD HH:MM:SS\n  return t;\n}\n\nlet startRange, endRange;\nif (timeCol === 'Date') {\n  startRange = normForDateCol(start, false);\n  endRange = normForDateCol(end, true);\n} else {\n  startRange = normForTimestampCol(start, false);\n  endRange = normForTimestampCol(end, true);\n}\n\nif (!startRange || !endRange) {\n  msg.statusCode = 400;\n  msg.payload = 'Missing start/end';\n  return [null, msg];\n}\n\n// Validate format to prevent injection (allow \"YYYY-MM-DD HH:MM\" or \"YYYY-MM-DD HH:MM:SS\")\nconst re = /^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}(:\\d{2})?$/;\nif (!re.test(startRange) || !re.test(endRange)) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid date format';\n  return [null, msg];\n}\n\n// Escape quotes just in case (shouldn't occur after regex, but keep safe)\nconst sEsc = startRange.replace(/'/g, \"''\");\nconst eEsc = endRange.replace(/'/g, \"''\");\n\nmsg.topic = `SELECT * FROM \"${table}\" WHERE \"${timeCol}\" >= '${sEsc}' AND \"${timeCol}\" <= '${eEsc}' ORDER BY \"${timeCol}\" ASC`;\nmsg._dl = { table, start: startRange, end: endRange };\n\nreturn [msg, null];\n",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 480,
+        "wires": [
+            [
+                "f5a6a15636c2ae8a"
+            ],
+            [
+                "a0eaac3edf8af92e"
+            ]
+        ]
+    },
+    {
+        "id": "f5a6a15636c2ae8a",
+        "type": "sqlite",
+        "z": "flow_all",
+        "g": "8446b5ed352ca2d8",
+        "mydb": "sql_db_cfg",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQLite (range)",
+        "x": 700,
         "y": 440,
-        "wires": []
-    },
-    {
-        "id": "459214eb53b8201a",
-        "type": "inject",
-        "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "name": "Auto Refresh",
-        "props": [
-            {
-                "p": "filename",
-                "v": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "30 10 * * *",
-        "once": true,
-        "onceDelay": "3",
-        "topic": "",
-        "x": 130,
-        "y": 900,
         "wires": [
             [
-                "c1c5d1be217dd1ca"
+                "7dc725beeaba75fc"
             ]
         ]
     },
     {
-        "id": "f57f70b40106ba3b",
-        "type": "ui_button",
-        "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "name": "Manual Refresh",
-        "group": "0c96d57341bb54fa",
-        "order": 2,
-        "width": 3,
-        "height": 1,
-        "passthru": false,
-        "label": "Data Refresh",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "refresh",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 190,
-        "y": 960,
-        "wires": [
-            [
-                "ae6fd6772d53e43a"
-            ]
-        ]
-    },
-    {
-        "id": "ae6fd6772d53e43a",
+        "id": "7dc725beeaba75fc",
         "type": "function",
         "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "name": "파일경로 세팅",
-        "func": "msg.filename = \"/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv\";\nreturn msg;\n\n",
+        "g": "8446b5ed352ca2d8",
+        "name": "Rows → CSV (buffer)",
+        "func": "// Convert sqlite rows to CSV and return as binary buffer.\n\nconst rows = Array.isArray(msg.payload) ? msg.payload : [];\nconst meta = msg._dl || { table: 'export', start: '', end: '' };\n\nfunction esc(v){\n  if(v === null || v === undefined) return '';\n  const s = String(v);\n  if (/[,\"\\n\\r]/.test(s)) return '\"' + s.replace(/\"/g,'\"\"') + '\"';\n  return s;\n}\n\nlet csv = '';\nif(rows.length === 0){\n  csv = 'no_data\\n';\n} else {\n  const headers = Object.keys(rows[0]);\n  csv += headers.join(',') + '\\n';\n  for(const r of rows){\n    csv += headers.map(h => esc(r[h])).join(',') + '\\n';\n  }\n}\n\n// Excel-friendly BOM\nconst bom = '\\uFEFF';\nconst buf = Buffer.from(bom + csv, 'utf8');\n\nconst safeName = `${meta.table}_${meta.start.replace(/[: ]/g,'-')}_to_${meta.end.replace(/[: ]/g,'-')}.csv`;\n\nmsg.payload = buf;\nmsg.headers = {\n  'Content-Type': 'text/csv; charset=utf-8',\n  'Content-Disposition': `attachment; filename=${safeName}`\n};\nmsg.statusCode = 200;\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 960,
-        "wires": [
-            [
-                "c1c5d1be217dd1ca"
-            ]
-        ]
-    },
-    {
-        "id": "c1c5d1be217dd1ca",
-        "type": "file in",
-        "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "name": "Read Dist_1_Solution_input_log.csv (utf8)",
-        "filename": "filename",
-        "filenameType": "msg",
-        "format": "utf8",
-        "sendError": true,
-        "allProps": false,
-        "x": 480,
-        "y": 900,
-        "wires": [
-            [
-                "74fee1ff15336b2e"
-            ]
-        ]
-    },
-    {
-        "id": "74fee1ff15336b2e",
-        "type": "function",
-        "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "name": "CSV → rows[]",
-        "func": "// Comment: CSV text -> rows[] for ui_table (Solution input logs)\n// Keep everything as string\n\nconst text = (msg.payload || \"\").toString();\nif (!text.trim()) { msg.payload = []; return msg; }\n\nconst lines = text.replace(/\\r\\n?/g, \"\\n\").split(\"\\n\").filter(l => l.trim().length);\nif (lines.length === 0) { msg.payload = []; return msg; }\n\nconst first = lines[0].trim().toLowerCase();\nlet header;\n\nif (first.startsWith(\"timestamp\") || first.startsWith(\"date\")) {\n  header = lines[0].split(\",\").map(h => h.trim());\n  lines.shift();\n} else {\n  header = [\"timestamp\", \"device\", \"action\", \"detail\", \"duration\", \"etc\"];\n  // 만약 네 파일 헤더가 고정이라면 위를 실제 헤더에 맞춰 수정\n}\n\nconst rows = [];\nfor (const line of lines) {\n  const cols = line.split(\",\");\n  if (cols.length < 2) continue;\n\n  const obj = {};\n  for (let i = 0; i < Math.min(cols.length, header.length); i++) {\n    obj[header[i]] = cols[i].trim();\n  }\n  rows.push(obj);\n}\n\nmsg.payload = rows.slice(-200);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 740,
-        "y": 900,
-        "wires": [
-            [
-                "2923571850219960"
-            ]
-        ]
-    },
-    {
-        "id": "2923571850219960",
-        "type": "ui_table",
-        "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "group": "0c96d57341bb54fa",
-        "name": "Solution input Table",
-        "order": 1,
-        "width": 6,
-        "height": 10,
-        "columns": [],
-        "outputs": 1,
-        "cts": true,
         "x": 940,
-        "y": 900,
+        "y": 440,
         "wires": [
-            []
+            [
+                "a0eaac3edf8af92e"
+            ]
         ]
     },
     {
-        "id": "e9b78c33d6da39ab",
+        "id": "6897d08c634f30b3",
         "type": "ui_template",
         "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "group": "0c96d57341bb54fa",
-        "name": "Download CSV Button",
-        "order": 3,
-        "width": 3,
+        "g": "8446b5ed352ca2d8",
+        "group": "ui_grp_table",
+        "name": "",
+        "order": 8,
+        "width": 12,
         "height": 1,
-        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_solution_dist1\" target=\"_self\">CSV Download</a>",
-        "storeOutMessages": false,
-        "fwdInMessages": false,
-        "resendOnRefresh": false,
+        "format": "<style>\n    /* Force visibility of DatePicker header */\n    .md-datepicker-calendar-pane {\n        background-color: #ffffff !important; /* White background for visibility */\n        border: 1px solid #ccc;\n    }\n    .md-datepicker-calendar-header, \n    .md-calendar-day-header,\n    .md-calendar-month-year-selector {\n        background-color: #009688 !important; /* Teal color */\n        color: white !important;\n    }\n    /* Fix for year display (252025 bug) often related to CSS scaling */\n    .v-date-picker-title__date {\n        font-size: 20px !important;\n        line-height: 1.2 !important;\n    }\n    /* Ensure year selector text is visible */\n    md-calendar-month-year-selector .md-calendar-month-year-button {\n        color: white !important;\n        background: transparent !important;\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 170,
-        "y": 1040,
+        "x": 700,
+        "y": 320,
         "wires": [
             []
         ]
-    },
-    {
-        "id": "1d899e847958cc51",
-        "type": "http in",
-        "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "name": "GET /download_solution_dist1",
-        "url": "/download_solution_dist1",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 190,
-        "y": 1100,
-        "wires": [
-            [
-                "762997c612a3239b"
-            ]
-        ]
-    },
-    {
-        "id": "762997c612a3239b",
-        "type": "file in",
-        "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "name": "Read CSV (binary)",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv",
-        "filenameType": "str",
-        "format": "binary",
-        "sendError": true,
-        "allProps": false,
-        "x": 450,
-        "y": 1100,
-        "wires": [
-            [
-                "d62e857fdfc39204"
-            ]
-        ]
-    },
-    {
-        "id": "d62e857fdfc39204",
-        "type": "http response",
-        "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "name": "Send CSV",
-        "statusCode": "",
-        "headers": {
-            "Content-Type": "text/csv; charset=utf-8",
-            "Content-Disposition": "attachment; filename=Dist_1_Solution_input_log.csv"
-        },
-        "x": 640,
-        "y": 1100,
-        "wires": []
-    },
-    {
-        "id": "64e0010d99179742",
-        "type": "comment",
-        "z": "flow_all",
-        "g": "d0f7352041fbc952",
-        "name": "(W)Read Solution A/B/Acid log CSV and show/download",
-        "info": "",
-        "x": 330,
-        "y": 840,
-        "wires": []
-    },
-    {
-        "id": "734f54c626594136",
-        "type": "function",
-        "z": "flow_all",
-        "g": "e74e46c298b7c6cb",
-        "name": "CSV → rows[]",
-        "func": "const text = (msg.payload||'').toString();\nif(!text.trim()) { msg.payload = []; return msg; }\nconst lines = text.replace(/\\r\\n?/g,'\\n').split('\\n').filter(l=>l.trim().length);\nlet header = [];\nif(lines[0].toLowerCase().startsWith('timestamp')){\n  header = lines[0].split(',').map(h=>h.trim());\n  lines.shift();\n} else {\n  header = ['Date','Temperature','Humidity','CO2'];\n}\nconst rows = [];\nfor(const line of lines){\n  const cols = line.split(',');\n  if(cols.length < 3) continue;\n  rows.push({\n    [header[0]]: cols[0].trim(),\n    [header[1]]: Number(cols[1]),\n    [header[2]]: Number(cols[2]),\n    [header[3]]: Number(cols[3])\n  });\n}\nmsg.payload = rows.slice(-200);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 660,
-        "y": 140,
-        "wires": [
-            [
-                "table_ui"
-            ]
-        ]
-    },
-    {
-        "id": "27fc66eaaca23794",
-        "type": "inject",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "name": "Auto Refresh 30min",
-        "props": [
-            {
-                "p": "filename",
-                "v": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_EC_pH_log.csv",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "30 11 * * *",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "x": 1260,
-        "y": 520,
-        "wires": [
-            [
-                "3f0ad1a72df8b757"
-            ]
-        ]
-    },
-    {
-        "id": "61caf0db18f2428d",
-        "type": "ui_button",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "name": "Manual Refresh",
-        "group": "96111742475c44e1",
-        "order": 2,
-        "width": 3,
-        "height": 1,
-        "passthru": false,
-        "label": "Data Refresh",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "refresh",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 1300,
-        "y": 580,
-        "wires": [
-            [
-                "c09b25e4d365be34"
-            ]
-        ]
-    },
-    {
-        "id": "c09b25e4d365be34",
-        "type": "function",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "name": "파일경로 세팅",
-        "func": "msg.filename = \"/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_EC_pH_log.csv\";\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1540,
-        "y": 580,
-        "wires": [
-            [
-                "3f0ad1a72df8b757"
-            ]
-        ]
-    },
-    {
-        "id": "3f0ad1a72df8b757",
-        "type": "file in",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "name": "Read Dist_2_EC_pH_log.csv (utf8)",
-        "filename": "filename",
-        "filenameType": "msg",
-        "format": "utf8",
-        "sendError": true,
-        "allProps": false,
-        "x": 1580,
-        "y": 520,
-        "wires": [
-            [
-                "5a814c3c8a19e0be"
-            ]
-        ]
-    },
-    {
-        "id": "5a814c3c8a19e0be",
-        "type": "function",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "name": "CSV → rows[]",
-        "func": "// Comment: CSV text -> rows[] for ui_table (EC/pH/Temp)\n\nconst text = (msg.payload || \"\").toString();\nif (!text.trim()) { msg.payload = []; return msg; }\n\nconst lines = text.replace(/\\r\\n?/g, \"\\n\").split(\"\\n\").filter(l => l.trim().length);\nif (lines.length === 0) { msg.payload = []; return msg; }\n\nconst first = lines[0].trim().toLowerCase();\nlet header;\n\nif (first.startsWith(\"date\") || first.startsWith(\"timestamp\")) {\n  header = lines[0].split(\",\").map(h => h.trim());\n  lines.shift();\n} else {\n  header = [\"Date\", \"EC\", \"pH\", \"Solution_Temperature\"];\n}\n\nfunction toNumOrNull(v) {\n  const s = String(v ?? \"\").trim();\n  if (!s) return null;\n  const n = Number(s);\n  return Number.isFinite(n) ? n : null;\n}\n\nconst rows = [];\nfor (const line of lines) {\n  const cols = line.split(\",\");\n  if (cols.length < 4) continue;\n\n  rows.push({\n    [header[0]]: cols[0].trim(),\n    [header[1]]: toNumOrNull(cols[1]),\n    [header[2]]: toNumOrNull(cols[2]),\n    [header[3]]: toNumOrNull(cols[3]),\n  });\n}\n\nmsg.payload = rows.slice(-200);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1840,
-        "y": 520,
-        "wires": [
-            [
-                "1ba33261f437d902"
-            ]
-        ]
-    },
-    {
-        "id": "1ba33261f437d902",
-        "type": "ui_table",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "group": "96111742475c44e1",
-        "name": "EC/pH Table",
-        "order": 1,
-        "width": 6,
-        "height": 10,
-        "columns": [],
-        "outputs": 1,
-        "cts": true,
-        "x": 2030,
-        "y": 520,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "36344a406840362d",
-        "type": "ui_template",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "group": "96111742475c44e1",
-        "name": "Download CSV Button",
-        "order": 3,
-        "width": 3,
-        "height": 1,
-        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_ecph_dist2\" target=\"_self\">CSV Download</a>",
-        "storeOutMessages": false,
-        "fwdInMessages": false,
-        "resendOnRefresh": false,
-        "templateScope": "local",
-        "className": "",
-        "x": 1280,
-        "y": 660,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "b2a258edcf5a958e",
-        "type": "http in",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "name": "GET /download_ecph_dist2",
-        "url": "/download_ecph_dist2",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 1290,
-        "y": 720,
-        "wires": [
-            [
-                "9e97d9f96995bf28"
-            ]
-        ]
-    },
-    {
-        "id": "9e97d9f96995bf28",
-        "type": "file in",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "name": "Read CSV (binary)",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_EC_pH_log.csv",
-        "filenameType": "str",
-        "format": "binary",
-        "sendError": true,
-        "allProps": false,
-        "x": 1530,
-        "y": 720,
-        "wires": [
-            [
-                "0be035f89455a795"
-            ]
-        ]
-    },
-    {
-        "id": "0be035f89455a795",
-        "type": "http response",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "name": "Send CSV",
-        "statusCode": "",
-        "headers": {
-            "Content-Type": "text/csv; charset=utf-8",
-            "Content-Disposition": "attachment; filename=Dist_2_EC_pH_log.csv"
-        },
-        "x": 1750,
-        "y": 720,
-        "wires": []
-    },
-    {
-        "id": "4d55c4ca6af1390e",
-        "type": "comment",
-        "z": "flow_all",
-        "g": "c62aa2d73263b188",
-        "name": "(W)Read EC&pH log csv file and show to the table on dashboard",
-        "info": "",
-        "x": 1370,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "e7891915e633acd2",
-        "type": "inject",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "name": "Auto Refresh 30min",
-        "props": [
-            {
-                "p": "filename",
-                "v": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_Solution_input_log.csv",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "00 10 * * *",
-        "once": true,
-        "onceDelay": "9",
-        "topic": "",
-        "x": 1250,
-        "y": 920,
-        "wires": [
-            [
-                "51704d967a421a19"
-            ]
-        ]
-    },
-    {
-        "id": "a6223c1af0cd3dd5",
-        "type": "ui_button",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "name": "Manual Refresh",
-        "group": "1b4aaf5eb31383f2",
-        "order": 2,
-        "width": 3,
-        "height": 1,
-        "passthru": false,
-        "label": "Data Refresh",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "refresh",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "",
-        "topicType": "str",
-        "x": 1220,
-        "y": 980,
-        "wires": [
-            [
-                "8d665aadf1c7067c"
-            ]
-        ]
-    },
-    {
-        "id": "8d665aadf1c7067c",
-        "type": "function",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "name": "파일경로 세팅",
-        "func": "msg.filename = \"/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_Solution_input_log.csv\";\nreturn msg;\n\n",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1450,
-        "y": 980,
-        "wires": [
-            [
-                "51704d967a421a19"
-            ]
-        ]
-    },
-    {
-        "id": "51704d967a421a19",
-        "type": "file in",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "name": "Read Dist_2_Solution_input_log.csv (utf8)",
-        "filename": "filename",
-        "filenameType": "msg",
-        "format": "utf8",
-        "sendError": true,
-        "encoding": "none",
-        "allProps": false,
-        "x": 1590,
-        "y": 920,
-        "wires": [
-            [
-                "01e0b9d102a39fd5"
-            ]
-        ]
-    },
-    {
-        "id": "01e0b9d102a39fd5",
-        "type": "function",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "name": "CSV → rows[]",
-        "func": "// Comment: CSV text -> rows[] for ui_table (Solution input logs)\n// Keep everything as string\n\nconst text = (msg.payload || \"\").toString();\nif (!text.trim()) { msg.payload = []; return msg; }\n\nconst lines = text.replace(/\\r\\n?/g, \"\\n\").split(\"\\n\").filter(l => l.trim().length);\nif (lines.length === 0) { msg.payload = []; return msg; }\n\nconst first = lines[0].trim().toLowerCase();\nlet header;\n\nif (first.startsWith(\"timestamp\") || first.startsWith(\"date\")) {\n  header = lines[0].split(\",\").map(h => h.trim());\n  lines.shift();\n} else {\n  header = [\"timestamp\", \"device\", \"action\", \"detail\", \"duration\", \"etc\"];\n  // 만약 네 파일 헤더가 고정이라면 위를 실제 헤더에 맞춰 수정\n}\n\nconst rows = [];\nfor (const line of lines) {\n  const cols = line.split(\",\");\n  if (cols.length < 2) continue;\n\n  const obj = {};\n  for (let i = 0; i < Math.min(cols.length, header.length); i++) {\n    obj[header[i]] = cols[i].trim();\n  }\n  rows.push(obj);\n}\n\nmsg.payload = rows.slice(-200);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1840,
-        "y": 920,
-        "wires": [
-            [
-                "a3412107226a6d51"
-            ]
-        ]
-    },
-    {
-        "id": "a3412107226a6d51",
-        "type": "ui_table",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "group": "1b4aaf5eb31383f2",
-        "name": "Solution input Table",
-        "order": 1,
-        "width": 6,
-        "height": 10,
-        "columns": [],
-        "outputs": 1,
-        "cts": true,
-        "x": 2040,
-        "y": 920,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9f1c418cd3f3a885",
-        "type": "ui_template",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "group": "1b4aaf5eb31383f2",
-        "name": "Download CSV Button",
-        "order": 3,
-        "width": 3,
-        "height": 1,
-        "format": "<a class=\"md-button md-raised md-primary\" style=\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\" href=\"/download_solution_dist2\" target=\"_self\">CSV Download</a>",
-        "storeOutMessages": false,
-        "fwdInMessages": false,
-        "resendOnRefresh": false,
-        "templateScope": "local",
-        "className": "",
-        "x": 1270,
-        "y": 1060,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "94b0f12f3bc1db62",
-        "type": "http in",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "name": "GET /download_solution_dist2",
-        "url": "/download_solution_dist2",
-        "method": "get",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 1290,
-        "y": 1120,
-        "wires": [
-            [
-                "7fd7452d9cd017ef"
-            ]
-        ]
-    },
-    {
-        "id": "7fd7452d9cd017ef",
-        "type": "file in",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "name": "Read CSV (binary)",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_Solution_input_log.csv",
-        "filenameType": "str",
-        "format": "binary",
-        "sendError": true,
-        "allProps": false,
-        "x": 1520,
-        "y": 1120,
-        "wires": [
-            [
-                "370b70a08f5dc235"
-            ]
-        ]
-    },
-    {
-        "id": "370b70a08f5dc235",
-        "type": "http response",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "name": "Send CSV",
-        "statusCode": "",
-        "headers": {
-            "Content-Type": "text/csv; charset=utf-8",
-            "Content-Disposition": "attachment; filename=Dist_2_Solution_input_log.csv"
-        },
-        "x": 1740,
-        "y": 1120,
-        "wires": []
-    },
-    {
-        "id": "a9ea43292fd0feba",
-        "type": "comment",
-        "z": "flow_all",
-        "g": "be44b588c52432ea",
-        "name": "(W)Read Solution A/B/Acid log CSV and show/download",
-        "info": "",
-        "x": 1430,
-        "y": 860,
-        "wires": []
     },
     {
         "id": "inj_start_6",

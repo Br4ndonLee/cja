@@ -2,32 +2,38 @@
 import os
 import json
 import time
-import csv
 import datetime
 import serial
 import fcntl
+import sqlite3
 from serial.serialutil import SerialException
 
 # ===============================
 # Settings
 # ===============================
-# PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:1.2:1.0-port0"
 PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
-
 BAUD = 115200
 REQ  = "node000000|SensorReq|0905"
 
-CSV_PATH = "/home/cja/Work/cja-skyfarms-project/sensors/Temp_humi_log.csv"
+# SQLite
+DB_PATH = "/home/cja/Work/cja-skyfarms-project/data/data.db"
+DB_TABLE = "Temp_humi_log"
 
+# Sensor IDs
 ID_TEMPERATURE = 1
 ID_HUMIDITY    = 2
 ID_CO2         = 6
 
+# Lock (prevent concurrent access to same USB serial)
 SERIAL_LOCK_PATH = "/tmp/usb_1a86_serial.lock"
 
+# Timings
+PRINT_EVERY_SEC = 10      # JSON output every 10 sec
+SAVE_EVERY_MIN  = 20      # DB save every 20 min (00/20/40) - robust slot based
+
+# Read burst tuning
 READ_TIMEOUT_SEC = 2.5
 IDLE_GAP_SEC = 0.2
-
 RETRY_ATTEMPTS = 3
 RETRY_DELAY_SEC = 0.25
 
@@ -35,22 +41,37 @@ RETRY_DELAY_SEC = 0.25
 # ===============================
 # Timing (no drift)
 # ===============================
-def sleep_to_next_10s():
-    """Sleep until the next wall-clock 10-second boundary."""
+def sleep_to_next_boundary(step_sec: int):
+    """Sleep until the next wall-clock boundary (no drift)."""
     now = time.time()
-    next_t = (int(now) // 10 + 1) * 10
+    next_t = (int(now) // step_sec + 1) * step_sec
     time.sleep(max(0, next_t - now))
+
+
+def minute_key(dt: datetime.datetime) -> str:
+    """YYYY-MM-DD HH:MM"""
+    return dt.strftime("%Y-%m-%d %H:%M")
+
+
+def slot_key_for(dt: datetime.datetime, step_min: int) -> str:
+    """
+    Return slot key "YYYY-MM-DD HH:MM" floored to step minutes.
+    Example: 13:20:55 with step=20 -> 13:20
+    """
+    slot_min = (dt.minute // step_min) * step_min
+    slot_dt = dt.replace(minute=slot_min, second=0, microsecond=0)
+    return slot_dt.strftime("%Y-%m-%d %H:%M")
 
 
 # ===============================
 # Serial helpers
 # ===============================
-def read_one_response(ser, timeout=1.5, idle_gap=0.2):
+def read_one_response(ser, timeout=2.5, idle_gap=0.2) -> bytes:
     """Read until no more bytes arrive for a short idle gap (no newline protocol)."""
     ser.timeout = idle_gap
     buf = bytearray()
     t0 = time.time()
-    last_rx = time.time()
+    last_rx = None
 
     while time.time() - t0 < timeout:
         chunk = ser.read(256)
@@ -58,8 +79,9 @@ def read_one_response(ser, timeout=1.5, idle_gap=0.2):
             buf += chunk
             last_rx = time.time()
         else:
-            if buf and (time.time() - last_rx) > idle_gap:
+            if buf and last_rx and (time.time() - last_rx) > idle_gap:
                 break
+
     return bytes(buf)
 
 
@@ -79,36 +101,11 @@ def get_value_by_id(data: dict, target_id: int):
             v = str(s.get("value", "")).strip()
             try:
                 return float(v)
-            except:
+            except Exception:
                 return None
     return None
 
 
-# ===============================
-# CSV helpers
-# ===============================
-def ensure_csv_header(path: str):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    if (not os.path.exists(path)) or (os.path.getsize(path) == 0):
-        with open(path, mode="a", newline="") as f:
-            w = csv.writer(f)
-            w.writerow(["date", "temperature", "humidity", "co2"])
-
-
-def append_csv_row(path: str, date_str: str, temperature, humidity, co2):
-    def cell(x):
-        return "" if x is None else x
-
-    with open(path, mode="a", newline="") as f:
-        w = csv.writer(f)
-        w.writerow([date_str, cell(temperature), cell(humidity), cell(co2)])
-        f.flush()
-        os.fsync(f.fileno())
-
-
-# ===============================
-# Sensor read (single + retry + lock)
-# ===============================
 def read_sensor_once():
     """Single attempt: open port, send request, read response, parse values."""
     with serial.Serial(PORT, BAUD, bytesize=8, parity="N", stopbits=1, timeout=0.2) as ser:
@@ -132,16 +129,9 @@ def read_sensor_once():
 
     temperature = get_value_by_id(data, ID_TEMPERATURE)
     humidity = get_value_by_id(data, ID_HUMIDITY)
-    co2_val = get_value_by_id(data, ID_CO2)
+    co2 = get_value_by_id(data, ID_CO2)
 
-    co2 = None
-    if co2_val is not None:
-        try:
-            co2 = int(co2_val)
-        except:
-            co2 = co2_val
-
-    # Allow partial updates? -> We only accept "good" sample when ALL are present.
+    # Accept only when ALL exist (stickiness handled in main)
     if temperature is None or humidity is None or co2 is None:
         return temperature, humidity, co2, "value_missing"
 
@@ -149,7 +139,7 @@ def read_sensor_once():
 
 
 def read_sensor_with_lock_and_retry():
-    """Prevent concurrent access + retry a few times for stability under Node-RED."""
+    """Prevent concurrent access + retry a few times for stability."""
     lockf = open(SERIAL_LOCK_PATH, "w")
     try:
         fcntl.flock(lockf, fcntl.LOCK_EX)
@@ -176,71 +166,119 @@ def read_sensor_with_lock_and_retry():
     finally:
         try:
             fcntl.flock(lockf, fcntl.LOCK_UN)
-        except:
+        except Exception:
             pass
         lockf.close()
 
 
 # ===============================
-# Main (continuous, no drift)
+# SQLite helpers
+# ===============================
+def ensure_db_schema(db_path: str, table: str):
+    """Create table/index if not exists. Keep schema with CAPITAL column names."""
+    os.makedirs(os.path.dirname(db_path), exist_ok=True)
+    conn = sqlite3.connect(db_path, timeout=5.0)
+    try:
+        conn.execute("PRAGMA journal_mode=WAL;")
+        conn.execute("PRAGMA synchronous=NORMAL;")
+
+        # Match your actual schema: Date/Temperature/Humidity/CO2
+        conn.execute(f"""
+            CREATE TABLE IF NOT EXISTS "{table}" (
+                "Date" TEXT,
+                "Temperature" REAL,
+                "Humidity" REAL,
+                "CO2" INTEGER
+            );
+        """)
+        conn.execute(f'CREATE INDEX IF NOT EXISTS "idx_{table}_date" ON "{table}"("Date");')
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def insert_room_condition(db_path: str, table: str, date_str: str, temperature, humidity, co2):
+    """Insert one row (Date/Temperature/Humidity/CO2)."""
+    conn = sqlite3.connect(db_path, timeout=5.0)
+    try:
+        conn.execute("PRAGMA journal_mode=WAL;")
+        conn.execute("PRAGMA synchronous=NORMAL;")
+        conn.execute(
+            f'INSERT INTO "{table}" ("Date","Temperature","Humidity","CO2") VALUES (?,?,?,?);',
+            (date_str, temperature, humidity, int(co2) if co2 is not None else None)
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+
+# ===============================
+# Main (continuous)
 # ===============================
 def main():
-    ensure_csv_header(CSV_PATH)
+    ensure_db_schema(DB_PATH, DB_TABLE)
 
+    # Stickiness (last good values)
     latest_t = None
     latest_h = None
     latest_c = None
     latest_err = None
 
-    last_saved_minute = None      # for CSV save (20 min)
-    last_printed_minute = None    # for JSON print (3 min)
+    # Save guard (prevent duplicate save within the same slot)
+    last_saved_slot = None
 
     while True:
-        # 1) Read every wall-clock 10 seconds (no drift)
-        sleep_to_next_10s()
+        # 1) Run on exact 10-second boundaries
+        sleep_to_next_boundary(PRINT_EVERY_SEC)
 
         t, h, c, err = read_sensor_with_lock_and_retry()
 
         # Update latest only when sample is complete and valid
         if err is None and t is not None and h is not None and c is not None:
-            latest_t, latest_h, latest_c = t, h, c
+            latest_t, latest_h, latest_c = float(t), float(h), float(c)
             latest_err = None
         else:
-            # Keep last good values; only update error
             latest_err = err
 
         now = datetime.datetime.now()
-        minute_key = now.strftime("%Y-%m-%d %H:%M")
+        mkey = minute_key(now)
 
-        # 2) JSON output every 3 minutes (once per minute)
-        if (
-            now.minute % 3 == 0
-            and last_printed_minute != minute_key
-            and latest_t is not None and latest_h is not None and latest_c is not None
-        ):
-            print(json.dumps({
-                "date": minute_key,
-                "temperature": latest_t,
-                "humidity": latest_h,
-                "co2": latest_c,
-                "errors": {"sensor": latest_err}
-            }, ensure_ascii=False), flush=True)
+        # Prepare output (single-line JSON only)
+        out = {
+            "date": mkey,
+            "temperature": latest_t,
+            "humidity": latest_h,
+            "co2": latest_c,
+            "errors": {
+                "sensor": latest_err,
+                "db": None
+            },
+            "save": {
+                "every_min": SAVE_EVERY_MIN,
+                "slot": None,
+                "did": False
+            }
+        }
 
-            last_printed_minute = minute_key
+        # 2) Robust slot-based save (independent of second timing)
+        #    Save ONCE per slot, but only when we're inside a boundary minute.
+        #    Example: any time during 13:20:xx counts as the "13:20" slot.
+        if now.minute % SAVE_EVERY_MIN == 0:
+            skey = slot_key_for(now, SAVE_EVERY_MIN)
+            out["save"]["slot"] = skey
 
-        # 3) CSV save every 20 minutes (once per minute)
-        if (
-            now.minute % 20 == 0
-            and last_saved_minute != minute_key
-            and latest_t is not None and latest_h is not None and latest_c is not None
-        ):
-            try:
-                append_csv_row(CSV_PATH, minute_key, latest_t, latest_h, latest_c)
-                last_saved_minute = minute_key
-            except Exception as e:
-                print(json.dumps({
-                    "error": f"csv_write_failed: {e}"
-                }, ensure_ascii=False), flush=True)
+            if last_saved_slot != skey:
+                if latest_t is None or latest_h is None or latest_c is None:
+                    out["errors"]["db"] = "skip_save: latest values are None"
+                else:
+                    try:
+                        insert_room_condition(DB_PATH, DB_TABLE, skey, latest_t, latest_h, latest_c)
+                        last_saved_slot = skey
+                        out["save"]["did"] = True
+                    except Exception as e:
+                        out["errors"]["db"] = f"db_write_failed: {e}"
+
+        print(json.dumps(out, ensure_ascii=False), flush=True)
 
 
 if __name__ == "__main__":

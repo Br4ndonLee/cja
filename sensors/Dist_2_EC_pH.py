@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import os
-import csv
 import json
 import time
 import datetime
 import serial
 import fcntl
+import sqlite3
 import re
 import math
 from serial.serialutil import SerialException
@@ -14,46 +14,37 @@ from serial.serialutil import SerialException
 # Settings
 # ===============================
 PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
-
 BAUD = 115200
 REQ  = "node000300|SensorReq|8985"
 
-# Target sensor IDs (expected) - kept for documentation
+DB_PATH = "/home/cja/Work/cja-skyfarms-project/data/data.db"
+DB_TABLE = "Dist_2_EC_pH_log"
+
+SERIAL_LOCK_PATH = "/tmp/usb_1a86_serial.lock"
+
+# Poll / report / save
+POLL_SEC = 10           # JSON output every 10 sec
+DB_EVERY_MIN = 20       # save every 15 min (00/15/30/45)
+
+# Physical validity ranges (safe)
+VALID_EC_MIN, VALID_EC_MAX = 0.00, 3.00        # dS/m
+VALID_PH_MIN, VALID_PH_MAX = 3.50, 10.00       # pH
+VALID_TP_MIN, VALID_TP_MAX = 10.00, 50.00      # °C
+
+# Sensor IDs
 ID_PH   = 16
 ID_TEMP = 29
 ID_EC   = 30
 
-CSV_PATH = "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_EC_pH_log.csv"
-SERIAL_LOCK_PATH = "/tmp/usb_1a86_serial.lock"
-
+# Read burst tuning
 TOTAL_TIMEOUT_SEC = 3.0
 IDLE_GAP_SEC = 0.2
 RETRY_ATTEMPTS = 3
 RETRY_DELAY_SEC = 0.25
 
-# Poll / report / save
-POLL_SEC = 10
-JSON_EVERY_MIN = 3
-CSV_EVERY_MIN = 20
 
 # ===============================
-# Physical validity ranges (safe)
-# ===============================
-VALID_EC_MIN, VALID_EC_MAX = 0.00, 3.00        # dS/m
-VALID_PH_MIN, VALID_PH_MAX = 3.50, 10.00       # pH
-VALID_TP_MIN, VALID_TP_MAX = 10.00, 50.00      # °C
-
-# ===============================
-# Hampel filter settings (lightweight)
-# ===============================
-HAMPEL_WIN = 6          # 6 samples * 10s = 60s history window
-HAMPEL_K = 3.0          # 3.0 is standard; relax to 3.5 if too strict
-HAMPEL_FLAT_TOL_EC = 0.10
-HAMPEL_FLAT_TOL_PH = 0.10
-HAMPEL_FLAT_TOL_TP = 0.50
-
-# ===============================
-# Timing helpers (no drift)
+# Timing (no drift)
 # ===============================
 def sleep_to_next_boundary(step_sec: int):
     """Sleep until the next wall-clock boundary (no drift)."""
@@ -61,24 +52,10 @@ def sleep_to_next_boundary(step_sec: int):
     next_t = (int(now) // step_sec + 1) * step_sec
     time.sleep(max(0, next_t - now))
 
-# ===============================
-# CSV helpers
-# ===============================
-def ensure_csv_header(path: str):
-    """Create directory and write header if file is missing/empty."""
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    if (not os.path.exists(path)) or (os.path.getsize(path) == 0):
-        with open(path, mode="a", newline="") as f:
-            w = csv.writer(f)
-            w.writerow(["Date", "EC", "pH", "Solution_Temperature"])
+def minute_key(dt: datetime.datetime) -> str:
+    """YYYY-MM-DD HH:MM"""
+    return dt.strftime("%Y-%m-%d %H:%M")
 
-def append_csv_row(path: str, date_str: str, ec, ph, temp):
-    """Append one row and fsync for safety."""
-    with open(path, mode="a", newline="") as f:
-        w = csv.writer(f)
-        w.writerow([date_str, ec, ph, temp])
-        f.flush()
-        os.fsync(f.fileno())
 
 # ===============================
 # Serial helpers
@@ -107,75 +84,90 @@ def safe_decode(raw: bytes) -> str:
     text = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f]", "", text)
     return text.strip()
 
-# ===============================
-# Robust number parsing
-# ===============================
-def fix_slash_number(s: str) -> str:
-    """
-    Fix common corruption patterns:
-      - "17/10" -> "17.10"
-      - "1/05"  -> "1.05"
-      - "0/0"   -> "0.0"
-    """
-    s = s.strip()
-    if "/" in s:
-        parts = s.split("/")
-        if len(parts) == 2 and parts[0].isdigit() and parts[1].isdigit():
-            return parts[0] + "." + parts[1]
-    return s
+def extract_json_block(text: str):
+    """Extract {...} from '|SensorRes|{...}|XXXX'."""
+    start = text.find("{")
+    end = text.rfind("}")
+    if start == -1 or end == -1 or end <= start:
+        return None
+    return text[start:end + 1]
 
-def to_float_maybe(s: str):
-    """Try to convert a corrupted numeric string to float."""
-    if s is None:
-        return None
-    s2 = fix_slash_number(str(s))
-    s2 = s2.replace(" ", "")
-    s2 = re.sub(r"[^0-9\.\-]", "", s2)
-    if not s2:
-        return None
-    try:
-        v = float(s2)
-        if math.isfinite(v):
-            return v
-    except:
-        return None
+def get_value_by_id(data: dict, target_id: int):
+    """Return float value for sensor id, or None."""
+    for s in data.get("sensors", []):
+        if s.get("id") == target_id:
+            v = str(s.get("value", "")).strip()
+            try:
+                x = float(v)
+                return x if math.isfinite(x) else None
+            except Exception:
+                return None
     return None
 
-def parse_ec_ph_tp(text: str):
-    """
-    Position-based parsing:
-    Extract the first 3 numeric 'value' fields in order.
-    Expected order in sensors[]:
-      1) pH, 2) Solution_Temperature, 3) EC
-    Return (ec, ph, tp) where each may be None.
-    """
-    vals = []
-    for m in re.finditer(r'value[^0-9]{0,30}([0-9]+(?:[./][0-9]+)?)', text, re.IGNORECASE):
-        v = to_float_maybe(m.group(1))
-        if v is not None:
-            vals.append(v)
-        if len(vals) >= 3:
-            break
 
-    ph = vals[0] if len(vals) >= 1 else None
-    tp = vals[1] if len(vals) >= 2 else None
-    ec = vals[2] if len(vals) >= 3 else None
-    return ec, ph, tp
+# ===============================
+# Validity checks
+# ===============================
+def is_valid_ec(x) -> bool:
+    return x is not None and math.isfinite(x) and (VALID_EC_MIN <= float(x) <= VALID_EC_MAX)
+
+def is_valid_ph(x) -> bool:
+    return x is not None and math.isfinite(x) and (VALID_PH_MIN <= float(x) <= VALID_PH_MAX)
+
+def is_valid_tp(x) -> bool:
+    return x is not None and math.isfinite(x) and (VALID_TP_MIN <= float(x) <= VALID_TP_MAX)
+
+
+# ===============================
+# SQLite helpers
+# ===============================
+def ensure_db_schema(db_path: str):
+    """Ensure target table/index exist (idempotent)."""
+    os.makedirs(os.path.dirname(db_path), exist_ok=True)
+    conn = sqlite3.connect(db_path, timeout=5.0)
+    try:
+        conn.execute("PRAGMA journal_mode=WAL;")
+        conn.execute("PRAGMA synchronous=NORMAL;")
+
+        conn.execute(f"""
+            CREATE TABLE IF NOT EXISTS "{DB_TABLE}" (
+                "Date" TEXT,
+                "EC" REAL,
+                "pH" REAL,
+                "Solution_Temperature" REAL
+            );
+        """)
+        conn.execute(f'CREATE INDEX IF NOT EXISTS "idx_dist2_ecph_date" ON "{DB_TABLE}"("Date");')
+        conn.commit()
+    finally:
+        conn.close()
+
+def insert_row(db_path: str, date_str: str, ec, ph, tp):
+    conn = sqlite3.connect(db_path, timeout=5.0)
+    try:
+        conn.execute("PRAGMA journal_mode=WAL;")
+        conn.execute("PRAGMA synchronous=NORMAL;")
+        conn.execute(
+            f'INSERT INTO "{DB_TABLE}" ("Date","EC","pH","Solution_Temperature") VALUES (?,?,?,?);',
+            (date_str, ec, ph, tp)
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
 
 # ===============================
 # Read one request with lock + retry
 # ===============================
 def request_once_with_lock_and_retry():
     """
-    Lock bus -> open serial -> request once -> parse -> retry.
-    Returns (ec, ph, tp, err_string_or_None, head_text).
+    Returns (ec, ph, tp, err_or_none)
     """
     lockf = open(SERIAL_LOCK_PATH, "w")
     try:
         fcntl.flock(lockf, fcntl.LOCK_EX)
 
         last_err = None
-        last_head = ""
 
         for _ in range(RETRY_ATTEMPTS):
             try:
@@ -200,16 +192,25 @@ def request_once_with_lock_and_retry():
                         continue
 
                     text = safe_decode(raw)
-                    last_head = text[:180]
 
-                    ec, ph, tp = parse_ec_ph_tp(text)
-
-                    if ec is None and ph is None and tp is None:
-                        last_err = "value_missing_all"
+                    json_part = extract_json_block(text)
+                    if not json_part:
+                        last_err = "no_json_block"
                         time.sleep(RETRY_DELAY_SEC)
                         continue
 
-                    return ec, ph, tp, None, last_head
+                    try:
+                        data = json.loads(json_part)
+                    except Exception as e:
+                        last_err = f"json_load_error: {e}"
+                        time.sleep(RETRY_DELAY_SEC)
+                        continue
+
+                    ph = get_value_by_id(data, ID_PH)
+                    tp = get_value_by_id(data, ID_TEMP)
+                    ec = get_value_by_id(data, ID_EC)
+
+                    return ec, ph, tp, None
 
             except (SerialException, OSError) as e:
                 last_err = f"serial_error: {e}"
@@ -218,202 +219,97 @@ def request_once_with_lock_and_retry():
                 last_err = f"unknown_error: {e}"
                 time.sleep(RETRY_DELAY_SEC)
 
-        return None, None, None, last_err, last_head
+        return None, None, None, last_err
 
     finally:
         try:
             fcntl.flock(lockf, fcntl.LOCK_UN)
-        except:
+        except Exception:
             pass
         lockf.close()
 
-# ===============================
-# Filtering helpers (Hampel only)
-# ===============================
-def is_finite_number(x) -> bool:
-    """Check x is a finite float-like number."""
-    try:
-        xf = float(x)
-        return math.isfinite(xf)
-    except:
-        return False
-
-def valid_ec(x) -> bool:
-    return is_finite_number(x) and (VALID_EC_MIN <= float(x) <= VALID_EC_MAX)
-
-def valid_ph(x) -> bool:
-    return is_finite_number(x) and (VALID_PH_MIN <= float(x) <= VALID_PH_MAX)
-
-def valid_tp(x) -> bool:
-    return is_finite_number(x) and (VALID_TP_MIN <= float(x) <= VALID_TP_MAX)
-
-def median(values):
-    """Compute median for a list of floats."""
-    s = sorted(values)
-    n = len(s)
-    if n == 0:
-        return None
-    mid = n // 2
-    if n % 2 == 1:
-        return s[mid]
-    return 0.5 * (s[mid - 1] + s[mid])
-
-def mad(values, med):
-    """Median absolute deviation."""
-    dev = [abs(v - med) for v in values]
-    return median(dev)
-
-def hampel_accept(candidate, history, k=3.0, flat_abs_tol=0.2):
-    """Hampel decision (True = accept)."""
-    if not is_finite_number(candidate):
-        return False
-    c = float(candidate)
-
-    # Not enough history -> accept early
-    if len(history) < max(5, HAMPEL_WIN // 3):
-        return True
-
-    window = history[-HAMPEL_WIN:]
-    m = median(window)
-    if m is None:
-        return True
-
-    mad_v = mad(window, m)
-    if mad_v is None:
-        return True
-
-    sigma = 1.4826 * mad_v
-
-    # If history is flat (MAD=0), allow a small absolute deviation
-    if sigma == 0:
-        return abs(c - m) <= float(flat_abs_tol)
-
-    return abs(c - m) <= (k * sigma)
 
 # ===============================
 # Main loop
 # ===============================
 def main():
-    ensure_csv_header(CSV_PATH)
+    ensure_db_schema(DB_PATH)
 
-    # Histories for Hampel (accepted samples only)
-    hist_ec, hist_ph, hist_tp = [], [], []
+    latest_ec = None
+    latest_ph = None
+    latest_tp = None
+    latest_err = None
 
-    # Representatives: latest accepted sample (no confirmation delay)
-    rep_ec = rep_ph = rep_tp = None
+    last_saved_slot = None  # prevent duplicate insert per boundary slot
 
-    last_json_minute = None
-    last_csv_minute = None
-    last_err = None
-
-    # Start message (Node-RED liveness)
+    # Optional: started message (still one-line JSON)
     print(json.dumps({
         "type": "started",
-        "port": PORT,
-        "baud": BAUD,
-        "req": REQ,
-        "json_every_min": JSON_EVERY_MIN,
-        "csv_every_min": CSV_EVERY_MIN,
-        "filter": "hampel_only",
-        "hampel_win": HAMPEL_WIN,
-        "hampel_k": HAMPEL_K
+        "db": DB_PATH,
+        "table": DB_TABLE,
+        "poll_sec": POLL_SEC,
+        "db_every_min": DB_EVERY_MIN
     }, ensure_ascii=False), flush=True)
 
     while True:
-        # 1) Poll every 10 seconds (no drift)
         sleep_to_next_boundary(POLL_SEC)
 
-        ec, ph, tp, err, head = request_once_with_lock_and_retry()
-        if err is not None:
-            last_err = err
+        ec, ph, tp, err = request_once_with_lock_and_retry()
+
+        if err is None:
+            if is_valid_ec(ec):
+                latest_ec = round(float(ec), 2)
+            if is_valid_ph(ph):
+                latest_ph = round(float(ph), 2)
+            if is_valid_tp(tp):
+                latest_tp = round(float(tp), 2)
+            latest_err = None
         else:
-            updated_any = False
-
-            # EC
-            if valid_ec(ec):
-                ec = float(ec)
-                if hampel_accept(ec, hist_ec, HAMPEL_K, HAMPEL_FLAT_TOL_EC):
-                    hist_ec.append(ec)
-                    hist_ec = hist_ec[-(HAMPEL_WIN * 3):]
-                    rep_ec = ec
-                    updated_any = True
-                else:
-                    last_err = "hampel_outlier_ec"
-
-            # pH
-            if valid_ph(ph):
-                ph = float(ph)
-                if hampel_accept(ph, hist_ph, HAMPEL_K, HAMPEL_FLAT_TOL_PH):
-                    hist_ph.append(ph)
-                    hist_ph = hist_ph[-(HAMPEL_WIN * 3):]
-                    rep_ph = ph
-                    updated_any = True
-                else:
-                    last_err = "hampel_outlier_ph"
-            else:
-                # If pH is present but invalid (except 0.0), keep a note
-                if ph is not None and is_finite_number(ph) and float(ph) != 0.0:
-                    last_err = "invalid_ph"
-
-            # Temp
-            if valid_tp(tp):
-                tp = float(tp)
-                if hampel_accept(tp, hist_tp, HAMPEL_K, HAMPEL_FLAT_TOL_TP):
-                    hist_tp.append(tp)
-                    hist_tp = hist_tp[-(HAMPEL_WIN * 3):]
-                    rep_tp = tp
-                    updated_any = True
-                else:
-                    last_err = "hampel_outlier_tp"
-
-            if updated_any:
-                last_err = None
+            latest_err = err
 
         now = datetime.datetime.now()
-        minute_key = now.strftime("%Y-%m-%d %H:%M")
+        mkey = minute_key(now)
 
-        # 2) JSON output every 3 minutes (exactly once per minute)
-        if (now.minute % JSON_EVERY_MIN == 0) and (last_json_minute != minute_key):
-            payload = {
-                "type": "report",
-                "date": minute_key,
-                "EC": (round(rep_ec, 2) if rep_ec is not None else None),
-                "pH": (round(rep_ph, 2) if rep_ph is not None else None),
-                "Solution_Temperature": (round(rep_tp, 2) if rep_tp is not None else None),
-                "last_err": last_err
+        # Base output (ALWAYS one line JSON)
+        out = {
+            "type": "report",
+            "date": mkey,
+            "EC": latest_ec,
+            "pH": latest_ph,
+            "Solution_Temperature": latest_tp,
+            "errors": {
+                "sensor": latest_err,
+                "db": None
+            },
+            "save": {
+                "rule": f"minute%{DB_EVERY_MIN}==0",
+                "should": False,
+                "did": False,
+                "slot": None
             }
-            if payload["EC"] is None and payload["pH"] is None and payload["Solution_Temperature"] is None:
-                payload["note"] = "rep_not_ready"
-            print(json.dumps(payload, ensure_ascii=False), flush=True)
-            last_json_minute = minute_key
+        }
 
-        # 3) CSV save every 20 minutes (exactly once per minute)
-        # Policy: Save if EC + Temp exist; pH may be blank.
-        if (now.minute % CSV_EVERY_MIN == 0) and (last_csv_minute != minute_key):
-            if rep_ec is not None and rep_tp is not None:
-                try:
-                    log_ec = round(float(rep_ec), 2)
-                    log_tp = round(float(rep_tp), 2)
-                    log_ph = round(float(rep_ph), 2) if rep_ph is not None else ""
+        # DB save at boundary minute (00/15/30/45) once per slot
+        if now.minute % DB_EVERY_MIN == 0:
+            out["save"]["should"] = True
 
-                    append_csv_row(CSV_PATH, minute_key, log_ec, log_ph, log_tp)
+            slot_min = (now.minute // DB_EVERY_MIN) * DB_EVERY_MIN
+            slot_dt = now.replace(minute=slot_min, second=0, microsecond=0)
+            slot_key = slot_dt.strftime("%Y-%m-%d %H:%M")
+            out["save"]["slot"] = slot_key
 
-                except Exception as e:
-                    print(json.dumps({
-                        "type": "csv_error",
-                        "date": minute_key,
-                        "error": f"csv_write_failed: {e}"
-                    }, ensure_ascii=False), flush=True)
-            else:
-                print(json.dumps({
-                    "type": "csv_skip",
-                    "date": minute_key,
-                    "note": "ec_or_temp_missing",
-                    "EC": (round(rep_ec, 2) if rep_ec is not None else None),
-                    "Solution_Temperature": (round(rep_tp, 2) if rep_tp is not None else None)
-                }, ensure_ascii=False), flush=True)
+            if last_saved_slot != slot_key:
+                if latest_ec is None or latest_ph is None or latest_tp is None:
+                    out["errors"]["db"] = "skip_save: latest values are None"
+                else:
+                    try:
+                        insert_row(DB_PATH, slot_key, latest_ec, latest_ph, latest_tp)
+                        last_saved_slot = slot_key
+                        out["save"]["did"] = True
+                    except Exception as e:
+                        out["errors"]["db"] = f"db_write_failed: {e}"
 
-            last_csv_minute = minute_key
+        print(json.dumps(out, ensure_ascii=False), flush=True)
 
 
 if __name__ == "__main__":
