@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-import os
 import time
-import csv
 import json
 import datetime
 import minimalmodbus
@@ -9,6 +7,7 @@ import serial
 import fcntl
 import sys
 import select
+import sqlite3
 
 # ===============================
 # Settings
@@ -18,9 +17,9 @@ import select
 EC_PH_PORT = "/dev/serial/by-path/platform-xhci-hcd.1-usb-0:2:1.0-port0"
 SLAVE_ID = 1
 
-# Log file paths
-SENSOR_CSV = "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_EC_pH_log.csv"
-
+# SQLite (solution input log)
+SOLUTION_DB_PATH = "/home/cja/Work/cja-skyfarms-project/data/data.db"
+SOLUTION_DB_TABLE = "Dist_1_Solution_input_log"
 # Averaging window settings
 DURATION_SEC = 20
 INTERVAL_SEC = 1
@@ -87,20 +86,6 @@ def force_all_off():
     """Safety: force both relays OFF via Node-RED."""
     gpio(TOPIC_AB, GPIO_OFF)
     gpio(TOPIC_ACID, GPIO_OFF)
-
-# ===============================
-# CSV helpers
-# ===============================
-def ensure_csv_ready_sensor(path: str):
-    """Create directory and write header for sensor CSV if missing/empty."""
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    need_header = (not os.path.exists(path)) or (os.path.getsize(path) == 0)
-    if need_header:
-        with open(path, mode="a", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(["Date", "EC", "pH", "Solution_Temperature"])
-            f.flush()
-            os.fsync(f.fileno())
 
 def now_str(sec=True) -> str:
     """Return current timestamp string."""
@@ -185,15 +170,6 @@ def fmt_num(x: float) -> str:
     # Keep compact representation (e.g., 2.5, 1.23)
     return f"{xf:g}"
 
-def log_sensor(date_str, ec, ph, temp):
-    """Append one sensor row to SENSOR_CSV."""
-    with open(SENSOR_CSV, mode="a", newline="") as f:
-        writer = csv.writer(f)
-        # Write as strings to avoid 2.0 style in CSV
-        writer.writerow([date_str, fmt_num(ec), fmt_num(ph), fmt_num(temp)])
-        f.flush()
-        os.fsync(f.fileno())
-
 # ===============================
 # Pump control via Node-RED GPIO
 # ===============================
@@ -228,6 +204,28 @@ def run_pump_via_nodered(topic: str, device_name: str, ml: float, sec_needed: fl
 
     line = f"{ts},{device_name},volume,{fmt_num(ml)},duration,{fmt_num(sec_disp)}s"
     emit({"type": "log", "device": device_name, "payload": line})
+    try:
+        db_insert_solution(ts, device_name, ml, sec_needed)
+    except Exception as e:
+        emit({"type": "db_error", "where": "run_pump_via_nodered", "error": str(e)})
+
+
+def db_insert_solution(ts: str, device_name: str, ml: float, sec_needed: float):
+    with sqlite3.connect(SOLUTION_DB_PATH, timeout=5) as conn:
+        conn.execute("PRAGMA journal_mode=WAL;")
+        conn.execute(
+            f"""
+            INSERT INTO {SOLUTION_DB_TABLE}
+            (Date, device, action, detail)
+            VALUES (?, ?, ?, ?)
+            """,
+            (
+                ts,
+                device_name,
+                "volume",
+                float(ml),
+            ),
+        )
 # ===============================
 # One control cycle
 # ===============================
@@ -236,8 +234,7 @@ def control_once():
     One control cycle:
       1) Lock RS485 bus
       2) Read averaged EC/pH/temp
-      3) Log sensor row (SENSOR_CSV)
-      4) If EC < EC_MIN -> dose AB
+      3) If EC < EC_MIN -> dose AB
          If pH >= PH_MAX -> dose Acid
     NOTE: GPIO is controlled by Node-RED using emitted JSON commands.
     """
@@ -245,10 +242,7 @@ def control_once():
     fcntl.flock(lock, fcntl.LOCK_EX)
 
     try:
-        ensure_csv_ready_sensor(SENSOR_CSV)
-
         status, avg_ec, avg_ph, avg_temp = average_ec_ph_temp()
-        date_str = now_str(sec=False)
 
         if status == "STOP":
             # Do not spam logs; just stop cleanly
@@ -258,9 +252,6 @@ def control_once():
             # Keep quiet or emit a minimal error if you want:
             # emit({"type":"log","device":"AB","payload":f"{now_str(True)},SYS,error,sensor_read_failed"})
             return "FAIL"
-
-        # Log sensor reading only when this control cycle runs (=> every 4 hours)
-        log_sensor(date_str, avg_ec, avg_ph, avg_temp)
 
         sec_needed = DOSE_ML / PUMP_ML_PER_SEC
 

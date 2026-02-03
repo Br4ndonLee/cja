@@ -29,24 +29,6 @@
         "info": ""
     },
     {
-        "id": "8e3d9986d6facbaa",
-        "type": "group",
-        "z": "84f9df6667326f98",
-        "name": "Only for test",
-        "style": {
-            "label": true
-        },
-        "nodes": [
-            "7d94ba1bde198563",
-            "352c9682952738a1",
-            "2aac44c159923b07"
-        ],
-        "x": 24,
-        "y": 2379,
-        "w": 602,
-        "h": 82
-    },
-    {
         "id": "db7c14177e93d281",
         "type": "group",
         "z": "84f9df6667326f98",
@@ -99,7 +81,7 @@
             "407bba549c9d5227"
         ],
         "x": 34,
-        "y": 1739,
+        "y": 1879,
         "w": 772,
         "h": 202
     },
@@ -168,7 +150,7 @@
         ],
         "x": 34,
         "y": 1319,
-        "w": 1042,
+        "w": 1052,
         "h": 442
     },
     {
@@ -187,7 +169,6 @@
             "fn_a_run_ml",
             "gpio25_out",
             "txt_a_last",
-            "file_a_csv",
             "inj_a_header",
             "fn_a_header_guard",
             "e10e368c452dd270",
@@ -197,7 +178,6 @@
             "7284d4e9e0010867",
             "1a838d3ee158ae54",
             "6044e01bb19ae4bc",
-            "6dddb568535969eb",
             "7715901eb0e673bd",
             "f97336f95369f779"
         ],
@@ -222,8 +202,8 @@
             "7164aeb31763ab09",
             "53bfde506c6ea7dd"
         ],
-        "x": 34,
-        "y": 2099,
+        "x": 54,
+        "y": 2259,
         "w": 812,
         "h": 202
     },
@@ -353,24 +333,18 @@
             "80cc8c87a9dcdff5",
             "c7fe5d35e20589ec",
             "e0b97cfcaafbe7a8",
-            "ce77e02c54e5281c",
-            "d77f241745577d87",
-            "f7516acac2b29596",
             "abf0f3cd0103cc31",
             "083acd90c241f25d",
             "972eec39af78be9a",
             "ada5f246a3285a35",
             "67dfe99f35a05924",
             "21fc1765b77482f9",
-            "f37eddb8c684e4ec",
-            "8bfc716cf46fb70d",
-            "d4e056cc41c01da1",
-            "78091ee38cd1e0cc"
+            "f37eddb8c684e4ec"
         ],
         "x": 1734,
         "y": 2939,
         "w": 1592,
-        "h": 482
+        "h": 422
     },
     {
         "id": "7e05584f07adae7b",
@@ -880,16 +854,6 @@
         "region": "sg"
     },
     {
-        "id": "a812be762c63db42",
-        "type": "ui_spacer",
-        "z": "84f9df6667326f98",
-        "name": "spacer",
-        "group": "f325796ebb721579",
-        "order": 8,
-        "width": 4,
-        "height": 1
-    },
-    {
         "id": "8a2dbce163db26b4",
         "type": "sqlitedb",
         "db": "/home/cja/Work/cja-skyfarms-project/data/data.db",
@@ -906,6 +870,16 @@
         "type": "sqlitedb",
         "db": "/home/cja/Work/cja-skyfarms-project/data/data.db",
         "mode": "RWC"
+    },
+    {
+        "id": "c00f38954e178a0a",
+        "type": "ui_spacer",
+        "z": "84f9df6667326f98",
+        "name": "spacer",
+        "group": "f325796ebb721579",
+        "order": 8,
+        "width": 4,
+        "height": 1
     },
     {
         "id": "1ef22f386c9aec37",
@@ -1166,71 +1140,6 @@
         "x": 930,
         "y": 220,
         "wires": []
-    },
-    {
-        "id": "7d94ba1bde198563",
-        "type": "inject",
-        "z": "84f9df6667326f98",
-        "g": "8e3d9986d6facbaa",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "10",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 140,
-        "y": 2420,
-        "wires": [
-            [
-                "2aac44c159923b07"
-            ]
-        ]
-    },
-    {
-        "id": "352c9682952738a1",
-        "type": "debug",
-        "z": "84f9df6667326f98",
-        "g": "8e3d9986d6facbaa",
-        "name": "debug 4",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 520,
-        "y": 2420,
-        "wires": []
-    },
-    {
-        "id": "2aac44c159923b07",
-        "type": "pythonshell in",
-        "z": "84f9df6667326f98",
-        "g": "8e3d9986d6facbaa",
-        "name": "Relay_test",
-        "pyfile": "/home/cja/Work/cja-skyfarms-project/test_code/relay_test.py",
-        "virtualenv": "",
-        "continuous": true,
-        "stdInData": true,
-        "x": 330,
-        "y": 2420,
-        "wires": [
-            [
-                "352c9682952738a1"
-            ]
-        ]
     },
     {
         "id": "00d442aea9bc0def",
@@ -2402,7 +2311,7 @@
         "continuous": true,
         "stdInData": true,
         "x": 520,
-        "y": 1840,
+        "y": 1980,
         "wires": [
             [
                 "209c9e40e526fa6c"
@@ -2441,7 +2350,7 @@
         "to": "",
         "reg": false,
         "x": 280,
-        "y": 1840,
+        "y": 1980,
         "wires": [
             [
                 "b502edc7e45ce251"
@@ -2463,7 +2372,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 700,
-        "y": 1840,
+        "y": 1980,
         "wires": []
     },
     {
@@ -2494,7 +2403,7 @@
         "animate": false,
         "className": "",
         "x": 130,
-        "y": 1840,
+        "y": 1980,
         "wires": [
             [
                 "3ea78dedeaaf4c6f"
@@ -2520,7 +2429,7 @@
         "fontSize": "25",
         "color": "#ffffff",
         "x": 140,
-        "y": 1780,
+        "y": 1920,
         "wires": []
     },
     {
@@ -2769,7 +2678,7 @@
         "label": "A, B input volume",
         "tooltip": "",
         "group": "f325796ebb721579",
-        "order": 13,
+        "order": 12,
         "width": 4,
         "height": 1,
         "passthru": true,
@@ -2814,7 +2723,7 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "group": "f325796ebb721579",
-        "order": 15,
+        "order": 14,
         "width": 4,
         "height": 1,
         "name": "Setting",
@@ -2837,7 +2746,7 @@
         "g": "912ed1b86333869f",
         "name": "Start injecting solutions A and B",
         "group": "f325796ebb721579",
-        "order": 17,
+        "order": 16,
         "width": 4,
         "height": 1,
         "passthru": false,
@@ -2865,7 +2774,7 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "name": "GPIO25 ON→계산초 후 OFF + 로그/표시(시작만 기록)",
-        "func": "const ml = Number(flow.get(\"dist_1_pumpA_volume_ml\"));\nconst sec = Number(flow.get(\"dist_1_pumpA_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 AB액 투입량(ml)을 입력하세요\");\n  return null\n}\n// 중복 실행 타이머 정리\nconst key = \"dist_1_pumpA_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + CSV 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeCsvMsg(\"PUMP_AB_START\", ml, sec),             // CSV: 시작만 기록\n  makeUiMsg(\"Start\")                            // UI\n]);\n\n// sec 후 OFF(1) — CSV 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                          // CSV 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeCsvMsg(action, ml, sec){\n  const ts = nowStr();\n  const secDisp = Math.round(sec*10)/10;\n  return { payload: `${ts},AB,volume,${ml},duration,${secDisp}s` };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
+        "func": "const ml = Number(flow.get(\"dist_1_pumpA_volume_ml\"));\nconst sec = Number(flow.get(\"dist_1_pumpA_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 AB액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"dist_1_pumpA_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + DB 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeDbMsg(ml),                                     // DB: 시작만 기록\n  makeUiMsg(\"Start\")                              // UI\n]);\n\n// sec 후 OFF(1) — DB 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                            // DB 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeDbMsg(ml){\n  const ts = nowStr();\n  const esc = s => String(s).replace(/'/g, \"''\");\n  const tsQ = `'${esc(ts)}'`;\n  const devQ = `'${esc(\"AB\")}'`;\n  const actQ = `'${esc(\"volume\")}'`;\n  const sql = `INSERT INTO Dist_1_Solution_input_log (Date, device, action, detail) VALUES (${tsQ}, ${devQ}, ${actQ}, ${ml})`;\n  return { topic: sql, payload: null, params: null };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
         "outputs": 3,
         "timeout": "",
         "noerr": 0,
@@ -2879,7 +2788,7 @@
                 "gpio25_out"
             ],
             [
-                "file_a_csv"
+                "sqlite_dist1_solution"
             ],
             [
                 "txt_a_last"
@@ -2925,24 +2834,6 @@
         "wires": []
     },
     {
-        "id": "file_a_csv",
-        "type": "file",
-        "z": "84f9df6667326f98",
-        "g": "912ed1b86333869f",
-        "name": "A, B액 로그 CSV",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv",
-        "filenameType": "str",
-        "appendNewline": true,
-        "createDir": true,
-        "overwriteFile": "false",
-        "encoding": "none",
-        "x": 1520,
-        "y": 3120,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "inj_a_header",
         "type": "inject",
         "z": "84f9df6667326f98",
@@ -2984,9 +2875,7 @@
         "x": 460,
         "y": 3120,
         "wires": [
-            [
-                "file_a_csv"
-            ]
+            []
         ]
     },
     {
@@ -2998,7 +2887,7 @@
         "label": "Acid input volume",
         "tooltip": "",
         "group": "f325796ebb721579",
-        "order": 12,
+        "order": 13,
         "width": 4,
         "height": 1,
         "passthru": true,
@@ -3043,7 +2932,7 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "group": "f325796ebb721579",
-        "order": 14,
+        "order": 15,
         "width": 4,
         "height": 1,
         "name": "Setting",
@@ -3066,7 +2955,7 @@
         "g": "912ed1b86333869f",
         "name": "Start injecting Acid solutions",
         "group": "f325796ebb721579",
-        "order": 16,
+        "order": 17,
         "width": 4,
         "height": 1,
         "passthru": false,
@@ -3094,7 +2983,7 @@
         "z": "84f9df6667326f98",
         "g": "912ed1b86333869f",
         "name": "GPIO25 ON→계산초 후 OFF + 로그/표시(시작만 기록)",
-        "func": "const ml = Number(flow.get(\"dist_1_pumpC_volume_ml\"));\nconst sec = Number(flow.get(\"dist_1_pumpC_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 C액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"dist_1_pumpC_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + CSV 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeCsvMsg(\"PUMP_C_START\", ml, sec),             // CSV: 시작만 기록\n  makeUiMsg(\"Start\")                            // UI\n]);\n\n// sec 후 OFF(1) — CSV 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                          // CSV 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeCsvMsg(action, ml, sec){\n  const ts = nowStr();\n  const secDisp = Math.round(sec*10)/10;\n  return { payload: `${ts},Acid,volume,${ml},duration,${secDisp}s` };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
+        "func": "const ml = Number(flow.get(\"dist_1_pumpC_volume_ml\"));\nconst sec = Number(flow.get(\"dist_1_pumpC_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 C액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"dist_1_pumpC_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + DB 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeDbMsg(ml),                                     // DB: 시작만 기록\n  makeUiMsg(\"Start\")                              // UI\n]);\n\n// sec 후 OFF(1) — DB 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                            // DB 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeDbMsg(ml){\n  const ts = nowStr();\n  const esc = s => String(s).replace(/'/g, \"''\");\n  const tsQ = `'${esc(ts)}'`;\n  const devQ = `'${esc(\"Acid\")}'`;\n  const actQ = `'${esc(\"volume\")}'`;\n  const sql = `INSERT INTO Dist_1_Solution_input_log (Date, device, action, detail) VALUES (${tsQ}, ${devQ}, ${actQ}, ${ml})`;\n  return { topic: sql, payload: null, params: null };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
         "outputs": 3,
         "timeout": "",
         "noerr": 0,
@@ -3108,7 +2997,7 @@
                 "1a838d3ee158ae54"
             ],
             [
-                "6dddb568535969eb"
+                "sqlite_dist1_solution"
             ],
             [
                 "6044e01bb19ae4bc"
@@ -3154,24 +3043,6 @@
         "wires": []
     },
     {
-        "id": "6dddb568535969eb",
-        "type": "file",
-        "z": "84f9df6667326f98",
-        "g": "912ed1b86333869f",
-        "name": "산성액 로그 CSV",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_1_Solution_input_log.csv",
-        "filenameType": "str",
-        "appendNewline": true,
-        "createDir": false,
-        "overwriteFile": "false",
-        "encoding": "none",
-        "x": 1460,
-        "y": 3360,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "7715901eb0e673bd",
         "type": "inject",
         "z": "84f9df6667326f98",
@@ -3213,9 +3084,7 @@
         "x": 460,
         "y": 3360,
         "wires": [
-            [
-                "6dddb568535969eb"
-            ]
+            []
         ]
     },
     {
@@ -3228,8 +3097,8 @@
         "virtualenv": "",
         "continuous": true,
         "stdInData": true,
-        "x": 540,
-        "y": 2200,
+        "x": 560,
+        "y": 2360,
         "wires": [
             [
                 "839c019b8d38b1ce"
@@ -3267,8 +3136,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 300,
-        "y": 2200,
+        "x": 320,
+        "y": 2360,
         "wires": [
             [
                 "577253202c73b09c"
@@ -3289,8 +3158,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 740,
-        "y": 2200,
+        "x": 760,
+        "y": 2360,
         "wires": []
     },
     {
@@ -3320,8 +3189,8 @@
         "offcolor": "",
         "animate": false,
         "className": "",
-        "x": 130,
-        "y": 2200,
+        "x": 150,
+        "y": 2360,
         "wires": [
             [
                 "3725b711ea5e2772"
@@ -3346,8 +3215,8 @@
         "font": "Arial,Arial,Helvetica,sans-serif",
         "fontSize": "25",
         "color": "#ffffff",
-        "x": 190,
-        "y": 2140,
+        "x": 210,
+        "y": 2300,
         "wires": []
     },
     {
@@ -3377,7 +3246,7 @@
         "animate": true,
         "className": "",
         "x": 140,
-        "y": 2000,
+        "y": 2160,
         "wires": [
             [
                 "7def7b8e65cbddcc"
@@ -3394,7 +3263,7 @@
         "continuous": true,
         "stdInData": true,
         "x": 560,
-        "y": 2000,
+        "y": 2160,
         "wires": [
             [
                 "34196794c1698420"
@@ -3432,7 +3301,7 @@
         "to": "",
         "reg": false,
         "x": 320,
-        "y": 2000,
+        "y": 2160,
         "wires": [
             [
                 "a19b61fd61a05499"
@@ -3453,7 +3322,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 760,
-        "y": 2000,
+        "y": 2160,
         "wires": []
     },
     {
@@ -4613,7 +4482,7 @@
         "label": "A, B input volume",
         "tooltip": "",
         "group": "e3eac795c3a63651",
-        "order": 8,
+        "order": 7,
         "width": 4,
         "height": 1,
         "passthru": true,
@@ -4658,7 +4527,7 @@
         "z": "84f9df6667326f98",
         "g": "b1927e4ba08d43c4",
         "group": "e3eac795c3a63651",
-        "order": 10,
+        "order": 9,
         "width": 4,
         "height": 1,
         "name": "Setting",
@@ -4681,7 +4550,7 @@
         "g": "b1927e4ba08d43c4",
         "name": "Start injecting solutions A and B",
         "group": "e3eac795c3a63651",
-        "order": 12,
+        "order": 11,
         "width": 4,
         "height": 1,
         "passthru": false,
@@ -4709,7 +4578,7 @@
         "z": "84f9df6667326f98",
         "g": "b1927e4ba08d43c4",
         "name": "GPIO25 ON→계산초 후 OFF + 로그/표시(시작만 기록)",
-        "func": "const ml = Number(flow.get(\"dist_2_pumpA_volume_ml\"));\nconst sec = Number(flow.get(\"dist_2_pumpA_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 AB액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"dist_2_pumpA_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + CSV 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeCsvMsg(\"PUMP_AB_START\", ml, sec),             // CSV: 시작만 기록\n  makeUiMsg(\"Start\")                            // UI\n]);\n\n// sec 후 OFF(1) — CSV 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                          // CSV 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeCsvMsg(action, ml, sec){\n  const ts = nowStr();\n  const secDisp = Math.round(sec*10)/10;\n  return { payload: `${ts},AB,volume,${ml},duration,${secDisp}s` };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
+        "func": "const ml = Number(flow.get(\"dist_2_pumpA_volume_ml\"));\nconst sec = Number(flow.get(\"dist_2_pumpA_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 AB액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"dist_2_pumpA_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + DB 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeDbMsg(ml),                                     // DB: 시작만 기록\n  makeUiMsg(\"Start\")                              // UI\n]);\n\n// sec 후 OFF(1) — DB 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                            // DB 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeDbMsg(ml){\n  const ts = nowStr();\n  const esc = s => String(s).replace(/'/g, \"''\");\n  const tsQ = `'${esc(ts)}'`;\n  const devQ = `'${esc(\"AB\")}'`;\n  const actQ = `'${esc(\"volume\")}'`;\n  const sql = `INSERT INTO Dist_2_Solution_input_log (Date, device, action, detail) VALUES (${tsQ}, ${devQ}, ${actQ}, ${ml})`;\n  return { topic: sql, payload: null, params: null };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
         "outputs": 3,
         "timeout": "",
         "noerr": 0,
@@ -4723,7 +4592,7 @@
                 "c7fe5d35e20589ec"
             ],
             [
-                "ce77e02c54e5281c"
+                "sqlite_dist2_solution"
             ],
             [
                 "e0b97cfcaafbe7a8"
@@ -4769,71 +4638,6 @@
         "wires": []
     },
     {
-        "id": "ce77e02c54e5281c",
-        "type": "file",
-        "z": "84f9df6667326f98",
-        "g": "b1927e4ba08d43c4",
-        "name": "A, B액 로그 CSV",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_Solution_input_log.csv",
-        "filenameType": "str",
-        "appendNewline": true,
-        "createDir": true,
-        "overwriteFile": "false",
-        "encoding": "none",
-        "x": 3160,
-        "y": 3120,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d77f241745577d87",
-        "type": "inject",
-        "z": "84f9df6667326f98",
-        "g": "b1927e4ba08d43c4",
-        "name": "헤더 1회 기록",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.5,
-        "topic": "",
-        "payload": "timestamp,device,action,detail",
-        "payloadType": "str",
-        "x": 1940,
-        "y": 3120,
-        "wires": [
-            [
-                "f7516acac2b29596"
-            ]
-        ]
-    },
-    {
-        "id": "f7516acac2b29596",
-        "type": "function",
-        "z": "84f9df6667326f98",
-        "g": "b1927e4ba08d43c4",
-        "name": "헤더 중복 방지",
-        "func": "if (flow.get('pumpA_csv_header_written')) return null;\nflow.set('pumpA_csv_header_written', true);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 2160,
-        "y": 3120,
-        "wires": [
-            [
-                "ce77e02c54e5281c"
-            ]
-        ]
-    },
-    {
         "id": "abf0f3cd0103cc31",
         "type": "ui_text_input",
         "z": "84f9df6667326f98",
@@ -4842,7 +4646,7 @@
         "label": "Acid input volume",
         "tooltip": "",
         "group": "e3eac795c3a63651",
-        "order": 7,
+        "order": 8,
         "width": 4,
         "height": 1,
         "passthru": true,
@@ -4887,7 +4691,7 @@
         "z": "84f9df6667326f98",
         "g": "b1927e4ba08d43c4",
         "group": "e3eac795c3a63651",
-        "order": 9,
+        "order": 10,
         "width": 4,
         "height": 1,
         "name": "Setting",
@@ -4910,7 +4714,7 @@
         "g": "b1927e4ba08d43c4",
         "name": "Start injecting Acid solutions",
         "group": "e3eac795c3a63651",
-        "order": 11,
+        "order": 12,
         "width": 4,
         "height": 1,
         "passthru": false,
@@ -4938,7 +4742,7 @@
         "z": "84f9df6667326f98",
         "g": "b1927e4ba08d43c4",
         "name": "GPIO25 ON→계산초 후 OFF + 로그/표시(시작만 기록)",
-        "func": "const ml = Number(flow.get(\"dist_2_pumpC_volume_ml\"));\nconst sec = Number(flow.get(\"dist_2_pumpC_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 C액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"dist_2_pumpC_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + CSV 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeCsvMsg(\"PUMP_C_START\", ml, sec),             // CSV: 시작만 기록\n  makeUiMsg(\"Start\")                            // UI\n]);\n\n// sec 후 OFF(1) — CSV 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                          // CSV 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeCsvMsg(action, ml, sec){\n  const ts = nowStr();\n  const secDisp = Math.round(sec*10)/10;\n  return { payload: `${ts},Acid,volume,${ml},duration,${secDisp}s` };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
+        "func": "const ml = Number(flow.get(\"dist_2_pumpC_volume_ml\"));\nconst sec = Number(flow.get(\"dist_2_pumpC_duration_sec\"));\nif (!ml || isNaN(ml) || !sec || isNaN(sec)) {\n  node.warn(\"먼저 C액 투입량(ml)을 입력하세요\");\n  return null;\n}\n// 중복 실행 타이머 정리\nconst key = \"dist_2_pumpC_timer\";\nconst prev = context.get(key);\nif (prev) { clearTimeout(prev); context.set(key, null); }\n\n// 즉시 ON(0) + DB 1회 기록(START) + UI 갱신\nnode.send([\n  { payload: 0 },                                  // GPIO ON (0)\n  makeDbMsg(ml),                                     // DB: 시작만 기록\n  makeUiMsg(\"Start\")                              // UI\n]);\n\n// sec 후 OFF(1) — DB 기록 없음, UI만 갱신\nconst timer = setTimeout(() => {\n  node.send([\n    { payload: 1 },                                // GPIO OFF (1)\n    null,                                            // DB 없음\n    makeUiMsg(\"Complete\")                          // UI\n  ]);\n  context.set(key, null);\n}, Math.max(0, sec * 1000));\ncontext.set(key, timer);\nreturn null;\n\nfunction makeDbMsg(ml){\n  const ts = nowStr();\n  const esc = s => String(s).replace(/'/g, \"''\");\n  const tsQ = `'${esc(ts)}'`;\n  const devQ = `'${esc(\"Acid\")}'`;\n  const actQ = `'${esc(\"volume\")}'`;\n  const sql = `INSERT INTO Dist_2_Solution_input_log (Date, device, action, detail) VALUES (${tsQ}, ${devQ}, ${actQ}, ${ml})`;\n  return { topic: sql, payload: null, params: null };\n}\nfunction makeUiMsg(tag){\n  const ts = nowStr();\n  return { payload: `Last Run: ${ts} (${tag})` };\n}\nfunction nowStr(){\n  const now = new Date();\n  const yyyy = now.getFullYear();\n  const mm = String(now.getMonth()+1).padStart(2, '0');\n  const dd = String(now.getDate()).padStart(2, '0');\n  const hh = String(now.getHours()).padStart(2, '0');\n  const mi = String(now.getMinutes()).padStart(2, '0');\n  const ss = String(now.getSeconds()).padStart(2, '0');\n  return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;\n}",
         "outputs": 3,
         "timeout": "",
         "noerr": 0,
@@ -4952,7 +4756,7 @@
                 "21fc1765b77482f9"
             ],
             [
-                "8bfc716cf46fb70d"
+                "sqlite_dist2_solution"
             ],
             [
                 "f37eddb8c684e4ec"
@@ -4996,71 +4800,6 @@
         "x": 3180,
         "y": 3320,
         "wires": []
-    },
-    {
-        "id": "8bfc716cf46fb70d",
-        "type": "file",
-        "z": "84f9df6667326f98",
-        "g": "b1927e4ba08d43c4",
-        "name": "산성액 로그 CSV",
-        "filename": "/home/cja/Work/cja-skyfarms-project/sensors/Dist_2_Solution_input_log.csv",
-        "filenameType": "str",
-        "appendNewline": true,
-        "createDir": true,
-        "overwriteFile": "false",
-        "encoding": "none",
-        "x": 3160,
-        "y": 3380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d4e056cc41c01da1",
-        "type": "inject",
-        "z": "84f9df6667326f98",
-        "g": "b1927e4ba08d43c4",
-        "name": "헤더 1회 기록",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.5,
-        "topic": "",
-        "payload": "timestamp,device,action,detail",
-        "payloadType": "str",
-        "x": 1940,
-        "y": 3360,
-        "wires": [
-            [
-                "78091ee38cd1e0cc"
-            ]
-        ]
-    },
-    {
-        "id": "78091ee38cd1e0cc",
-        "type": "function",
-        "z": "84f9df6667326f98",
-        "g": "b1927e4ba08d43c4",
-        "name": "헤더 중복 방지",
-        "func": "if (flow.get('pumpA_csv_header_written')) return null;\nflow.set('pumpA_csv_header_written', true);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 2160,
-        "y": 3360,
-        "wires": [
-            [
-                "8bfc716cf46fb70d"
-            ]
-        ]
     },
     {
         "id": "87d673785a0f96f7",
@@ -5256,7 +4995,7 @@
         "payload": "false",
         "payloadType": "str",
         "x": 130,
-        "y": 1900,
+        "y": 2040,
         "wires": [
             [
                 "3ea78dedeaaf4c6f"
@@ -5284,8 +5023,8 @@
         "topic": "",
         "payload": "false",
         "payloadType": "str",
-        "x": 130,
-        "y": 2260,
+        "x": 150,
+        "y": 2420,
         "wires": [
             [
                 "3725b711ea5e2772"
@@ -5399,7 +5138,7 @@
         "payload": "false",
         "payloadType": "str",
         "x": 130,
-        "y": 2040,
+        "y": 2200,
         "wires": [
             [
                 "7def7b8e65cbddcc"
@@ -5564,12 +5303,8 @@
             [
                 "1a838d3ee158ae54"
             ],
-            [
-                "file_a_csv"
-            ],
-            [
-                "6dddb568535969eb"
-            ],
+            [],
+            [],
             [
                 "txt_a_last"
             ],
@@ -5778,12 +5513,8 @@
             [
                 "21fc1765b77482f9"
             ],
-            [
-                "ce77e02c54e5281c"
-            ],
-            [
-                "8bfc716cf46fb70d"
-            ],
+            [],
+            [],
             [
                 "e0b97cfcaafbe7a8"
             ],
@@ -5840,6 +5571,36 @@
             [
                 "13cb5d10e2e2abf5"
             ]
+        ]
+    },
+    {
+        "id": "sqlite_dist2_solution",
+        "type": "sqlite",
+        "z": "84f9df6667326f98",
+        "g": "b1927e4ba08d43c4",
+        "mydb": "sql_db_cfg",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQLite (Dist 2 solution insert)",
+        "x": 2880,
+        "y": 3180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "sqlite_dist1_solution",
+        "type": "sqlite",
+        "z": "84f9df6667326f98",
+        "g": "912ed1b86333869f",
+        "mydb": "sql_db_cfg",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SQLite (Dist 1 solution insert)",
+        "x": 1120,
+        "y": 3160,
+        "wires": [
+            []
         ]
     },
     {
@@ -6850,7 +6611,7 @@
         "z": "flow_all",
         "g": "8446b5ed352ca2d8",
         "name": "Build SQL (latest 200)",
-        "func": "// Build SQL to show latest rows in ui_table.\n// You can change TIME_COL if your schema uses a different column name.\n\nconst table = flow.get('dl_table') || 'Temp_humi_log';\n\nconst ALLOWED = new Set([\n  'Temp_humi_log',\n  'Dist_1_EC_pH_log',\n  'Dist_1_Solution_input_log',\n  'Dist_2_EC_pH_log',\n  'Dist_2_Solution_input_log'\n]);\nif(!ALLOWED.has(table)) {\n  msg.payload = [];\n  return msg;\n}\n\nconst TIME_COL = {\n  'Temp_humi_log': 'Date',\n  'Dist_1_EC_pH_log': 'Date',\n  'Dist_1_Solution_input_log': 'timestamp',\n  'Dist_2_EC_pH_log': 'Date',\n  'Dist_2_Solution_input_log': 'Date'\n};\n\nconst timeCol = TIME_COL[table];\nmsg.topic = `SELECT * FROM ${table} ORDER BY ${timeCol} DESC LIMIT 200`;\nmsg._table = table;\nreturn msg;",
+        "func": "// Build SQL to show latest rows in ui_table.\n// You can change TIME_COL if your schema uses a different column name.\n\nconst table = flow.get('dl_table') || 'Temp_humi_log';\n\nconst ALLOWED = new Set([\n  'Temp_humi_log',\n  'Dist_1_EC_pH_log',\n  'Dist_1_Solution_input_log',\n  'Dist_2_EC_pH_log',\n  'Dist_2_Solution_input_log'\n]);\nif(!ALLOWED.has(table)) {\n  msg.payload = [];\n  return msg;\n}\n\nconst TIME_COL = {\n  'Temp_humi_log': 'Date',\n  'Dist_1_EC_pH_log': 'Date',\n  'Dist_1_Solution_input_log': 'Date',\n  'Dist_2_EC_pH_log': 'Date',\n  'Dist_2_Solution_input_log': 'Date'\n};\n\nconst timeCol = TIME_COL[table];\nmsg.topic = `SELECT * FROM ${table} ORDER BY ${timeCol} DESC LIMIT 200`;\nmsg._table = table;\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -7196,7 +6957,7 @@
         "z": "flow_all",
         "g": "8446b5ed352ca2d8",
         "name": "Build SQL (range)",
-        "func": "// Build SQL for CSV download WITHOUT placeholders (avoid sqlite param binding issues)\n// Time columns are TEXT and sortable as strings if formatted like YYYY-MM-DD HH:MM(:SS)\n\nconst q = (msg.req && msg.req.query) ? msg.req.query : {};\nconst table = (q.table || 'Temp_humi_log').toString();\nconst start = (q.start || '').toString();\nconst end = (q.end || '').toString();\n\nconst ALLOWED = new Set([\n  'Temp_humi_log',\n  'Dist_1_EC_pH_log',\n  'Dist_1_Solution_input_log',\n  'Dist_2_EC_pH_log',\n  'Dist_2_Solution_input_log'\n]);\n\nif (!ALLOWED.has(table)) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid table';\n  return [null, msg];\n}\n\nconst COLUMN_MAP = {\n  'Temp_humi_log': 'Date',                 // text: YYYY-MM-DD HH:MM\n  'Dist_1_EC_pH_log': 'Date',\n  'Dist_2_EC_pH_log': 'Date',\n  'Dist_2_Solution_input_log': 'Date',\n  'Dist_1_Solution_input_log': 'timestamp' // text\n};\n\nconst timeCol = COLUMN_MAP[table];\nif (!timeCol) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid table mapping';\n  return [null, msg];\n}\n\n// Normalize to minute/second precision depending on column name\nfunction normForDateCol(s, isEnd) {\n  if (!s) return null;\n  const t = s.replace('T', ' ').trim();\n  if (t.length === 10) return isEnd ? `${t} 23:59` : `${t} 00:00`;\n  if (t.length >= 16) return t.slice(0, 16);   // YYYY-MM-DD HH:MM\n  return t;\n}\nfunction normForTimestampCol(s, isEnd) {\n  if (!s) return null;\n  const t = s.replace('T', ' ').trim();\n  if (t.length === 10) return isEnd ? `${t} 23:59:59` : `${t} 00:00:00`;\n  if (t.length === 16) return isEnd ? `${t}:59` : `${t}:00`; // add seconds\n  if (t.length >= 19) return t.slice(0, 19);   // YYYY-MM-DD HH:MM:SS\n  return t;\n}\n\nlet startRange, endRange;\nif (timeCol === 'Date') {\n  startRange = normForDateCol(start, false);\n  endRange = normForDateCol(end, true);\n} else {\n  startRange = normForTimestampCol(start, false);\n  endRange = normForTimestampCol(end, true);\n}\n\nif (!startRange || !endRange) {\n  msg.statusCode = 400;\n  msg.payload = 'Missing start/end';\n  return [null, msg];\n}\n\n// Validate format to prevent injection (allow \"YYYY-MM-DD HH:MM\" or \"YYYY-MM-DD HH:MM:SS\")\nconst re = /^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}(:\\d{2})?$/;\nif (!re.test(startRange) || !re.test(endRange)) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid date format';\n  return [null, msg];\n}\n\n// Escape quotes just in case (shouldn't occur after regex, but keep safe)\nconst sEsc = startRange.replace(/'/g, \"''\");\nconst eEsc = endRange.replace(/'/g, \"''\");\n\nmsg.topic = `SELECT * FROM \"${table}\" WHERE \"${timeCol}\" >= '${sEsc}' AND \"${timeCol}\" <= '${eEsc}' ORDER BY \"${timeCol}\" ASC`;\nmsg._dl = { table, start: startRange, end: endRange };\n\nreturn [msg, null];\n",
+        "func": "// Build SQL for CSV download WITHOUT placeholders (avoid sqlite param binding issues)\n// Time columns are TEXT and sortable as strings if formatted like YYYY-MM-DD HH:MM(:SS)\n\nconst q = (msg.req && msg.req.query) ? msg.req.query : {};\nconst table = (q.table || 'Temp_humi_log').toString();\nconst start = (q.start || '').toString();\nconst end = (q.end || '').toString();\n\nconst ALLOWED = new Set([\n  'Temp_humi_log',\n  'Dist_1_EC_pH_log',\n  'Dist_1_Solution_input_log',\n  'Dist_2_EC_pH_log',\n  'Dist_2_Solution_input_log'\n]);\n\nif (!ALLOWED.has(table)) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid table';\n  return [null, msg];\n}\n\nconst COLUMN_MAP = {\n  'Temp_humi_log': 'Date',                 // text: YYYY-MM-DD HH:MM\n  'Dist_1_EC_pH_log': 'Date',\n  'Dist_2_EC_pH_log': 'Date',\n  'Dist_2_Solution_input_log': 'Date',\n  'Dist_1_Solution_input_log': 'Date'\n};\n\nconst timeCol = COLUMN_MAP[table];\nif (!timeCol) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid table mapping';\n  return [null, msg];\n}\n\n// Normalize to minute/second precision depending on column name\nfunction normForDateCol(s, isEnd) {\n  if (!s) return null;\n  const t = s.replace('T', ' ').trim();\n  if (t.length === 10) return isEnd ? `${t} 23:59` : `${t} 00:00`;\n  if (t.length >= 16) return t.slice(0, 16);   // YYYY-MM-DD HH:MM\n  return t;\n}\nfunction normForTimestampCol(s, isEnd) {\n  if (!s) return null;\n  const t = s.replace('T', ' ').trim();\n  if (t.length === 10) return isEnd ? `${t} 23:59:59` : `${t} 00:00:00`;\n  if (t.length === 16) return isEnd ? `${t}:59` : `${t}:00`; // add seconds\n  if (t.length >= 19) return t.slice(0, 19);   // YYYY-MM-DD HH:MM:SS\n  return t;\n}\n\nlet startRange, endRange;\nif (timeCol === 'Date') {\n  startRange = normForDateCol(start, false);\n  endRange = normForDateCol(end, true);\n} else {\n  startRange = normForTimestampCol(start, false);\n  endRange = normForTimestampCol(end, true);\n}\n\nif (!startRange || !endRange) {\n  msg.statusCode = 400;\n  msg.payload = 'Missing start/end';\n  return [null, msg];\n}\n\n// Validate format to prevent injection (allow \"YYYY-MM-DD HH:MM\" or \"YYYY-MM-DD HH:MM:SS\")\nconst re = /^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}(:\\d{2})?$/;\nif (!re.test(startRange) || !re.test(endRange)) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid date format';\n  return [null, msg];\n}\n\n// Escape quotes just in case (shouldn't occur after regex, but keep safe)\nconst sEsc = startRange.replace(/'/g, \"''\");\nconst eEsc = endRange.replace(/'/g, \"''\");\n\nmsg.topic = `SELECT * FROM \"${table}\" WHERE \"${timeCol}\" >= '${sEsc}' AND \"${timeCol}\" <= '${eEsc}' ORDER BY \"${timeCol}\" ASC`;\nmsg._dl = { table, start: startRange, end: endRange };\n\nreturn [msg, null];\n",
         "outputs": 2,
         "timeout": "",
         "noerr": 0,

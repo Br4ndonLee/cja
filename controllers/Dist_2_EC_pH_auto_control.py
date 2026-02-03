@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
 import sys
 import time
 import json
@@ -20,9 +19,9 @@ BAUD = 115200
 REQ  = "node000300|SensorReq|8985"
 SERIAL_LOCK_PATH = "/tmp/usb_1a86_serial.lock"
 
-# Database for logging only
-DB_PATH = "/home/cja/Work/cja-skyfarms-project/data/data.db"
-DB_TABLE = "Dist_2_EC_pH_log"
+# SQLite (solution input log)
+SOLUTION_DB_PATH = "/home/cja/Work/cja-skyfarms-project/data/data.db"
+SOLUTION_DB_TABLE = "Dist_2_Solution_input_log"
 
 # Schedule mode: "30min" / "1hour" / "4hour" (default)
 SCHEDULE_MODE = "4hour" 
@@ -111,28 +110,22 @@ def stop_all_pumps():
 # ===============================
 # 4. Database Persistence (Logging)
 # ===============================
-def ensure_db_initialized(path: str):
-    """Create table and index if they don't exist."""
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    conn = sqlite3.connect(path)
-    try:
+def db_insert_solution(ts: str, device: str, ml: float, sec_needed: float):
+    with sqlite3.connect(SOLUTION_DB_PATH, timeout=5) as conn:
         conn.execute("PRAGMA journal_mode=WAL;")
-        conn.execute(f"""
-            CREATE TABLE IF NOT EXISTS "{DB_TABLE}" (
-                "Date" TEXT, "EC" REAL, "pH" REAL, "Solution_Temperature" REAL
-            );
-        """)
-        conn.execute(f'CREATE INDEX IF NOT EXISTS "idx_d2_date" ON "{DB_TABLE}"("Date");')
-        conn.commit()
-    finally: conn.close()
-
-def log_to_db(date_str, ec, ph, tp):
-    """Write validated sensor results to the SQLite file."""
-    conn = sqlite3.connect(DB_PATH)
-    try:
-        conn.execute(f'INSERT INTO "{DB_TABLE}" VALUES (?,?,?,?);', (date_str, ec, ph, tp))
-        conn.commit()
-    finally: conn.close()
+        conn.execute(
+            f"""
+            INSERT INTO {SOLUTION_DB_TABLE}
+            (Date, device, action, detail)
+            VALUES (?, ?, ?, ?)
+            """,
+            (
+                ts,
+                device,
+                "volume",
+                float(ml),
+            ),
+        )
 
 # ===============================
 # 5. Sensor Data Acquisition
@@ -199,24 +192,29 @@ def run_control_sequence():
     rep_ph = round(get_median(ph_samples), 2) if ph_samples else None
     rep_tp = round(get_median(tp_samples), 2)
 
-    # 1. Log the result to DB for charting
-    log_to_db(now_str(False), rep_ec, rep_ph, rep_tp)
-
-    # 2. Injection logic for AB (Nutrients)
+    # 1. Injection logic for AB (Nutrients)
     if rep_ec <= EC_MIN:
         duration = DOSE_ML / PUMP_ML_PER_SEC
         gpio_cmd(TOPIC_AB, GPIO_ON)
         time.sleep(duration)
         gpio_cmd(TOPIC_AB, GPIO_OFF)
-        emit({"type":"log", "device":"AB", "payload": f"{now_str()},AB,vol,{DOSE_ML},dur,{round(duration,1)}s"})
+        emit({"type":"log", "device":"AB", "payload": f"{now_str()},AB,volume,{DOSE_ML},dur,{round(duration,1)}s"})
+        try:
+            db_insert_solution(now_str(), "AB", DOSE_ML, duration)
+        except Exception as e:
+            emit({"type": "db_error", "where": "run_control_sequence", "error": str(e)})
 
-    # 3. Injection logic for Acid (pH control)
+    # 2. Injection logic for Acid (pH control)
     if rep_ph and rep_ph >= PH_MAX:
         duration = DOSE_ML / PUMP_ML_PER_SEC
         gpio_cmd(TOPIC_ACID, GPIO_ON)
         time.sleep(duration)
         gpio_cmd(TOPIC_ACID, GPIO_OFF)
-        emit({"type":"log", "device":"Acid", "payload": f"{now_str()},Acid,vol,{DOSE_ML},dur,{round(duration,1)}s"})
+        emit({"type":"log", "device":"Acid", "payload": f"{now_str()},Acid,volume,{DOSE_ML},dur,{round(duration,1)}s"})
+        try:
+            db_insert_solution(now_str(), "Acid", DOSE_ML, duration)
+        except Exception as e:
+            emit({"type": "db_error", "where": "run_control_sequence", "error": str(e)})
 
     emit({"type": "status", "status": "ok", "ec": rep_ec, "ph": rep_ph, "temp": rep_tp})
     return "OK"
@@ -225,7 +223,6 @@ def run_control_sequence():
 # 7. Main Loop
 # ===============================
 def main():
-    ensure_db_initialized(DB_PATH)
     stop_all_pumps()
     
     # Initial Wait for Auto Mode Signal from Node-RED
