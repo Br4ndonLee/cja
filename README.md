@@ -18,28 +18,36 @@ The system is designed to be:
 
 ```text
 cja-skyfarms-project/
-├── main.py                           # Main execution file (entry point, UI and overall control)
-├── controllers/                      # Environmental control modules
-│   ├── FanController.py              # DC fan control
-│   ├── AirCirculatorController.py    # Air circulator control
-│   ├── LEDController.py              # LED control
-│   ├── UVController.py               # UV-C control
-│   └── PumpController.py             # Nutrient pump control
-├── sensors/                          # Sensor data collection modules
-│   ├── EC_pH.py                      # EC, pH sensor data collection
-│   ├── Temp_humi.py                  # Temperature and humidity data collection
-│   ├── EC_pH_log.csv                 # EC, pH sensor log
-│   ├── Temp_humi_log.csv             # Temperature and humidity log
-│   └── Solution_input_log.csv        # A/B and acid solution input log
-├── data/                             # Additional data / log storage
-│   └── logs/                         # (Reserved for log files)
-├── node-red/                         # Node-RED configuration and project files (synced from ~/.node-red)
-│   └── projects/
-│       └── cja-skyfarms/
-│           ├── flows.json            # Node-RED flow for this project
-│           ├── package.json          # Node-RED project metadata & dependencies
-│           ├── README.md             # Node-RED project documentation
-│           └── ui-media/             # Dashboard / UI media assets (if any)
+├── main.py                           # Tkinter-based local UI (optional)
+├── controllers/                      # Actuator & automation scripts
+│   ├── AirCirculatorController.py
+│   ├── Dist_1_EC_pH_auto_control.py  # Dist 1 auto EC/pH control + pump dosing
+│   ├── Dist_2_EC_pH_auto_control.py  # Dist 2 auto EC/pH control + pump dosing
+│   ├── Dist_1_LEDController.py
+│   ├── Dist_2_LEDController.py
+│   ├── Dist_1_UVController.py
+│   ├── Dist_2_UVController.py
+│   ├── Dist_1_PumpController.py
+│   ├── Dist_2_PumpController.py
+│   └── Dist_2_FanController.py
+├── sensors/                          # Sensor data collection
+│   ├── Dist_1_EC_pH.py
+│   ├── Dist_2_EC_pH.py
+│   └── room_condition.py
+├── data/                             # Data storage & utilities
+│   ├── data.db                       # SQLite DB (solution inputs, EC/pH, room logs)
+│   ├── data.db-wal                   # SQLite WAL (runtime)
+│   ├── data.db-shm                   # SQLite shared memory (runtime)
+│   ├── csv_to_sqlite.py              # CSV -> SQLite import utility
+│   ├── import_solution_logs_to_sqlite.py
+│   ├── Dist_1_pump_activate_result.csv
+│   └── Dist_2_pump_activate_result.csv
+├── node-red/                         # Node-RED local snapshot (mirrors runtime project)
+│   ├── flows.json                    # Flow snapshot
+│   ├── flows_cred.json               # Flow credentials (do not commit)
+│   ├── package.json                  # Node-RED dependencies
+│   ├── README.md
+│   └── ui-media/
 ├── requirements.txt                  # Python package list
 └── README.md                         # This document
 ````
@@ -195,6 +203,123 @@ If you are not using the Node-RED Project Mode mapped directly to this repo, you
 1. Open Node-RED editor
 2. Import `node-red/projects/cja-skyfarms/flows.json`
 3. Deploy the flows
+
+---
+
+## Logging & Database (SQLite)
+
+The system now uses a single SQLite database for solution input logs and other sensor logs.
+
+**DB path**
+
+- `/home/cja/Work/cja-skyfarms-project/data/data.db`
+
+**Tables used for solution input**
+
+- `Dist_1_Solution_input_log` (Date TEXT, device TEXT, action TEXT, detail REAL)
+- `Dist_2_Solution_input_log` (Date TEXT, device TEXT, action TEXT, detail REAL)
+
+**Write sources**
+
+- Manual solution inputs from Node-RED write directly to SQLite.
+- Auto-control pump actions (via Python controllers) also write to the same tables.
+
+**Important**
+
+- The Node-RED sqlite nodes run SQL from `msg.topic`.
+- Manual dosing function nodes build full SQL strings (no placeholders) and send them via `msg.topic`.
+
+---
+
+## Node-RED Project Notes
+
+Primary flow file (runtime):
+
+- `~/.node-red/projects/cja-skyfarms/flows.json`
+
+Repo mirror (for reference/backups):
+
+- `node-red/projects/cja-skyfarms/flows.json`
+
+After editing flows.json directly:
+
+1. Restart Node-RED or re-import the flow in the editor.
+2. Deploy.
+
+---
+
+## How It Works (Runtime Flow)
+
+1. **Node-RED UI** provides:
+   - Auto mode toggles (Dist 1 / Dist 2).
+   - Manual dosing inputs (A/B, Acid).
+2. **Python controllers** run via Node-RED `pythonshell` nodes:
+   - Read sensors, apply filtering, and decide dosing.
+   - Emit GPIO commands and dosing logs back to Node-RED as JSON.
+3. **GPIO output nodes** control hardware relays.
+4. **SQLite logging** stores all solution input actions in:
+   - `Dist_1_Solution_input_log`
+   - `Dist_2_Solution_input_log`
+
+---
+
+## Controllers (Summary)
+
+**Dist 1**
+
+- `controllers/Dist_1_EC_pH_auto_control.py`  
+  Auto EC/pH control loop for Dist 1. Reads sensor values, decides dosing, triggers pumps via Node-RED GPIO, and logs solution input to SQLite.
+- `controllers/Dist_1_PumpController.py`  
+  Manual/triggered pump control logic for Dist 1 (A/B and Acid).
+- `controllers/Dist_1_LEDController.py`  
+  LED control for Dist 1 (schedule/on-off).
+- `controllers/Dist_1_UVController.py`  
+  UV control for Dist 1.
+
+**Dist 2**
+
+- `controllers/Dist_2_EC_pH_auto_control.py`  
+  Auto EC/pH control loop for Dist 2. Reads sensor values, decides dosing, triggers pumps via Node-RED GPIO, and logs solution input to SQLite.
+- `controllers/Dist_2_PumpController.py`  
+  Manual/triggered pump control logic for Dist 2 (A/B and Acid).
+- `controllers/Dist_2_LEDController.py`  
+  LED control for Dist 2 (schedule/on-off).
+- `controllers/Dist_2_UVController.py`  
+  UV control for Dist 2.
+- `controllers/Dist_2_FanController.py`  
+  Fan control for Dist 2.
+
+**Shared**
+
+- `controllers/AirCirculatorController.py`  
+  Air circulation control.
+
+---
+
+## Node-RED Flow (Summary)
+
+**Auto control (Dist 1 / Dist 2)**
+
+- `ui_switch` toggles Auto mode.
+- `pythonshell in` runs `Dist_1_EC_pH_auto_control.py` or `Dist_2_EC_pH_auto_control.py`.
+- `split lines → json` parses Python JSON output.
+- `Dispatch GPIO by topic` routes:
+  - GPIO commands to `rpi-gpio out`.
+  - dosing logs to SQLite (solution input tables).
+
+**Manual dosing (Dist 1 / Dist 2)**
+
+- UI inputs set dosing volume (ml) and compute duration.
+- Manual run buttons trigger a function node:
+  - Turn GPIO ON → wait duration → OFF.
+  - Build SQL and write to SQLite.
+
+**SQLite**
+
+- Solution input logs are inserted into:
+  - `Dist_1_Solution_input_log`
+  - `Dist_2_Solution_input_log`
+- SQL is passed via `msg.topic` (no placeholders).
 
 ---
 
