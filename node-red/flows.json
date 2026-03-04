@@ -7058,7 +7058,7 @@
         "id": "exec_start",
         "type": "exec",
         "z": "tab_mjpg_sched",
-        "command": "bash -lc 'cd /home/cja/mjpg-streamer/mjpg-streamer-experimental && export LD_LIBRARY_PATH=. && ./mjpg_streamer -i \"./input_uvc.so -d /dev/video0 -r 1280x720 -f 5\" -o \"./output_http.so -p 8080 -w ./www\" >/tmp/mjpg.log 2>&1 &'",
+        "command": "bash -lc '/home/cja/Work/cja-skyfarms-project/camera/start_mjpg_streamer_safe.sh'",
         "addpay": false,
         "append": "",
         "useSpawn": "false",
@@ -7081,7 +7081,7 @@
         "d": true,
         "name": "매일 04:00 STOP",
         "props": [],
-        "repeat": "",
+        "repeat": "300",
         "crontab": "00 04 * * *",
         "once": false,
         "onceDelay": 0.1,
@@ -7129,7 +7129,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "300",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,

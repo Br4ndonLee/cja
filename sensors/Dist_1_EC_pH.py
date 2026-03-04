@@ -19,9 +19,12 @@ DB_PATH = "/home/cja/Work/cja-skyfarms-project/data/data.db"
 DB_TABLE = "Dist_1_EC_pH_log"
 
 BUS_LOCK_PATH = "/tmp/rs485_bus.lock"
+BUS_LOCK_TIMEOUT_SEC = 3.0
 
 PRINT_EVERY_SEC = 10
 SAVE_EVERY_MIN = 20   # 00/20/40
+
+READ_RETRY_AFTER_REOPEN = 1
 
 # ===============================
 # Timing (no drift)
@@ -45,13 +48,30 @@ def slot_key_for(dt: datetime.datetime, step_min: int) -> str:
 # ===============================
 # Modbus init
 # ===============================
-dev = minimalmodbus.Instrument(EC_PH_PORT, SLAVE_ID, mode="rtu")
-dev.serial.baudrate = 9600
-dev.serial.bytesize = 8
-dev.serial.parity   = serial.PARITY_NONE
-dev.serial.stopbits = 1
-dev.serial.timeout  = 1
-dev.clear_buffers_before_each_transaction = True
+dev = None
+
+def build_instrument():
+    inst = minimalmodbus.Instrument(EC_PH_PORT, SLAVE_ID, mode="rtu")
+    inst.serial.baudrate = 9600
+    inst.serial.bytesize = 8
+    inst.serial.parity   = serial.PARITY_NONE
+    inst.serial.stopbits = 1
+    inst.serial.timeout  = 1
+    inst.clear_buffers_before_each_transaction = True
+    return inst
+
+def reset_instrument():
+    """Close current serial handle and recreate Instrument."""
+    global dev
+    old = dev
+    dev = None
+    if old is not None:
+        try:
+            if old.serial and old.serial.is_open:
+                old.serial.close()
+        except Exception:
+            pass
+    dev = build_instrument()
 
 # ===============================
 # SQLite helpers
@@ -80,17 +100,47 @@ def read_once():
     - EC: /10
     - Solution_Temperature: *10 (as your current spec)
     """
+    global dev
+    if dev is None:
+        dev = build_instrument()
+
     ph = dev.read_register(0x00, 2, functioncode=3)
     ec = dev.read_register(0x01, 2, functioncode=3) / 10.0
     tp = dev.read_register(0x02, 2, functioncode=3) * 10.0
     return round(ec, 2), round(ph, 2), round(tp, 2)
 
+def acquire_lock_with_timeout(lockf, timeout_sec: float) -> bool:
+    """Try to acquire filesystem lock within timeout."""
+    deadline = time.monotonic() + max(0.0, timeout_sec)
+    while True:
+        try:
+            fcntl.flock(lockf, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            return True
+        except BlockingIOError:
+            if time.monotonic() >= deadline:
+                return False
+            time.sleep(0.05)
+
 def read_with_lock():
     """Read Modbus values with a filesystem lock to avoid collisions."""
     lockf = open(BUS_LOCK_PATH, "w")
     try:
-        fcntl.flock(lockf, fcntl.LOCK_EX)
-        return read_once(), None
+        if not acquire_lock_with_timeout(lockf, BUS_LOCK_TIMEOUT_SEC):
+            return (None, None, None), f"bus_lock_timeout: >{BUS_LOCK_TIMEOUT_SEC}s"
+
+        try:
+            return read_once(), None
+        except Exception as e1:
+            # USB/serial glitches often recover after reopening the port.
+            last = e1
+            for _ in range(READ_RETRY_AFTER_REOPEN):
+                try:
+                    reset_instrument()
+                    time.sleep(0.1)
+                    return read_once(), None
+                except Exception as e2:
+                    last = e2
+            return (None, None, None), f"{type(last).__name__}: {last}"
     except Exception as e:
         return (None, None, None), str(e)
     finally:
@@ -108,6 +158,8 @@ def main():
     latest_ph = None
     latest_tp = None
     latest_err = None
+    latest_ok_ts = None  # epoch seconds of last successful read
+    consecutive_sensor_fail = 0
 
     last_saved_slot = None  # "YYYY-MM-DD HH:MM" at 00/20/40
 
@@ -130,11 +182,18 @@ def main():
         if err is None and ec is not None and ph is not None and tp is not None:
             latest_ec, latest_ph, latest_tp = ec, ph, tp
             latest_err = None
+            latest_ok_ts = time.time()
+            consecutive_sensor_fail = 0
         else:
-            latest_err = err
+            consecutive_sensor_fail += 1
+            latest_err = f"{err} (consecutive_fail={consecutive_sensor_fail})" if err else (
+                f"unknown_read_error (consecutive_fail={consecutive_sensor_fail})"
+            )
 
         now = datetime.datetime.now()
         mkey = minute_key(now)
+        now_ts = time.time()
+        latest_age_sec = None if latest_ok_ts is None else round(now_ts - latest_ok_ts, 1)
 
         out = {
             "type": "report",
@@ -142,6 +201,8 @@ def main():
             "EC": latest_ec,
             "pH": latest_ph,
             "Solution_Temperature": latest_tp,
+            "latest_age_sec": latest_age_sec,
+            "consecutive_sensor_fail": consecutive_sensor_fail,
             "errors": {"sensor": latest_err, "db": None},
             "save": {
                 "rule": f"minute%{SAVE_EVERY_MIN}==0",
@@ -160,13 +221,22 @@ def main():
             if last_saved_slot != skey:
                 if latest_ec is None or latest_ph is None or latest_tp is None:
                     out["errors"]["db"] = "skip_save: latest values are None"
+                elif latest_ok_ts is None:
+                    out["errors"]["db"] = "skip_save: no successful read yet"
                 else:
-                    try:
-                        insert_dist1(DB_PATH, DB_TABLE, skey, latest_ec, latest_ph, latest_tp)
-                        last_saved_slot = skey
-                        out["save"]["did"] = True
-                    except Exception as e:
-                        out["errors"]["db"] = f"db_write_failed: {e}"
+                    max_stale_sec = PRINT_EVERY_SEC * 2
+                    age_sec = now_ts - latest_ok_ts
+                    if age_sec > max_stale_sec:
+                        out["errors"]["db"] = (
+                            f"skip_save: stale latest values (age={age_sec:.1f}s > {max_stale_sec}s)"
+                        )
+                    else:
+                        try:
+                            insert_dist1(DB_PATH, DB_TABLE, skey, latest_ec, latest_ph, latest_tp)
+                            last_saved_slot = skey
+                            out["save"]["did"] = True
+                        except Exception as e:
+                            out["errors"]["db"] = f"db_write_failed: {e}"
 
         print(json.dumps(out, ensure_ascii=False), flush=True)
 

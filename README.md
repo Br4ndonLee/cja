@@ -1,4 +1,4 @@
-# CJA SKYFARMS Plant Factory Control Project
+# CJA SKYFARMS Plant Factory Project
 
 ## Overview
 
