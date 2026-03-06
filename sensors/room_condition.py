@@ -12,7 +12,7 @@ from serial.serialutil import SerialException
 # Settings
 # ===============================
 PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
-BAUD = 115200
+BAUD = 38400
 REQ  = "node000000|SensorReq|0905"
 
 # SQLite

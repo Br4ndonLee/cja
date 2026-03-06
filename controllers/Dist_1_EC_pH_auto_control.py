@@ -36,6 +36,7 @@ SCHEDULE_MODE = "4hour" # Production setting
 
 # Thresholds
 EC_MIN = 1.1
+# 20260304 JM edit 6.1 -> 5.9
 PH_MAX = 5.9
 
 # Pump dosing volume

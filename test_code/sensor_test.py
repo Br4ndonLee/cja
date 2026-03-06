@@ -2,7 +2,8 @@
 import serial, time
 
 PORT = "/dev/ttyUSB1"
-BAUD = 115200
+# BAUD = 115200
+BAUD = 38400
 # REQ_SOLUTION  = "node000000|SensorReq|0905"  # no terminator!
 REQ  = "node000000|SensorReq|0905"  # no terminator!
 REQ_CONDITION  = "node000300|SensorReq|8985"  # no terminator!

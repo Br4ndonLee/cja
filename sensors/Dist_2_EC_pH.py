@@ -14,7 +14,7 @@ from serial.serialutil import SerialException
 # Settings
 # ===============================
 PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
-BAUD = 115200
+BAUD = 38400
 REQ  = "node000300|SensorReq|8985"
 
 DB_PATH = "/home/cja/Work/cja-skyfarms-project/data/data.db"
@@ -29,7 +29,7 @@ DB_EVERY_MIN = 20       # save every 15 min (00/15/30/45)
 # Physical validity ranges (safe)
 VALID_EC_MIN, VALID_EC_MAX = 0.00, 3.00        # dS/m
 VALID_PH_MIN, VALID_PH_MAX = 3.50, 10.00       # pH
-VALID_TP_MIN, VALID_TP_MAX = 10.00, 50.00      # °C
+VALID_TP_MIN, VALID_TP_MAX = 10.00, 50.00      # ï¿½C
 
 # Sensor IDs
 ID_PH   = 16

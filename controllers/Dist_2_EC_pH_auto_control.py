@@ -28,6 +28,7 @@ SCHEDULE_MODE = "4hour"
 
 # Control Thresholds
 EC_MIN = 1.1
+# 20260304 JM edit 6.1 -> 5.9
 PH_MAX = 5.9
 
 # Pump Settings
