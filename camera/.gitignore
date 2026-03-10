@@ -1,0 +1,8 @@
+.venv/
+.env
+__pycache__/
+butterhead_weight/__pycache__/
+data/captures/
+data/models/
+data/previews/
+logs/
