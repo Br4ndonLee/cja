@@ -20,8 +20,7 @@ ARGS=(
   "${SCRIPT_DIR}/monitor_butterhead.py"
   "--plant-id" "${BUTTERHEAD_PLANT_ID:-butterhead-01}"
   "--batch-id" "${BUTTERHEAD_BATCH_ID:-default-batch}"
-  "--hour" "${BUTTERHEAD_MONITOR_HOUR:-9}"
-  "--minute" "${BUTTERHEAD_MONITOR_MINUTE:-0}"
+  "--times" "${BUTTERHEAD_MONITOR_TIMES:-06:00,18:00}"
 )
 
 if [ -n "${BUTTERHEAD_PLANTING_DATE:-}" ]; then

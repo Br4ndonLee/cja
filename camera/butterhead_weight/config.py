@@ -25,6 +25,16 @@ def _default_camera_device() -> str:
     return preferred
 
 
+def _default_monitor_times() -> tuple[str, ...]:
+    raw_times = os.environ.get("BUTTERHEAD_MONITOR_TIMES", "").strip()
+    if raw_times:
+        return tuple(token.strip() for token in raw_times.split(",") if token.strip())
+
+    monitor_hour = int(os.environ.get("BUTTERHEAD_MONITOR_HOUR", "6"))
+    monitor_minute = int(os.environ.get("BUTTERHEAD_MONITOR_MINUTE", "0"))
+    return (f"{monitor_hour:02d}:{monitor_minute:02d}",)
+
+
 @dataclass(frozen=True)
 class RuntimeConfig:
     camera_dir: Path
@@ -49,6 +59,7 @@ class RuntimeConfig:
     capture_width: int
     capture_height: int
     image_size: int
+    monitor_times: tuple[str, ...]
     monitor_hour: int
     monitor_minute: int
     auto_train_enabled: bool
@@ -65,8 +76,9 @@ def load_runtime_config() -> RuntimeConfig:
     camera_fov_deg = float(os.environ.get("BUTTERHEAD_CAMERA_FOV_DEG", "55.0"))
     camera_fov_axis = os.environ.get("BUTTERHEAD_CAMERA_FOV_AXIS", "diagonal").strip().lower() or "diagonal"
     camera_max_fps = float(os.environ.get("BUTTERHEAD_CAMERA_MAX_FPS", "30.0"))
-    monitor_hour = int(os.environ.get("BUTTERHEAD_MONITOR_HOUR", "9"))
-    monitor_minute = int(os.environ.get("BUTTERHEAD_MONITOR_MINUTE", "0"))
+    monitor_times = _default_monitor_times()
+    monitor_hour = int(os.environ.get("BUTTERHEAD_MONITOR_HOUR", monitor_times[0].split(":")[0]))
+    monitor_minute = int(os.environ.get("BUTTERHEAD_MONITOR_MINUTE", monitor_times[0].split(":")[1]))
     auto_train_enabled = os.environ.get("BUTTERHEAD_AUTO_TRAIN_ENABLED", "1").strip().lower() not in {
         "0",
         "false",
@@ -99,6 +111,7 @@ def load_runtime_config() -> RuntimeConfig:
         capture_width=capture_width,
         capture_height=capture_height,
         image_size=image_size,
+        monitor_times=monitor_times,
         monitor_hour=monitor_hour,
         monitor_minute=monitor_minute,
         auto_train_enabled=auto_train_enabled,

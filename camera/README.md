@@ -9,6 +9,7 @@ retry if the camera fails to respond.
 Each captured image now stores extra plant descriptors in EXIF metadata:
 `plant_height_cm`, `plant_width_cm`, `leaf_color`, `leaf_color_score`,
 plus ratio fields and Korean aliases `초장`, `초폭`, `엽색`.
+The JPEG pixels also include a visible timestamp overlay in `YYYY-MM-DD HH:MM` format.
 
 ## Why this model
 
@@ -83,7 +84,7 @@ The current defaults assume:
 - camera model: Logitech C270
 - distance to tray: 26 cm
 - field of view: 55 degrees, interpreted as diagonal FOV
-- capture schedule: once per day at `BUTTERHEAD_MONITOR_HOUR:BUTTERHEAD_MONITOR_MINUTE`
+- capture schedule: twice per day at `BUTTERHEAD_MONITOR_TIMES` (default `06:00,18:00`)
 - capture backend: OpenCV direct capture only
 
 Run once and keep the process alive:
@@ -114,6 +115,7 @@ Useful environment variables:
 - `BUTTERHEAD_AUTO_TRAIN_ENABLED=1`
 - `BUTTERHEAD_AUTO_TRAIN_MIN_LABELS=10`
 - `BUTTERHEAD_AUTO_TRAIN_MIN_NEW_LABELS=3`
+- `BUTTERHEAD_MONITOR_TIMES=06:00,18:00`
 
 To add a real measured weight label:
 

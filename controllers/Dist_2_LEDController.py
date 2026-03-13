@@ -46,7 +46,8 @@
     #                 break
 
     #             # Time-based control
-    #             if 4 <= now.hour < 22:
+    #             if 5 <= now.hour < 21:
+    # 20260313 JM edit 4 -> 5 22 -> 21
     #             # if 0 <= now.second < 30:
     #                 GPIO.output(24, False)
     #                 GPIO.output(25, False)
@@ -188,8 +189,9 @@ def read_payload():
     return None
 
 def time_allows_led(now: datetime.datetime) -> bool:
-    # LED ON between 04:00 and 21:59
-    return (4 <= now.hour < 22)
+    # 260313 JM edit
+    # LED ON between 05:00 and 20:59
+    return (5 <= now.hour < 21)
 
 try:
     # Start safe (OFF)

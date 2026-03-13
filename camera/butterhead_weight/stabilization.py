@@ -60,15 +60,30 @@ def stabilize_bootstrap_prediction(
     plant_height_cm: float,
     plant_width_cm: float,
 ) -> float | None:
-    if predicted_weight_g is None:
-        return None
-
     previous = load_recent_prediction(
         config=config,
         plant_id=plant_id,
         batch_id=batch_id,
         before_iso=captured_at_iso,
     )
+    return stabilize_bootstrap_prediction_against_previous(
+        previous=previous,
+        captured_at_iso=captured_at_iso,
+        predicted_weight_g=predicted_weight_g,
+        plant_height_cm=plant_height_cm,
+        plant_width_cm=plant_width_cm,
+    )
+
+
+def stabilize_bootstrap_prediction_against_previous(
+    previous: RecentPrediction | None,
+    captured_at_iso: str,
+    predicted_weight_g: float | None,
+    plant_height_cm: float,
+    plant_width_cm: float,
+) -> float | None:
+    if predicted_weight_g is None:
+        return None
     if previous is None:
         return predicted_weight_g
 

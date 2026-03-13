@@ -120,6 +120,34 @@ def capture_frame(device: str, width: int, height: int, warmup_frames: int = 8) 
     )
 
 
+def overlay_capture_timestamp(frame_bgr: np.ndarray, captured_at: datetime) -> np.ndarray:
+    annotated = frame_bgr.copy()
+    timestamp_text = captured_at.astimezone().strftime("%Y-%m-%d %H:%M")
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_scale = max(0.6, min(1.0, annotated.shape[1] / 1600.0))
+    thickness = max(2, int(round(font_scale * 2)))
+    margin = max(14, int(round(font_scale * 18)))
+    (text_width, text_height), baseline = cv2.getTextSize(timestamp_text, font, font_scale, thickness)
+
+    x1 = margin
+    y2 = annotated.shape[0] - margin
+    x2 = x1 + text_width + (margin // 2)
+    y1 = y2 - text_height - baseline - (margin // 2)
+
+    cv2.rectangle(annotated, (x1, y1), (x2, y2), (0, 0, 0), thickness=-1)
+    cv2.putText(
+        annotated,
+        timestamp_text,
+        (x1 + (margin // 4), y2 - baseline - (margin // 4)),
+        font,
+        font_scale,
+        (255, 255, 255),
+        thickness,
+        lineType=cv2.LINE_AA,
+    )
+    return annotated
+
+
 def save_frame_with_exif(
     frame_bgr: np.ndarray,
     output_path: Path,
@@ -129,7 +157,8 @@ def save_frame_with_exif(
     device: str,
 ) -> dict[str, object]:
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    height, width = frame_bgr.shape[:2]
+    frame_with_timestamp = overlay_capture_timestamp(frame_bgr=frame_bgr, captured_at=captured_at)
+    height, width = frame_with_timestamp.shape[:2]
     metadata = build_capture_metadata(
         captured_at=captured_at,
         plant_id=plant_id,
@@ -139,7 +168,7 @@ def save_frame_with_exif(
         image_height=height,
     )
 
-    image_rgb = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2RGB)
+    image_rgb = cv2.cvtColor(frame_with_timestamp, cv2.COLOR_BGR2RGB)
     image = Image.fromarray(image_rgb)
 
     exif_dict = {

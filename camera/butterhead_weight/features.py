@@ -20,6 +20,8 @@ MODEL_FEATURE_NAMES = (
 )
 ROBUST_HEIGHT_LOWER_QUANTILE = 0.22
 ROBUST_HEIGHT_UPPER_QUANTILE = 0.78
+ROBUST_WIDTH_LOWER_QUANTILE = 0.08
+ROBUST_WIDTH_UPPER_QUANTILE = 0.92
 
 
 @dataclass(frozen=True)
@@ -78,6 +80,7 @@ def extract_feature_bundle(
     plant_height_cm = 0.0
     plant_width_cm = 0.0
     plant_height_mode = "bbox"
+    plant_width_mode = "bbox"
     leaf_color_score = 0.0
     leaf_color = "unknown"
     scene_width_cm, scene_height_cm = compute_scene_dimensions_cm(
@@ -101,6 +104,13 @@ def extract_feature_bundle(
             )
             plant_height_mode = "trimmed_quantile"
         plant_width_px = full_width_px
+        if xs.min() == 0 or xs.max() == image_bgr.shape[1] - 1:
+            plant_width_px = compute_trimmed_span_px(
+                coordinates=xs,
+                lower_quantile=ROBUST_WIDTH_LOWER_QUANTILE,
+                upper_quantile=ROBUST_WIDTH_UPPER_QUANTILE,
+            )
+            plant_width_mode = "trimmed_quantile"
         bbox_area = float(full_width_px * full_height_px)
         bbox_ratio = bbox_area / image_area
         plant_height_ratio = float(plant_height_px / image_bgr.shape[0])
@@ -138,6 +148,7 @@ def extract_feature_bundle(
         "leaf_color": leaf_color,
         "leaf_color_score": leaf_color_score,
         "plant_height_mode": plant_height_mode,
+        "plant_width_mode": plant_width_mode,
         "camera_distance_cm": camera_distance_cm,
         "camera_fov_deg": camera_fov_deg,
         "camera_fov_axis": camera_fov_axis,

@@ -42,7 +42,8 @@
 #                 break
 
 #             # Time-based control
-#             if 4 <= now.hour < 23:
+#             if 5 <= now.hour < 22:
+# 20260313 JM edit 4 -> 5 23 -> 22
 #             # if 0 <= now.second < 30:
 #                 GPIO.output(20, False)
 #                 result["fan_status"] = "ON"
@@ -176,8 +177,9 @@ def read_payload():
     return None
 
 def time_allows_fan(now: datetime.datetime) -> bool:
-    # Fan ON between 04:00 and 22:59
-    return (4 <= now.hour < 23)
+    # 260313 JM edit
+    # Fan ON between 05:00 and 20:59
+    return (5 <= now.hour < 21)
 
 try:
     # Start safe (OFF)
