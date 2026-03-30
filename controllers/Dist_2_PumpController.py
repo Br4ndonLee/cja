@@ -56,8 +56,8 @@ try:
                 break
 
             # Time-based control
-            # if 0 <= now.minute < 2 or 20 <= now.minute < 22 or 40 <= now.minute < 42:
-            if 10 <= now.minute < 15 or 40 <= now.minute <45:
+            if 0 <= now.minute < 3 or 20 <= now.minute < 23 or 40 <= now.minute < 43:
+            # if 10 <= now.minute < 15 or 40 <= now.minute <45:
             # if 10 <= now.minute < 15 or 30 <= now.minute < 35 or 50 <= now.minute < 55:
                 GPIO.output(PUMP_1_PIN, False)
                 GPIO.output(PUMP_2_PIN, False)

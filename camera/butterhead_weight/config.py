@@ -56,6 +56,8 @@ class RuntimeConfig:
     camera_fov_deg: float
     camera_fov_axis: str
     camera_max_fps: float
+    height_scale: float
+    width_scale: float
     capture_width: int
     capture_height: int
     image_size: int
@@ -76,6 +78,8 @@ def load_runtime_config() -> RuntimeConfig:
     camera_fov_deg = float(os.environ.get("BUTTERHEAD_CAMERA_FOV_DEG", "55.0"))
     camera_fov_axis = os.environ.get("BUTTERHEAD_CAMERA_FOV_AXIS", "diagonal").strip().lower() or "diagonal"
     camera_max_fps = float(os.environ.get("BUTTERHEAD_CAMERA_MAX_FPS", "30.0"))
+    height_scale = float(os.environ.get("BUTTERHEAD_HEIGHT_SCALE", "1.0"))
+    width_scale = float(os.environ.get("BUTTERHEAD_WIDTH_SCALE", "1.0"))
     monitor_times = _default_monitor_times()
     monitor_hour = int(os.environ.get("BUTTERHEAD_MONITOR_HOUR", monitor_times[0].split(":")[0]))
     monitor_minute = int(os.environ.get("BUTTERHEAD_MONITOR_MINUTE", monitor_times[0].split(":")[1]))
@@ -108,6 +112,8 @@ def load_runtime_config() -> RuntimeConfig:
         camera_fov_deg=camera_fov_deg,
         camera_fov_axis=camera_fov_axis,
         camera_max_fps=camera_max_fps,
+        height_scale=height_scale,
+        width_scale=width_scale,
         capture_width=capture_width,
         capture_height=capture_height,
         image_size=image_size,

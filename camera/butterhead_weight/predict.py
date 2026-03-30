@@ -69,6 +69,8 @@ def extract_prediction_inputs(
         camera_distance_cm=camera_distance_cm,
         camera_fov_deg=camera_fov_deg,
         camera_fov_axis=camera_fov_axis,
+        height_scale=runtime_config.height_scale,
+        width_scale=runtime_config.width_scale,
     )
     return image_bgr, captured_at, feature_bundle
 

@@ -87,6 +87,8 @@ def _build_training_samples(
             camera_distance_cm=camera_distance_cm,
             camera_fov_deg=camera_fov_deg,
             camera_fov_axis=camera_fov_axis,
+            height_scale=config.height_scale,
+            width_scale=config.width_scale,
         )
         samples.append(
             FeatureTrainingSample(

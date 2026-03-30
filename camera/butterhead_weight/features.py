@@ -68,6 +68,8 @@ def extract_feature_bundle(
     camera_distance_cm: float = 26.0,
     camera_fov_deg: float = 55.0,
     camera_fov_axis: str = "diagonal",
+    height_scale: float = 1.0,
+    width_scale: float = 1.0,
 ) -> FeatureBundle:
     mask = extract_canopy_mask(image_bgr)
     image_area = float(mask.size)
@@ -115,8 +117,8 @@ def extract_feature_bundle(
         bbox_ratio = bbox_area / image_area
         plant_height_ratio = float(plant_height_px / image_bgr.shape[0])
         plant_width_ratio = float(plant_width_px / image_bgr.shape[1])
-        plant_height_cm = float(plant_height_ratio * scene_height_cm)
-        plant_width_cm = float(plant_width_ratio * scene_width_cm)
+        plant_height_cm = float(plant_height_ratio * scene_height_cm * max(height_scale, 1e-6))
+        plant_width_cm = float(plant_width_ratio * scene_width_cm * max(width_scale, 1e-6))
 
         b_channel, g_channel, r_channel = cv2.split(image_bgr.astype(np.float32))
         excess_green = np.clip((2.0 * g_channel) - r_channel - b_channel, a_min=0.0, a_max=None)
@@ -152,6 +154,8 @@ def extract_feature_bundle(
         "camera_distance_cm": camera_distance_cm,
         "camera_fov_deg": camera_fov_deg,
         "camera_fov_axis": camera_fov_axis,
+        "height_scale": height_scale,
+        "width_scale": width_scale,
         "scene_width_cm": scene_width_cm,
         "scene_height_cm": scene_height_cm,
         "초장_비율": plant_height_ratio,

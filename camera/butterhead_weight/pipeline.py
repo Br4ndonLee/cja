@@ -81,6 +81,8 @@ def run_capture_pipeline(
         camera_distance_cm=config.camera_distance_cm,
         camera_fov_deg=config.camera_fov_deg,
         camera_fov_axis=config.camera_fov_axis,
+        height_scale=config.height_scale,
+        width_scale=config.width_scale,
     )
     update_capture_metadata(
         image_path,

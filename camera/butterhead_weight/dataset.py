@@ -70,6 +70,8 @@ class ButterheadWeightDataset(Dataset):
         self.default_camera_distance_cm = runtime_config.camera_distance_cm
         self.default_camera_fov_deg = runtime_config.camera_fov_deg
         self.default_camera_fov_axis = runtime_config.camera_fov_axis
+        self.height_scale = runtime_config.height_scale
+        self.width_scale = runtime_config.width_scale
         self.transform = build_train_transform(image_size) if training else build_eval_transform(image_size)
 
     def __len__(self) -> int:
@@ -106,6 +108,8 @@ class ButterheadWeightDataset(Dataset):
             camera_distance_cm=camera_distance_cm,
             camera_fov_deg=camera_fov_deg,
             camera_fov_axis=camera_fov_axis,
+            height_scale=self.height_scale,
+            width_scale=self.width_scale,
         )
 
     def __getitem__(self, index: int) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
