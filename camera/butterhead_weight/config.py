@@ -75,7 +75,7 @@ def load_runtime_config() -> RuntimeConfig:
     image_size = int(os.environ.get("BUTTERHEAD_IMAGE_SIZE", "224"))
     camera_model = os.environ.get("BUTTERHEAD_CAMERA_MODEL", "Logitech C270")
     camera_distance_cm = float(os.environ.get("BUTTERHEAD_CAMERA_DISTANCE_CM", "26.0"))
-    camera_fov_deg = float(os.environ.get("BUTTERHEAD_CAMERA_FOV_DEG", "55.0"))
+    camera_fov_deg = float(os.environ.get("BUTTERHEAD_CAMERA_FOV_DEG", "60.0"))
     camera_fov_axis = os.environ.get("BUTTERHEAD_CAMERA_FOV_AXIS", "diagonal").strip().lower() or "diagonal"
     camera_max_fps = float(os.environ.get("BUTTERHEAD_CAMERA_MAX_FPS", "30.0"))
     height_scale = float(os.environ.get("BUTTERHEAD_HEIGHT_SCALE", "1.0"))

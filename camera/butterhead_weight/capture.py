@@ -101,22 +101,56 @@ def _reset_usb_camera(device: str) -> bool:
     return True
 
 
-def capture_frame(device: str, width: int, height: int, warmup_frames: int = 8) -> np.ndarray:
-    for candidate in _candidate_devices(device):
-        frame = _capture_from_device(device=candidate, width=width, height=height, warmup_frames=warmup_frames)
-        if frame is not None:
-            return frame
+def _stop_mjpg_streamer() -> bool:
+    try:
+        subprocess.run(["pkill", "-x", "mjpg_streamer"], capture_output=True, timeout=5)
+        time.sleep(1.0)
+        return True
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return False
 
-    reset_attempted = _reset_usb_camera(device)
-    if reset_attempted:
+
+def _restart_mjpg_streamer(device: str) -> None:
+    script_candidates = [
+        Path(__file__).resolve().parent.parent / "start_mjpg_streamer_safe.sh",
+    ]
+    for script in script_candidates:
+        if script.exists() and script.stat().st_mode & 0o111:
+            subprocess.Popen(
+                ["bash", str(script)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+            return
+
+
+def capture_frame(device: str, width: int, height: int, warmup_frames: int = 8) -> np.ndarray:
+    backoff_delays = [0, 2.0, 5.0]
+    last_error = ""
+
+    for attempt, delay in enumerate(backoff_delays):
+        if delay > 0:
+            time.sleep(delay)
+
         for candidate in _candidate_devices(device):
             frame = _capture_from_device(device=candidate, width=width, height=height, warmup_frames=warmup_frames)
             if frame is not None:
                 return frame
 
+        # After first failure, try stopping mjpg_streamer to release the device
+        if attempt == 0:
+            _stop_mjpg_streamer()
+
+        # After second failure, try USB reset
+        if attempt == 1:
+            _reset_usb_camera(device)
+
+    # Final attempt: restart mjpg_streamer for future use, then raise
+    _restart_mjpg_streamer(device)
+
     raise RuntimeError(
-        "Unable to capture a frame from the camera device via OpenCV direct capture. "
-        f"device={device} usb_reset_attempted={reset_attempted}"
+        "Unable to capture a frame from the camera device via OpenCV direct capture after "
+        f"{len(backoff_delays)} attempts. device={device}"
     )
 
 

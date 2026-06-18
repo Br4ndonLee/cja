@@ -258,10 +258,11 @@ def main():
 
         if err is None:
             if is_valid_ec(ec):
-                # y=0.8894x-0.1789
-                latest_ec = round(float(ec)*0.8894-0.1789, 2)
+                # y=x-0.3
+                latest_ec = round(float(ec)-0.3, 2)
             if is_valid_ph(ph):
-                latest_ph = round(float(ph), 2)
+                # y=x+0.3
+                latest_ph = round(float(ph)+0.3, 2)
             if is_valid_tp(tp):
                 latest_tp = round(float(tp), 2)
             latest_err = None

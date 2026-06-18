@@ -191,7 +191,7 @@ def read_payload():
 def time_allows_led(now: datetime.datetime) -> bool:
     # 260313 JM edit
     # LED ON between 05:00 and 20:59
-    return (5 <= now.hour < 21)
+    return (7 <= now.hour < 23)
 
 try:
     # Start safe (OFF)

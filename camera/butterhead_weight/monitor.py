@@ -111,8 +111,21 @@ def main() -> int:
     completed_runs = 0
 
     if not args.skip_initial_run:
-        payload = run_once(args)
-        completed_runs += 1
+        try:
+            payload = run_once(args)
+            completed_runs += 1
+        except Exception as exc:
+            print(
+                json.dumps(
+                    {
+                        "event": "initial_run_failed",
+                        "error": str(exc),
+                        "traceback": traceback.format_exc(),
+                    },
+                    ensure_ascii=False,
+                    sort_keys=True,
+                )
+            )
         if args.max_runs and completed_runs >= args.max_runs:
             return 0
 

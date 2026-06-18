@@ -42,10 +42,13 @@ def compute_days_since_planting(captured_at: datetime, planting_date: date | Non
     return float(max((captured_on - planting_date).days, 0))
 
 
+OVERFLOW_RATIO_THRESHOLD = 0.95
+
+
 def extract_canopy_mask(image_bgr: np.ndarray) -> np.ndarray:
     hsv = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2HSV)
-    lower = np.array([25, 35, 30], dtype=np.uint8)
-    upper = np.array([95, 255, 255], dtype=np.uint8)
+    lower = np.array([28, 50, 35], dtype=np.uint8)
+    upper = np.array([90, 255, 255], dtype=np.uint8)
     mask = cv2.inRange(hsv, lower, upper)
 
     kernel = np.ones((5, 5), dtype=np.uint8)
@@ -93,12 +96,15 @@ def extract_feature_bundle(
         camera_fov_axis=camera_fov_axis,
     )
 
+    frame_overflow = False
     if area_ratio > 0.0:
         ys, xs = np.where(mask > 0)
         full_height_px = float(ys.max() - ys.min() + 1)
         full_width_px = float(xs.max() - xs.min() + 1)
         plant_height_px = full_height_px
-        if ys.min() == 0 or ys.max() == image_bgr.shape[0] - 1:
+        height_touches_edge = ys.min() == 0 or ys.max() == image_bgr.shape[0] - 1
+        width_touches_edge = xs.min() == 0 or xs.max() == image_bgr.shape[1] - 1
+        if height_touches_edge:
             plant_height_px = compute_trimmed_span_px(
                 coordinates=ys,
                 lower_quantile=ROBUST_HEIGHT_LOWER_QUANTILE,
@@ -106,7 +112,7 @@ def extract_feature_bundle(
             )
             plant_height_mode = "trimmed_quantile"
         plant_width_px = full_width_px
-        if xs.min() == 0 or xs.max() == image_bgr.shape[1] - 1:
+        if width_touches_edge:
             plant_width_px = compute_trimmed_span_px(
                 coordinates=xs,
                 lower_quantile=ROBUST_WIDTH_LOWER_QUANTILE,
@@ -115,10 +121,23 @@ def extract_feature_bundle(
             plant_width_mode = "trimmed_quantile"
         bbox_area = float(full_width_px * full_height_px)
         bbox_ratio = bbox_area / image_area
-        plant_height_ratio = float(plant_height_px / image_bgr.shape[0])
-        plant_width_ratio = float(plant_width_px / image_bgr.shape[1])
-        plant_height_cm = float(plant_height_ratio * scene_height_cm * max(height_scale, 1e-6))
-        plant_width_cm = float(plant_width_ratio * scene_width_cm * max(width_scale, 1e-6))
+
+        # Detect frame overflow: plant fills entire frame
+        frame_overflow = area_ratio >= OVERFLOW_RATIO_THRESHOLD
+        if frame_overflow:
+            plant_height_mode = "overflow_minimum"
+            plant_width_mode = "overflow_minimum"
+            # When the plant overflows the frame, the actual plant is at LEAST
+            # as large as the full scene. Use full scene dimensions as lower bound.
+            plant_height_ratio = 1.0
+            plant_width_ratio = 1.0
+            plant_height_cm = float(scene_height_cm * max(height_scale, 1e-6))
+            plant_width_cm = float(scene_width_cm * max(width_scale, 1e-6))
+        else:
+            plant_height_ratio = float(plant_height_px / image_bgr.shape[0])
+            plant_width_ratio = float(plant_width_px / image_bgr.shape[1])
+            plant_height_cm = float(plant_height_ratio * scene_height_cm * max(height_scale, 1e-6))
+            plant_width_cm = float(plant_width_ratio * scene_width_cm * max(width_scale, 1e-6))
 
         b_channel, g_channel, r_channel = cv2.split(image_bgr.astype(np.float32))
         excess_green = np.clip((2.0 * g_channel) - r_channel - b_channel, a_min=0.0, a_max=None)
@@ -151,6 +170,7 @@ def extract_feature_bundle(
         "leaf_color_score": leaf_color_score,
         "plant_height_mode": plant_height_mode,
         "plant_width_mode": plant_width_mode,
+        "frame_overflow": frame_overflow,
         "camera_distance_cm": camera_distance_cm,
         "camera_fov_deg": camera_fov_deg,
         "camera_fov_axis": camera_fov_axis,

@@ -15,7 +15,7 @@ from serial.serialutil import SerialException
 # 1. Settings
 # ===============================
 PORT = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
-BAUD = 115200
+BAUD = 38400
 REQ  = "node000300|SensorReq|8985"
 SERIAL_LOCK_PATH = "/tmp/usb_1a86_serial.lock"
 

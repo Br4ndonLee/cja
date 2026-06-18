@@ -642,17 +642,6 @@
         "className": ""
     },
     {
-        "id": "c6a28c1ed72e1675",
-        "type": "ui_group",
-        "name": "Camera",
-        "tab": "a18fb94af755fd24",
-        "order": 5,
-        "disp": false,
-        "width": 7,
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "1de49aac0f0db196",
         "type": "ui_group",
         "name": "Weather",
@@ -1942,27 +1931,6 @@
         "x": 1040,
         "y": 2880,
         "wires": []
-    },
-    {
-        "id": "31b42f4d9be9eb00",
-        "type": "ui_template",
-        "z": "84f9df6667326f98",
-        "group": "c6a28c1ed72e1675",
-        "name": "Streaming the mjpg",
-        "order": 1,
-        "width": 7,
-        "height": 6,
-        "format": "<div style=\"text-align: center;\">\n    <h3>Live Stream (Preview)</h3>\n\n    <!-- 축소된 화면 크기에 맞춰 부모 div 높이도 조정 -->\n    <div style=\"width: 320px; height: 180px; overflow: hidden; display: inline-block;\">\n        <div style=\"transform: scale(0.25); transform-origin: top left;\">\n            <iframe src=\"http://1.217.132.157:8080/?action=stream\" width=\"1280\" height=\"720\" frameborder=\"0\"\n                style=\"border:1px solid #ccc;\">\n            </iframe>\n        </div>\n    </div>\n\n    <!-- 전체화면 버튼 - 영상 바로 밑에 위치 -->\n    <div style=\"margin-top: 6px;\">\n        <a href=\"http://1.217.132.157:8080/?action=stream\" target=\"_blank\">\n            <button style=\"padding: 6px 12px;\">Full screen</button>\n        </a>\n    </div>\n</div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 130,
-        "y": 1280,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "13c6bea38d428920",
@@ -4989,7 +4957,7 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": true,
+        "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "false",
@@ -4999,35 +4967,6 @@
         "wires": [
             [
                 "3ea78dedeaaf4c6f"
-            ]
-        ]
-    },
-    {
-        "id": "53bfde506c6ea7dd",
-        "type": "inject",
-        "z": "84f9df6667326f98",
-        "g": "915bc3b1ca228f03",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "false",
-        "payloadType": "str",
-        "x": 150,
-        "y": 2420,
-        "wires": [
-            [
-                "3725b711ea5e2772"
             ]
         ]
     },
@@ -5601,6 +5540,36 @@
         "y": 3160,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "53bfde506c6ea7dd",
+        "type": "inject",
+        "z": "84f9df6667326f98",
+        "d": true,
+        "g": "915bc3b1ca228f03",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "str",
+        "x": 150,
+        "y": 2420,
+        "wires": [
+            [
+                "3725b711ea5e2772"
+            ]
         ]
     },
     {
@@ -6611,7 +6580,7 @@
         "z": "flow_all",
         "g": "8446b5ed352ca2d8",
         "name": "Build SQL (latest 200)",
-        "func": "// Build SQL to show latest rows in ui_table.\n// You can change TIME_COL if your schema uses a different column name.\n\nconst table = flow.get('dl_table') || 'Temp_humi_log';\n\nconst ALLOWED = new Set([\n  'Temp_humi_log',\n  'Dist_1_EC_pH_log',\n  'Dist_1_Solution_input_log',\n  'Dist_2_EC_pH_log',\n  'Dist_2_Solution_input_log'\n]);\nif(!ALLOWED.has(table)) {\n  msg.payload = [];\n  return msg;\n}\n\nconst TIME_COL = {\n  'Temp_humi_log': 'Date',\n  'Dist_1_EC_pH_log': 'Date',\n  'Dist_1_Solution_input_log': 'Date',\n  'Dist_2_EC_pH_log': 'Date',\n  'Dist_2_Solution_input_log': 'Date'\n};\n\nconst timeCol = TIME_COL[table];\nmsg.topic = `SELECT * FROM ${table} ORDER BY ${timeCol} DESC LIMIT 200`;\nmsg._table = table;\nreturn msg;",
+        "func": "// Build SQL to show latest rows in ui_table.\n// You can change TIME_COL if your schema uses a different column name.\n\nconst table = flow.get('dl_table') || 'Temp_humi_log';\n\nconst ALLOWED = new Set([\n  'Temp_humi_log',\n  'Dist_1_EC_pH_log',\n  'Dist_1_Solution_input_log',\n  'Dist_2_EC_pH_log',\n  'Dist_2_Solution_input_log',\n  'camera_butterhead_growth_log'\n]);\nif(!ALLOWED.has(table)) {\n  msg.payload = [];\n  return msg;\n}\n\nconst TIME_COL = {\n  'Temp_humi_log': 'Date',\n  'Dist_1_EC_pH_log': 'Date',\n  'Dist_1_Solution_input_log': 'Date',\n  'Dist_2_EC_pH_log': 'Date',\n  'Dist_2_Solution_input_log': 'Date',\n  'camera_butterhead_growth_log': 'Date'\n};\n\nconst timeCol = TIME_COL[table];\nmsg.topic = `SELECT * FROM ${table} ORDER BY ${timeCol} DESC LIMIT 200`;\nmsg._table = table;\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -6735,7 +6704,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 980,
+        "x": 990,
         "y": 180,
         "wires": [
             [
@@ -6782,6 +6751,11 @@
             {
                 "label": "Dist_2_Solution_input_log",
                 "value": "Dist_2_Solution_input_log",
+                "type": "str"
+            },
+            {
+                "label": "camera_butterhead_growth_log",
+                "value": "camera_butterhead_growth_log",
                 "type": "str"
             }
         ],
@@ -6957,7 +6931,7 @@
         "z": "flow_all",
         "g": "8446b5ed352ca2d8",
         "name": "Build SQL (range)",
-        "func": "// Build SQL for CSV download WITHOUT placeholders (avoid sqlite param binding issues)\n// Time columns are TEXT and sortable as strings if formatted like YYYY-MM-DD HH:MM(:SS)\n\nconst q = (msg.req && msg.req.query) ? msg.req.query : {};\nconst table = (q.table || 'Temp_humi_log').toString();\nconst start = (q.start || '').toString();\nconst end = (q.end || '').toString();\n\nconst ALLOWED = new Set([\n  'Temp_humi_log',\n  'Dist_1_EC_pH_log',\n  'Dist_1_Solution_input_log',\n  'Dist_2_EC_pH_log',\n  'Dist_2_Solution_input_log'\n]);\n\nif (!ALLOWED.has(table)) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid table';\n  return [null, msg];\n}\n\nconst COLUMN_MAP = {\n  'Temp_humi_log': 'Date',                 // text: YYYY-MM-DD HH:MM\n  'Dist_1_EC_pH_log': 'Date',\n  'Dist_2_EC_pH_log': 'Date',\n  'Dist_2_Solution_input_log': 'Date',\n  'Dist_1_Solution_input_log': 'Date'\n};\n\nconst timeCol = COLUMN_MAP[table];\nif (!timeCol) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid table mapping';\n  return [null, msg];\n}\n\n// Normalize to minute/second precision depending on column name\nfunction normForDateCol(s, isEnd) {\n  if (!s) return null;\n  const t = s.replace('T', ' ').trim();\n  if (t.length === 10) return isEnd ? `${t} 23:59` : `${t} 00:00`;\n  if (t.length >= 16) return t.slice(0, 16);   // YYYY-MM-DD HH:MM\n  return t;\n}\nfunction normForTimestampCol(s, isEnd) {\n  if (!s) return null;\n  const t = s.replace('T', ' ').trim();\n  if (t.length === 10) return isEnd ? `${t} 23:59:59` : `${t} 00:00:00`;\n  if (t.length === 16) return isEnd ? `${t}:59` : `${t}:00`; // add seconds\n  if (t.length >= 19) return t.slice(0, 19);   // YYYY-MM-DD HH:MM:SS\n  return t;\n}\n\nlet startRange, endRange;\nif (timeCol === 'Date') {\n  startRange = normForDateCol(start, false);\n  endRange = normForDateCol(end, true);\n} else {\n  startRange = normForTimestampCol(start, false);\n  endRange = normForTimestampCol(end, true);\n}\n\nif (!startRange || !endRange) {\n  msg.statusCode = 400;\n  msg.payload = 'Missing start/end';\n  return [null, msg];\n}\n\n// Validate format to prevent injection (allow \"YYYY-MM-DD HH:MM\" or \"YYYY-MM-DD HH:MM:SS\")\nconst re = /^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}(:\\d{2})?$/;\nif (!re.test(startRange) || !re.test(endRange)) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid date format';\n  return [null, msg];\n}\n\n// Escape quotes just in case (shouldn't occur after regex, but keep safe)\nconst sEsc = startRange.replace(/'/g, \"''\");\nconst eEsc = endRange.replace(/'/g, \"''\");\n\nmsg.topic = `SELECT * FROM \"${table}\" WHERE \"${timeCol}\" >= '${sEsc}' AND \"${timeCol}\" <= '${eEsc}' ORDER BY \"${timeCol}\" ASC`;\nmsg._dl = { table, start: startRange, end: endRange };\n\nreturn [msg, null];\n",
+        "func": "// Build SQL for CSV download WITHOUT placeholders (avoid sqlite param binding issues)\n// Time columns are TEXT and sortable as strings if formatted like YYYY-MM-DD HH:MM(:SS)\n\nconst q = (msg.req && msg.req.query) ? msg.req.query : {};\nconst table = (q.table || 'Temp_humi_log').toString();\nconst start = (q.start || '').toString();\nconst end = (q.end || '').toString();\n\nconst ALLOWED = new Set([\n  'Temp_humi_log',\n  'Dist_1_EC_pH_log',\n  'Dist_1_Solution_input_log',\n  'Dist_2_EC_pH_log',\n  'Dist_2_Solution_input_log',\n  'camera_butterhead_growth_log'\n]);\n\nif (!ALLOWED.has(table)) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid table';\n  return [null, msg];\n}\n\nconst COLUMN_MAP = {\n  'Temp_humi_log': 'Date',                 // text: YYYY-MM-DD HH:MM\n  'Dist_1_EC_pH_log': 'Date',\n  'Dist_2_EC_pH_log': 'Date',\n  'Dist_2_Solution_input_log': 'Date',\n  'Dist_1_Solution_input_log': 'Date',\n  'camera_butterhead_growth_log': 'Date'\n};\n\nconst timeCol = COLUMN_MAP[table];\nif (!timeCol) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid table mapping';\n  return [null, msg];\n}\n\n// Normalize to minute/second precision depending on column name\nfunction normForDateCol(s, isEnd) {\n  if (!s) return null;\n  const t = s.replace('T', ' ').trim();\n  if (t.length === 10) return isEnd ? `${t} 23:59` : `${t} 00:00`;\n  if (t.length >= 16) return t.slice(0, 16);   // YYYY-MM-DD HH:MM\n  return t;\n}\nfunction normForTimestampCol(s, isEnd) {\n  if (!s) return null;\n  const t = s.replace('T', ' ').trim();\n  if (t.length === 10) return isEnd ? `${t} 23:59:59` : `${t} 00:00:00`;\n  if (t.length === 16) return isEnd ? `${t}:59` : `${t}:00`; // add seconds\n  if (t.length >= 19) return t.slice(0, 19);   // YYYY-MM-DD HH:MM:SS\n  return t;\n}\n\nlet startRange, endRange;\nif (timeCol === 'Date') {\n  startRange = normForDateCol(start, false);\n  endRange = normForDateCol(end, true);\n} else {\n  startRange = normForTimestampCol(start, false);\n  endRange = normForTimestampCol(end, true);\n}\n\nif (!startRange || !endRange) {\n  msg.statusCode = 400;\n  msg.payload = 'Missing start/end';\n  return [null, msg];\n}\n\n// Validate format to prevent injection (allow \"YYYY-MM-DD HH:MM\" or \"YYYY-MM-DD HH:MM:SS\")\nconst re = /^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}(:\\d{2})?$/;\nif (!re.test(startRange) || !re.test(endRange)) {\n  msg.statusCode = 400;\n  msg.payload = 'Invalid date format';\n  return [null, msg];\n}\n\n// Escape quotes just in case (shouldn't occur after regex, but keep safe)\nconst sEsc = startRange.replace(/'/g, \"''\");\nconst eEsc = endRange.replace(/'/g, \"''\");\n\nmsg.topic = `SELECT * FROM \"${table}\" WHERE \"${timeCol}\" >= '${sEsc}' AND \"${timeCol}\" <= '${eEsc}' ORDER BY \"${timeCol}\" ASC`;\nmsg._dl = { table, start: startRange, end: endRange };\n\nreturn [msg, null];\n",
         "outputs": 2,
         "timeout": "",
         "noerr": 0,
@@ -7039,6 +7013,7 @@
         "id": "inj_start_6",
         "type": "inject",
         "z": "tab_mjpg_sched",
+        "d": true,
         "name": "매일 06:00 START",
         "props": [],
         "repeat": "",
